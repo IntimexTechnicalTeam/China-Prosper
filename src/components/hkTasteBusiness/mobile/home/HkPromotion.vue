@@ -1,0 +1,396 @@
+<template>
+  <div class="PromotionMain">
+       <div class="productCat">
+          <p class="NoramlTitle"><span class="text">{{productCatName}}</span></p>
+          <swiper class="swiper-no-swiping" :options="productCatOption" ref="mySwiper" v-if="productCatData.length">
+            <!-- slides -->
+            <swiper-slide v-for="(slide, index) in productCatData" :key="index">
+              <a :href="'/product/search/-?' + 'catalogs=' + JSON.stringify([slide.Id]) + '&type=0'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''" class="borderInner">
+                <img :src="slide.Img" />
+                <p>{{slide.Name}}</p>
+              </a>
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination" v-if="productCatOption.pagination"></div>
+          </swiper>
+       </div>
+       <div class="nestContent">
+          <div class="InnerWhite">
+            <div class="Innerbg">
+              <p class="NoramlTitle"><span class="text">{{nestContent.Title}}</span></p>
+                <div class="ContentText">
+                  <p v-html="nestContent.Body"></p>
+                </div>
+            </div>
+          </div>
+       </div>
+       <div class="BottomMain">
+          <div class="News">
+              <p class="NoramlTitle"><span class="text">{{$t('Message.News')}}</span></p>
+              <div class="NewsMain">
+                <ul>
+                  <li v-for="(v,index) in NewsData" :key="index">
+                      <span class="Title">{{v.Title}}</span>
+                      <span class="Date">{{v.ContentDateTime}}</span>
+                  </li>
+                </ul>
+              </div>
+          </div>
+          <div class="Contact">
+            <p v-html="MapInfo" class="Map"></p>
+            <p v-html="Contact.Body" class="contactContent"></p>
+          </div>
+       </div>
+  </div>
+</template>
+<script lang="ts">
+import { Vue, Prop, Component } from 'vue-property-decorator';
+import { swiper, swiperSlide } from 'vue-awesome-swiper/src';
+@Component({
+  components: {
+    HkHotProduct: () => import('@/components/hkTasteBusiness/mobile/home/HkHotProduct.vue'),
+    swiper,
+    swiperSlide
+  }
+})
+export default class HkPromotion extends Vue {
+  productCatData:any[]=[];
+  productCatName:string='';
+  nestContent:any[]=[];
+  currentPage:number=1;
+  pageSize:number =5;
+  totalRecord:number=0;
+  NewsData:any[]=[];
+  Contact:any[]=[];
+  MapInfo:any[]=[];
+  NewsTitle:string='';
+  get lang () {
+    return this.$Storage.get('locale');
+  }
+  productCatOption: any = {
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+    slidesPerView: 2,
+    spaceBetween: 20,
+    autoHeight: true, // 高度随内容变化
+    observer: true, // 修改swiper自己或子元素时，自动初始化swiper
+    observeParents: true // 修改swiper的父元素时，自动初始化swiper
+  };
+    getProductCat () {
+    // 获取产品详情数据
+    this.$Api.product.getAttrList2().then((result) => {
+      if (result) {
+        this.productCatData = result.Catalogs[0].Children;
+        this.productCatName = result.Catalogs[0].Name;
+      }
+    });
+  }
+  getNewsContents () {
+      var pas = {
+        Key: 'NewsData',
+        currentPage: this.currentPage,
+        pageSize: this.pageSize,
+        SortName: 'ContentDateTime',
+        SortOrder: 'Desc'
+      };
+      this.$Api.cms.getContentsByCatKeyEx(pas).then((result) => {
+        this.NewsData = result.Data;
+        console.log(this.NewsData, 'newwwww');
+      });
+    }
+  getContent () {
+    this.$Api.cms.getContentByDevice({ Key: 'nest', IsMobile: true }).then(result => {
+      this.nestContent = result.CMS;
+    });
+  }
+  getContact () {
+    this.$Api.cms.getContentByDevice({ Key: 'contactus', IsMobile: true }).then(result => {
+      this.Contact = result.CMS;
+      console.log(this.Contact, 'this.Contactthis.Contact');
+      this.getCategoryByDevice(result.CMS.CatId);
+    });
+  }
+  // 根据设备类型获取CMSCategory信息
+  getCategoryByDevice (cateId) {
+    this.$Api.cms.getCategoryByDevice({ CatId: cateId, IsMobile: true }).then(async (result) => {
+      this.MapInfo = result.Content;
+      console.log(this.MapInfo, 'this.MapInfo ');
+    }).catch((error) => {
+      console.log(error, 'error');
+      this.$message({
+        message: error,
+        type: 'error'
+      });
+    });
+  }
+
+  created () {
+    this.getProductCat();
+    this.getContent();
+    this.getNewsContents();
+    this.getContact();
+  }
+}
+</script>
+<style lang="less" scoped>
+.PromotionMain{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    .NoramlTitle {
+      background: url('/images/mobile/ptx_14.png') no-repeat center center;
+      background-size: contain;
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      width: 60%;
+      height: 3rem;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+      .text {
+        font-size: 1.6rem;
+        color: #fff;
+        padding-left: 3rem;
+      }
+    }
+    .nestContent {
+      background: url('/images/mobile/ptx_16.jpg') no-repeat center center;
+      background-size: cover;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      .InnerWhite {
+        width: calc(90% - 2rem);
+        margin: 0 auto;
+        padding: 1rem;
+        background: #fff;
+        .Innerbg {
+          background: #fff url('/images/mobile/ptx_24.png') no-repeat center center;
+          background-size: 100% 100%;
+          width: calc(100% - 2rem);
+          padding: 1rem;
+          position: relative;
+          .NoramlTitle {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translate(-50%);
+          }
+          .ContentText {
+            padding-top: 4rem;
+            /deep/ p {
+              font-size: 1.2rem;
+              line-height: 2rem;
+              span{
+                font-size: 1.2rem;
+                 line-height: 2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+    .productCat {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      background: url('/images/mobile/ptx_17.jpg') no-repeat center center;
+      background-size: cover;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      /deep/ .swiper-container {
+        padding-bottom: 3rem;
+        padding-top: 2rem;
+        width: 90%;
+        margin: 0 auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        .swiper-pagination-bullet{
+          width: 10px!important;
+          height: 10px!important;
+          background: #e6e6e6;
+          opacity: 1;
+        }
+
+        .swiper-pagination-bullet-active{
+          background: #8f1121!important;
+        }
+        .borderInner {
+          border-radius: 100%;
+          overflow: hidden;
+          border:1px solid #9f1e3c;
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          justify-content: center;
+          position: relative;
+        }
+        img {
+          width: 170px;
+          height: 170px;
+        }
+        p{
+          height: 3rem;
+          background: #9f1e3c;
+          color: #fff;
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          font-size: 1.4rem;
+        }
+      }
+    }
+    .BottomMain {
+        background: #fff url('/images/mobile/ptx_17.jpg') no-repeat center center;
+        background-size: 100% 100%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        .News {
+          width: 90%;
+          margin: 0 auto;
+          display: flex;
+          flex-wrap: wrap;
+          .NewsMain {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            ul{
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              li{
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                padding-bottom: 1rem;
+                padding-top: 1rem;
+                border-bottom: 1px solid #e6ccb1;
+                &:nth-child(1) {
+                  padding-top: 2rem;
+                }
+                span{
+                  font-size: 1.2rem;
+                }
+                .Title {
+                  color:#333333;
+                  display: flex;
+                  align-items: center;
+                  width: 50%;
+                  &::before {
+                    content:'';
+                    width: 5px;
+                    height:5px;
+                    border-radius: 5px;
+                    display: inline-block;
+                    background: #e6ccb1;
+                    margin-right: 5px;
+                  }
+                }
+                .Date {
+                  color:#999999;
+                }
+              }
+            }
+          }
+        }
+        .Contact {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          margin-top: 2rem;
+          .Map {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            /deep/ p{
+              img {
+                width: 100%;
+              }
+            }
+          }
+          .contactContent {
+            width: 90%;
+            margin: 0 auto;
+            /deep/ .contatctBox {
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              .PerList {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 2rem;
+                .NormalText {
+                  font-size: 1.4rem;
+                  color: #333333;
+                  width: 100%;
+                  display: flex;
+                  flex-wrap: wrap;
+                  align-items: center;
+                  justify-content: center;
+                  text-align: center;
+                  line-height: 2rem;
+                }
+                .HeadText {
+                  width: 100%;
+                  display: flex;
+                  flex-wrap: wrap;
+                  align-items: center;
+                  justify-content: center;
+                  .Text {
+                    font-size: 1.4rem;
+                    color: #9f1e3c;
+                  }
+                  .IconA {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    background: url('/images/mobile/ptx_23.png') no-repeat center center;
+                    display: flex;
+                    background-size: contain;
+                  }
+                  .IconB {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    background: url('/images/mobile/ptx_11.png') no-repeat center center;
+                    display: flex;
+                    background-size: contain;
+                  }
+                  .IconC {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    background: url('/images/mobile/ptx_13.png') no-repeat center center;
+                    display: flex;
+                    background-size: contain;
+                  }
+                  .IconD {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    background: url('/images/mobile/ptx_15.png') no-repeat center center;
+                    display: flex;
+                    background-size: contain;
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+
+}
+</style>
