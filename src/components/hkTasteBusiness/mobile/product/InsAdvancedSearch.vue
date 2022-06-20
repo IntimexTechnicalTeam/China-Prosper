@@ -1,8 +1,8 @@
 <template>
     <div class="InsAdvancedSearch">
-       <p class="resetTitle">{{$t('product.Screening')}}<span class="el-icon-close" @click="closeSub"></span></p>
-       <p class="resetAll" @click="resetAll">{{$t('product.Resetall')}}</p>
-        <ul class="attrSearch" v-if="init">
+       <!-- <p class="resetTitle">{{$t('product.Screening')}}<span class="el-icon-close" @click="closeSub"></span></p>
+       <p class="resetAll" @click="resetAll">{{$t('product.Resetall')}}</p> -->
+        <ul class="attrSearch" v-if="init" style="display:none;">
           <ReSearchItem v-for="(attr, index) in attrList" :key="index" :searchGroup="attr" :defaultSelected="deAttrGIds.indexOf(attr.Id) !== -1 ? selectedAttrs[deAttrGIds.indexOf(attr.Id)].Vals : []"  @changeSelect="changeAttrSelect" />
         </ul>
         <ul class="catSearch" v-if="init">
@@ -268,6 +268,13 @@ export default class InsAdvancedSearch extends Vue {
 </script>
 <style scoped lang="less">
 .InsAdvancedSearch {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .catSearch {
+    width: 90%;
+    margin: 0 auto;
+  }
   .resetAll{
     background: #333333;
     padding-left: 1rem;
@@ -294,8 +301,6 @@ export default class InsAdvancedSearch extends Vue {
 .ReSearchItem{
     position: relative;
     background: #FFF;
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
     // &::before{
     //     content: '';
     //     width: 95%;

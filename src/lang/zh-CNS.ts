@@ -58,7 +58,14 @@ export default {
     textareaError: '请输入5个字符以上',
     FindNoProduct: '系统正忙，请重新刷新页面',
     HomeTips: '首页',
-    News: '最新消息'
+    News: '最新消息',
+    LearnMore: '了解更多',
+    TipsA: '点击产品查看详细讯息和放大产品图片',
+    TipsB: '符合您搜索要求的',
+    TipsC: '个产品',
+    LoginNow: '立即登入',
+    TipsD: '查看12个以上产品',
+    TipsE: '搜索结果 1-10 共有'
   },
   Account: {
     MemberCenter: '会员中心',

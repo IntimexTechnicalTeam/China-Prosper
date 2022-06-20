@@ -58,7 +58,14 @@ export default {
     textareaError: '請輸入5個字符以上',
     FindNoProduct: '系統正忙，請重新刷新頁面',
     HomeTips: '首頁',
-    News: '最新消息'
+    News: '最新消息',
+    LearnMore: '瞭解更多',
+    TipsA: '點擊產品查看詳細訊息和放大產品圖片',
+    TipsB: '符合您搜索要求的',
+    TipsC: '個產品',
+    LoginNow: '立即登入',
+    TipsD: '查看12個以上產品',
+    TipsE: '搜索結果 1-10 共有'
   },
   Account: {
     MemberCenter: '會員中心',

@@ -1,7 +1,7 @@
 <template>
 <div>
   <!-- 正常购买模式 -->
-  <div class="MembercenterMobile" v-if="!isPtx">
+  <div class="MembercenterMobile NomralBg" v-if="!isPtx">
     <accountHeader />
     <div class="MemberInfoNav">
       <ul>
@@ -25,7 +25,7 @@
     <router-view></router-view>
   </div>
   <!-- PTX询价模式 -->
-  <div class="MemberMobile" v-else>
+  <div class="MemberMobile NomralBg" v-else>
     <div class="MemberInfoNavMobile">
       <ul>
         <div @click="openlink('/account/memberInfo')">
@@ -116,10 +116,10 @@ export default class InsMenberCenter extends Vue {
   text-align: left !important;
 }
 .MemberMobile {
-  background: #f4f4f4;
   display: inline-block;
   background-size: 100% 100%;
   width: 100%;
+  padding-top: 4rem;
 }
 .MemberMobile .MemberInfoNavMobile {
   width: 100%;

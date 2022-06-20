@@ -1,6 +1,6 @@
 <template>
-  <div id="container" class="ProductSearch">
-        <div class="SearchSlide">
+  <div id="container" class="ProductSearch  NomralBg">
+        <!-- <div class="SearchSlide">
           <div class="leftSide">
             <advancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
           </div>
@@ -15,9 +15,15 @@
               </select>
             </li>
           </ul>
-        </div>
-    <!-- <advancedSearch :attrType="2"  @advancedChange="advancedChange" /> -->
+        </div> -->
 
+    <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
+    <div class="ProductTips">
+      <p>{{$t('Message.TipsA')}}</p>
+      <p>{{$t('Message.TipsB')}} <span> {{totalRecord}} </span>{{$t('Message.TipsC')}} </p>
+      <p class="redcolor"><router-link to="/account/login">{{$t('Message.LoginNow')}},</router-link><span class="bcolor">{{$t('Message.TipsD')}} </span></p>
+      <p>{{$t('Message.TipsE')}} {{totalRecord}} </p>
+    </div>
     <div class="prolist-box">
       <div class="products_container" v-if="proList.length>0">
           <InsProductList v-for="item in proList" :key="item.productCode" :item="item" :needCode="false" class="product_item" ></InsProductList>
@@ -25,8 +31,14 @@
         <div class="products_container" v-else>
              <h3 class="nocontentTips">{{$t('messageTips.NoContent')}}</h3>
         </div>
-          <div ref="load" class="loading" @touchstart="loading" v-if="totalRecord>pageSize"><p>{{tips?$t('Action.LoadMore'):$t('home.Thatsall')}}</p></div>
-          <div class="loading" v-else>{{$t('home.Thatsall')}}</div>
+        <div class="pager" v-if="totalRecord > pageSize">
+          <InsPage
+            :total="totalRecord"
+            v-model="currentPage"
+            :pageNum="pageSize"
+            :currentPage = "currentPage"
+          ></InsPage>
+        </div>
     </div>
   </div>
 </template>
@@ -38,13 +50,17 @@ import $ from 'jquery';
   components: {
     InsProductList: () => import('@/components/hkTasteBusiness/mobile/product/HkProductWindow.vue'),
     advancedSearch: () => import('@/components/hkTasteBusiness/mobile/product/InsAdvancedSearch.vue'),
-    ProductListSwiper: () => import('@/components/hkTasteBusiness/mobile/product/HkProductListSwiper.vue')
+    ProductListSwiper: () => import('@/components/hkTasteBusiness/mobile/product/HkProductListSwiper.vue'),
+    InsPage: () =>
+      import(
+        /* webpackChunkName: 'product' */ '@/components/base/mobile/InsPage.vue'
+      )
   }
 })
 export default class InsProductSearch extends Vue {
   proList: YouWouldLike[] = []; // 产品数据
   currentPage: number = 1; // 当前页
-  pageSize: number = 6; // 每页显示条目个数
+  pageSize: number =10; // 每页显示条目个数
   totalRecord: number = 0;// 总条目数
   private tips:boolean = true;
   private LoadingInstance!: any;
@@ -70,33 +86,41 @@ export default class InsProductSearch extends Vue {
     this.productSearch();
   }
   // 产品高级搜索
-  productSearch (flag: string = '') {
-    this.tips = true;
-    this.$Api.product.search({
-      Key: this.searchKey,
-      PageInfo: {
-        Page: this.currentPage,
-        PageSize: this.pageSize,
-        SortName: 'SalePrice',
-        SortOrder: this.PriceItem
-      },
-      CatIdS: this.searchCatalogs,
-      Attrs: this.attrs,
-      Type: this.searchType,
-      Reflesh: 1
-    }).then((result) => {
-      if (flag === 'loadpage') {
-        this.proList = this.proList.concat(result.YouWouldLike);
-        this.totalRecord = result.TotalRecord;
-      } else {
-        this.proList = result.YouWouldLike;
-        this.totalRecord = result.TotalRecord;
-      }
-
-      this.$HiddenLayer();
-    });
+  // 产品高级搜索
+  productSearch() {
+    this.TShake(() => {
+      this.$Api.product
+        .search({
+          Key: this.searchKey,
+          PageInfo: {
+            Page: this.currentPage,
+            PageSize: this.pageSize,
+            SortName: 'SalePrice',
+            SortOrder: this.PriceItem
+          },
+          CatIdS: this.searchCatalogs,
+          Attrs: this.attrs,
+          Type: this.searchType,
+          Reflesh: 1
+        })
+        .then(result => {
+          this.proList = result.YouWouldLike;
+          this.totalRecord = result.TotalRecord;
+          this.$HiddenLayer();
+        });
+    }, 500);
   }
-
+  delay = 0;
+  TShake(fn, d) {
+    if (!(fn instanceof Function)) return;
+    let timeout = d || 200;
+    if (this.delay === 0) {
+      this.delay = setTimeout(fn, timeout);
+    } else {
+      clearTimeout(this.delay);
+      this.delay = setTimeout(fn, timeout);
+    }
+  }
   advancedChange (Attrs, Catalogs) {
     this.currentPage = 1;
     this.attrs = Attrs;
@@ -147,12 +171,9 @@ export default class InsProductSearch extends Vue {
   onSearchKeyChange () {
     this.productSearch();
   }
-
   @Watch('currentPage', { deep: true })
-  onCurrentPage () {
-    if (this.currentPage !== 1) {
-      this.productSearch('loadpage');
-    }
+  onCurrentPage() {
+    this.productSearch();
   }
 }
 </script>
@@ -178,6 +199,44 @@ export default class InsProductSearch extends Vue {
 </style>
 
 <style scoped lang="less">
+.ProductTips {
+  width: 90%;
+  margin: 0 auto;
+  p{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 1.2rem;
+    align-items: center;
+    margin-top: 10px;
+    span{
+      font-size: 1.2rem;
+    }
+    a{
+      font-size: 1.2rem;
+    }
+  }
+  .redcolor {
+    color:#9f1e3c;
+    a{
+      color:#9f1e3c;
+    }
+  }
+}
+.pager {
+  width: 90%;
+  margin: 0 auto;
+}
+.prolist-box {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.ProductSearch {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
 .nocontentTips{
   width: 95%;
   margin: 0 auto;
@@ -195,12 +254,17 @@ export default class InsProductSearch extends Vue {
 .products_container{
   display: flex;
   flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
 .product_item{
-    width: 50% !important;
-    padding:2rem 1rem 0;
-    box-sizing:border-box;
+  width: 48%;
+  margin-right: 4%;
+  &:nth-child(2n) {
+    margin-right: 0px!important;
+  }
 }
 
 .loading{
@@ -210,12 +274,6 @@ export default class InsProductSearch extends Vue {
     margin: 1rem 0 2rem;
 }
 
-.ProductSearch {
-  .InsAdvancedSearch {
-    background: #fff;
-    min-height: 100vh;
-  }
-}
 .SearchSlide{
   width: 100%;
   position: fixed;

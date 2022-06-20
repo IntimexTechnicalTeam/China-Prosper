@@ -1,16 +1,8 @@
 <template>
   <div id="container" class="catDetail">
-    <div class="DetailTitle">
-      <img :src="cmsCategory.ImagePath">
-      <div class="TitleBg">
-        <div class="innerBoxText">{{cmsCategory.Name}}</div>
-      </div>
-    </div>
-
     <div class="catContent">
-        <template v-if="cmsCategory.PageStyle === '0' || cmsCategory.PageStyle === '1'">
-          <div v-html="cmsCategory.Content" class="layer"></div>
-        </template>
+
+        <ins-cat-layout1 v-if="cmsCategory.PageStyle === '0' || cmsCategory.PageStyle === '1'"/>
 
         <ins-cat-layout2 :catData="cmsCatTree" :cmsData="contentList" @changeCatSelect="changeCatSelect" v-if="cmsCategory.PageStyle === '2'" />
 
@@ -26,6 +18,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
     // InsBanner: () => import('@/components/base/InsBanner.vue'),
+    InsCatLayout1: () => import('@/components/business/mobile/cms/InsCatLayout1.vue'),
     InsCatLayout2: () => import('@/components/business/mobile/cms/InsCatLayout2.vue'),
     InsCatLayout3: () => import('@/components/business/mobile/cms/InsCatLayout3.vue'),
     InsCatLayout4: () => import('@/components/business/mobile/cms/InsCatLayout4.vue')
@@ -50,6 +43,9 @@ export default class insNews extends Vue {
         this.PageStyle = result.PageStyle;
 
         switch (result.PageStyle) {
+              case '1':
+              this.getContentsByCatId();
+              break;
             case '2':
               this.getCategoryTree();
               break;
@@ -147,46 +143,9 @@ export default class insNews extends Vue {
 </script>
 <style scoped lang="less">
 .catDetail {
-  .DetailTitle{
-    width: 100%;
-    display: flex;
-    flex-wrap:wrap;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    img{
-      width: 100%;
-    }
-    .TitleBg{
-      width: 75%;
-      border: 1px solid #ffffff;
-      height: 4.5rem;
-      line-height: 4.5rem;
-      margin: 0 auto;
-      padding: 10px;
-      margin-bottom: 20px;
-      top: 50%;
-      position: absolute;
-      transform: translateY(-50%);
-      .innerBoxText{
-        background:#ffffff;
-        color: #333333;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        font-weight: 700;
-        font-family: 'Arial';
-      }
-    }
-  }
-
   .catContent {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-
     .layer {
       font-size: 1.2rem;
     }

@@ -83,7 +83,6 @@ export default class InsProductWindow extends Vue {
   box-sizing: border-box;
   cursor: pointer;
   width: 100%;
-  border: 1px solid #cdcdcd;
 }
 .height_line {
   border: 1px solid black !important;
@@ -93,7 +92,7 @@ export default class InsProductWindow extends Vue {
     width: 90%;
     margin: 0 auto;
     text-align: center;
-    color: #0b0b0b;
+    color: #4c4c4c;
     line-height: 25px;
     overflow: hidden;
     display: -webkit-box;

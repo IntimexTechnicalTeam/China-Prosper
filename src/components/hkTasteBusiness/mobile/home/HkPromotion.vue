@@ -28,7 +28,7 @@
               <p class="NoramlTitle"><span class="text">{{$t('Message.News')}}</span></p>
               <div class="NewsMain">
                 <ul>
-                  <li v-for="(v,index) in NewsData" :key="index">
+                  <li v-for="(v,index) in NewsData" :key="index" @click="goClick(v)">
                       <span class="Title">{{v.Title}}</span>
                       <span class="Date">{{v.ContentDateTime}}</span>
                   </li>
@@ -63,6 +63,9 @@ export default class HkPromotion extends Vue {
   Contact:any[]=[];
   MapInfo:any[]=[];
   NewsTitle:string='';
+  goClick (v) {
+    window.location.href = '/cms/contentN/' + v.Id;
+  }
   get lang () {
     return this.$Storage.get('locale');
   }
@@ -96,11 +99,14 @@ export default class HkPromotion extends Vue {
       };
       this.$Api.cms.getContentsByCatKeyEx(pas).then((result) => {
         this.NewsData = result.Data;
-        console.log(this.NewsData, 'newwwww');
+        result.Data.forEach(function (i) {
+        var newDate = new Date(i.ContentDateTime.replace(/-/g, '-'));
+        i.ContentDateTime = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+        });
       });
     }
   getContent () {
-    this.$Api.cms.getContentByDevice({ Key: 'nest', IsMobile: true }).then(result => {
+    this.$Api.cms.getContentByDevice({ Key: 'HomeNest', IsMobile: true }).then(result => {
       this.nestContent = result.CMS;
     });
   }
