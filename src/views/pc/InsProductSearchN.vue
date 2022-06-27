@@ -1,57 +1,38 @@
 <template>
-  <div id="container">
+  <div id="container" class="NomralBg NormalTop">
     <div class="ProductSearch">
-      <div class="SearchSlide">
-        <div class="leftSide">
-          <advancedSearch
-            @advancedChange="advancedChange"
-            v-if="isAdvanced"
-            @closeSub="closeSub"
-            @resetAll="resetAll"
-          />
+      <div class="leftSide">
+         <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
+      </div>
+      <div class="rightSide">
+        <div class="ProductTips">
+          <p>{{$t('Message.TipsA')}}</p>
+          <p>{{$t('Message.TipsB')}} <span> {{totalRecord}} </span>{{$t('Message.TipsC')}} </p>
+          <p class="redcolor"><router-link to="/account/login">{{$t('Message.LoginNow')}},</router-link><span class="bcolor">{{$t('Message.TipsD')}} </span></p>
+          <p>{{$t('Message.TipsE')}} {{totalRecord}} </p>
         </div>
-      </div>
-      <div class="selectBar">
-        <ul>
-          <li @click="showSearchSlide">
-            <span class="el-icon-s-operation"></span
-            ><b>{{ $t("product.Screening") }}</b>
-          </li>
-          <li style="width: 810px;border: none;">
-            {{ $t("product.Total") }} {{ totalRecord }}
-            {{ $t("product.Product") }}
-          </li>
-          <li style="width: 140px;">
-            <select v-model="PriceItem" @change="getselect(PriceItem)">
-              <option value="">{{ $t("product.Paixu") }}</option>
-              <option value="desc">{{ $t("product.PriceHL") }}</option>
-              <option value="asc">{{ $t("product.PriceLH") }}</option>
-            </select>
-          </li>
-        </ul>
-      </div>
-      <!-- <advancedSearch :attrType="2"  @advancedChange="advancedChange" /> -->
-      <transition name="slide">
-        <div key="1" v-if="!waiting">
-          <div class="prolist-box" v-if="proList.length > 0">
-            <ins-productList :column="4" :allItems="proList" />
-            <div class="pager" v-if="totalRecord > pageSize">
-              <InsPage
-                :total="totalRecord"
-                v-model="currentPage"
-                :pageNum="pageSize"
-                :currentPage = "currentPage"
-              ></InsPage>
+          <transition name="slide">
+            <div key="1" v-if="!waiting">
+              <div class="prolist-box" v-if="proList.length > 0">
+                <ins-productList :column="4" :allItems="proList" />
+                <div class="pager" v-if="totalRecord > pageSize">
+                  <InsPage
+                    :total="totalRecord"
+                    v-model="currentPage"
+                    :pageNum="pageSize"
+                    :currentPage = "currentPage"
+                  ></InsPage>
+                </div>
+              </div>
+              <div class="prolist-box" v-else>
+                <h3 class="nocontentTips">{{ $t("messageTips.NoContent") }}</h3>
+              </div>
             </div>
-          </div>
-          <div class="prolist-box" v-else>
-            <h3 class="nocontentTips">{{ $t("messageTips.NoContent") }}</h3>
-          </div>
-        </div>
-      </transition>
-      <transition name="slide">
-        <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
-      </transition>
+          </transition>
+          <transition name="slide">
+            <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
+          </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -78,7 +59,7 @@ import $ from 'jquery';
 export default class InsProductSearch extends Vue {
   proList: YouWouldLike[] = []; // 产品数据
   currentPage: number = 1; // 当前页
-  pageSize: number = 16; // 每页显示条目个数
+  pageSize: number = 12; // 每页显示条目个数
   totalRecord: number = 0; // 总条目数
   private tips: boolean = true;
   private LoadingInstance!: any;
@@ -236,6 +217,34 @@ export default class InsProductSearch extends Vue {
 }
 </style>
 <style scoped lang="less">
+#container {
+  min-height: 700px;
+}
+.ProductTips {
+  width: 90%;
+  margin: 0 auto;
+  p{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 22px;
+    align-items: center;
+    margin-bottom: 10px;
+    span{
+      font-size: 22px;
+    }
+    a{
+      font-size: 22px;
+    }
+  }
+  .redcolor {
+    color:#9f1e3c;
+    a{
+      color:#9f1e3c;
+    }
+  }
+}
 .nocontentTips {
   width: 95%;
   margin: 0 auto;
@@ -265,10 +274,17 @@ export default class InsProductSearch extends Vue {
   }
 }
 .ProductSearch {
-  .InsAdvancedSearch {
-    background: #fff;
-    height: 100vh;
-    overflow-y: scroll;
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 4rem;
+  .leftSide {
+    width: 25%;
+  }
+  .rightSide {
+    width: 73%;
   }
 }
 .SearchSlide {
@@ -286,38 +302,6 @@ export default class InsProductSearch extends Vue {
     min-height: 100%;
     position: absolute;
     transition: all 0.5s;
-  }
-}
-.ProductSearch {
-  width: 1200px;
-  margin: 50px auto 150px;
-
-  .prolist-box {
-    .pager {
-      text-align: center;
-      margin: 60px 0;
-    }
-  }
-}
-.banner {
-  position: relative;
-  img {
-    width: 100%;
-  }
-  .titlename {
-    position: absolute;
-    top: 40%;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    span {
-      width: 1200px;
-      margin: 0 auto;
-      display: block;
-      color: #fff;
-      font-size: 28px;
-      letter-spacing: 10px;
-    }
   }
 }
 .closeBar {

@@ -53,6 +53,7 @@ export default class InsCaseList extends Vue {
 <style scoped lang='less'>
 .CaseList {
   margin-bottom: 50px;
+  min-height: 600px;
 }
   .ListData {
     width: 960px;

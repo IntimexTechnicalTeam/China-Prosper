@@ -1,18 +1,18 @@
 <template>
     <li class="ReSearchItem">
-          <p class="category">
+        <p class="category">
           {{searchGroup.Name}}
             <i class="el-icon-arrow-up"  @click="isOpen = !isOpen" v-if="!isOpen"></i>
             <i class="el-icon-arrow-down" @click="isOpen = !isOpen" v-else></i>
         </p>
-          <transition name="fade">
-          <ul :class="{'open': isOpen}">
-            <li>
-                <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)">
+        <transition name="fade">
+        <ul :class="{'open': isOpen}" >
+            <!-- <li>
+                <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)" style="display:none;">
                 <label :for="searchGroup.Name+'-All'" >{{$t('Message.All')}}</label>
-            </li>
+            </li> -->
             <li v-for="(child, index2) in (searchType === 1 ? searchGroup.AttrValues : searchType === 2 ? searchGroup.Children : [])" :key="index2">
-                <input type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)">
+                <input type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)" style="display:none;">
                 <label :for="child.Name+index2">{{child.Name}}</label>
             </li>
             <!-- <i class="el-icon-plus" @click="isOpen = !isOpen" v-if="!isOpen"></i>
@@ -37,7 +37,9 @@ export default class InsAdvancedSearch extends Vue {
     isAll: boolean = false; // 是否全选
     checkedValue: number[] = []; // 选中的产品属性值
     selectedAttrs: attrItem[] = []; // 选中的产品属性值
-
+    showSubmeun () {
+      this.isOpen = !this.isOpen;
+    }
     //  全选（产品属性）
     checkAll (e, attr) {
       console.log('checkAll');
@@ -106,35 +108,39 @@ export default class InsAdvancedSearch extends Vue {
 
       p.category {
         width: 100%;
-        font-size:1.6rem;
-        color: #333333;
-        background-color: #FFF;
+        font-size:20px;
+        color: #b59669;
+        background:url('/images/pc/bgtitle.png') no-repeat center center;
+        background-size: 100% 100%;
         display: flex;
-        justify-self: start;;
+        justify-content: center;
         align-items: center;
         flex-shrink: 0;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        height: 75px;
+        line-height: 75px;
         position: relative;
+        cursor: pointer;
         i{
-          position: absolute;
-          right: 0px;
-          top: 2rem;
-          font-size: 1.6rem;
+          font-size: 20px;
+          margin-left: 10px;
+          color: #b59669;
         }
     }
 
      >ul {
        transition: all 3s;
+       box-shadow: 0px 2px 5px #ccc;
+       margin-top: 10px;
+       display: none;
         >li {
             height: 50px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding-right: 1rem;
+            border-bottom: 1px solid #eee;
             input[type="checkbox"] {
-                width: 2rem;
-                height: 2rem;
+                width: 18px;
+                height: 18px;
                 background-color: #fff;
                 -webkit-appearance:none;
                 border: 1px solid #cccccc;
@@ -149,15 +155,20 @@ export default class InsAdvancedSearch extends Vue {
                 background-size: auto;
 
                 &+label {
-                    color: #000;
+                    color:#b59669;
+                    background: url('/images/mobile/ptx_27.png') no-repeat center center;
+                    background-size:cover;
                 }
             }
 
             label {
             font-size: 18px;
             color: #666666;
-            width: 90%;
-            margin-left: 5px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             }
         }
 
@@ -169,7 +180,7 @@ export default class InsAdvancedSearch extends Vue {
         }
 
         &.open {
-                display: none;
+                display: block;
                 transition: all 3s;
         }
     }

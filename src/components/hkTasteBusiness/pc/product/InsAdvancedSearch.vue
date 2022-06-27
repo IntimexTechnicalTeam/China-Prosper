@@ -1,8 +1,8 @@
 <template>
     <div class="InsAdvancedSearch">
-      <p class="resetTitle">{{$t('product.Screening')}}<span class="el-icon-close" @click="closeSub"></span></p>
-       <p class="resetAll" @click="resetAll">{{$t('product.Resetall')}}</p>
-        <ul class="attrSearch" v-if="init">
+       <!-- <p class="resetTitle">{{$t('product.Screening')}}<span class="el-icon-close" @click="closeSub"></span></p>
+       <p class="resetAll" @click="resetAll">{{$t('product.Resetall')}}</p> -->
+        <ul class="attrSearch" v-if="init" style="display:none;">
           <ReSearchItem v-for="(attr, index) in attrList" :key="index" :searchGroup="attr" :defaultSelected="deAttrGIds.indexOf(attr.Id) !== -1 ? selectedAttrs[deAttrGIds.indexOf(attr.Id)].Vals : []"  @changeSelect="changeAttrSelect" />
         </ul>
         <ul class="catSearch" v-if="init">
@@ -221,7 +221,6 @@ export default class InsAdvancedSearch extends Vue {
           });
         }
       });
-
       // this.$router.push(`${this.$route.path}?attrs=${JSON.stringify(this.selectedAttrs)}&catalogs=${JSON.stringify(this.selectedCats)}&type=1`);
       history.pushState(null, '', this.$route.path + '?attrs=' + JSON.stringify(this.selectedAttrs) + '&catalogs=' + JSON.stringify(this.paramCats) + '&type=1');
       this.$emit('advancedChange', this.selectedAttrs, this.paramCats);
@@ -269,35 +268,58 @@ export default class InsAdvancedSearch extends Vue {
 </script>
 <style scoped lang="less">
 .InsAdvancedSearch {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  .catSearch {
+    width: 90%;
+    margin: 0 auto;
+  }
   .resetAll{
     background: #333333;
     padding-left: 1rem;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    color: #FFF;
-    font-size: 18px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    color:#FFF;
+    font-size: 1.6rem;
     text-decoration: underline;
-    cursor: pointer;
   }
   .resetTitle{
     background: #666666;
     padding-left: 1rem;
-    padding-top: 40px;
-    padding-bottom: 20px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     color:#FFF;
-    font-size: 20px;
+    font-size: 1.6rem;
     span{
       float:right;
       margin-right: 1rem;
-      font-size: 28px;
-      cursor: pointer;
+      font-size: 2.5rem;
     }
   }
 }
 .ReSearchItem{
     position: relative;
     background: #FFF;
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
+    // &::before{
+    //     content: '';
+    //     width: 95%;
+    //     height: 10px;
+    //     background: url(/images/mobile/productList_icon.png) no-repeat center center;
+    //     background-size: contain;
+    //     position: absolute;
+    //     top: 5px;
+    //     left: 2.5%;
+    //   }
+    //    &::after{
+    //     content: '';
+    //     width: 95%;
+    //     height: 10px;
+    //     background: url(/images/mobile/productList_icon.png) no-repeat center center;
+    //     background-size: contain;
+    //     position: absolute;
+    //     bottom: 5px;
+    //     left: 2.5%;
+    //   }
   }
 </style>

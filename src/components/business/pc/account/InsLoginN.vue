@@ -1,6 +1,6 @@
 <template>
-  <div class="insLogin_warrper">
-      <div style="min-height:131px;" v-if="!isIe && FrontE.version !== 1">
+  <div class="insLogin_warrper NomralBg">
+      <div class="headlogin" v-if="!isIe && FrontE.version !== 1">
         <div class="insLogin_title">
           <div class="facebook_login" @click="fbLogin">
             <img src="/static/facebook.png" />
@@ -225,8 +225,14 @@ export default class InsLoginN extends Vue {
 </style>
 <style lang="less" scoped>
 .insLogin_warrper{
-    width: 1200px;
-    margin: 100px auto;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 12rem;
+    padding-bottom: 5rem;
+    .headlogin {
+      width: 1060px;
+      margin: 0 auto;
+    }
     .insLogin_title{
         width: 1060px;
         margin: 0 auto;

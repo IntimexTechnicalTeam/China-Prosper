@@ -33,7 +33,7 @@ ul,li{
   list-style: none;
 }
 .cateMain{
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
 }
 .clear{

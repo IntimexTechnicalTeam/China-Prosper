@@ -421,7 +421,7 @@ export default class InsMemberInfo extends Vue {
       margin-top: 20px;
       a{
         width: 100px;
-        background: #666666;
+        background: @base_color;
         border-radius: 5px;
         height: 35px;
         color: #fff;
@@ -446,7 +446,7 @@ export default class InsMemberInfo extends Vue {
       background: #fff;
       .Header {
         width: 100%;
-        background: #666666;
+        background: @base_color;
         height: 40px;
         line-height: 40px;
         .Inner {

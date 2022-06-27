@@ -41,7 +41,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 })
 export default class InsCatLayout1 extends Vue {
     currentPage:number=1;
-    pageSize:number=1;
+    pageSize:number=6;
     totalRecord:number=0;
     ListData:any[]=[];
     BannerImg:string='';

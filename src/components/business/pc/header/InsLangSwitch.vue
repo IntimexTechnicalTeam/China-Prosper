@@ -1,8 +1,9 @@
 <template>
     <div class="langSwitch">
-        <p @click="changeLang('S')" :class="{'active': $Storage.get('locale') === 'S'}">简</p> |
-        <p @click="changeLang('C')" :class="{'active': $Storage.get('locale') === 'C'}">繁</p> |
-        <p @click="changeLang('E')" :class="{'active': $Storage.get('locale') === 'E'}">Eng</p>
+        <p @click="changeLang('C')" :class="{'active': $Storage.get('locale') === 'C'}">繁體</p>|
+        <p @click="changeLang('S')" :class="{'active': $Storage.get('locale') === 'S'}">简体</p>
+
+        <!-- <p @click="changeLang('E')" :class="{'active': $Storage.get('locale') === 'E'}">Eng</p> -->
 
       <!-- <p @click="changeLang(lang.value)" v-for="(lang,index) in FrontE.langList" :key="index" :class="{'active': $Storage.get('locale') === lang.value}">{{lang.name}}</p> -->
       <!-- <select  v-model="currentlang">
@@ -35,14 +36,19 @@ export default class InsLangSwitch extends Vue {
 </script>
 <style scoped lang="less">
 .langSwitch {
+   color: #dbabb6;
     p {
       display: inline-block;
-      padding: 5px 10px;
+      padding: 0 10px;
       cursor: pointer;
+      position: relative;
+      color: #dbabb6;
+      &:last-child {
+        padding-right: 0;
+      }
     }
-    .active{
-      background: grey;
-      color: #fff!important;
+    .active {
+      color: #fff;
     }
     select{
       width: 100%;
@@ -50,7 +56,6 @@ export default class InsLangSwitch extends Vue {
       background-size: 1rem;
       border:none;
       box-sizing: border-box;
-      text-align: center;
       color:#666666;
       appearance: none;
       -moz-appearance: none;

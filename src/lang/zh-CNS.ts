@@ -65,7 +65,14 @@ export default {
     TipsC: '个产品',
     LoginNow: '立即登入',
     TipsD: '查看12个以上产品',
-    TipsE: '搜索结果 1-10 共有'
+    TipsE: '搜索结果 1-10 共有',
+    NoMore: '没有更多了',
+    Next: '下一个',
+    Prev: '上一个',
+    Catalog: '目录',
+    AskFor: '欲查询报价，请按',
+    ProductInformation: '产品资料',
+    OtherDetails: '其他资料'
   },
   Account: {
     MemberCenter: '会员中心',
@@ -507,7 +514,7 @@ export default {
     Save: '保存',
     Confirm: '确认',
     PromotionCodeTips: '请输入优惠码',
-    Share: '立即分享',
+    Share: '分享',
     LoadMore: '加载更多',
     FacebookLogin: 'Facebook 登入',
     HotPot: '火锅类',

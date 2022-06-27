@@ -23,12 +23,12 @@ export default class InsProductList extends Vue {
 }
 .product_item{
     box-sizing: border-box;
-    width: 22%;
+    width: 32%;
     float: left;
-    margin-right: 4%;
-    margin-bottom: 4%;
+    margin-right: 2%;
+    margin-bottom: 2%;
 }
-.product_item:nth-child(4n){
+.product_item:nth-child(3n){
     margin-right: 0%!important;
 }
 </style>

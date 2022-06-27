@@ -65,7 +65,14 @@ export default {
     TipsC: '個產品',
     LoginNow: '立即登入',
     TipsD: '查看12個以上產品',
-    TipsE: '搜索結果 1-10 共有'
+    TipsE: '搜索結果 1-10 共有',
+    NoMore: '没有更多了',
+    Next: '下一個',
+    Prev: '上一個',
+    Catalog: '目錄',
+    AskFor: '欲查詢報價，請按',
+    ProductInformation: '產品資料',
+    OtherDetails: '其他資料'
   },
   Account: {
     MemberCenter: '會員中心',
@@ -507,7 +514,7 @@ export default {
     Save: '保存',
     Confirm: '確認',
     PromotionCodeTips: '請輸入優惠碼',
-    Share: '立即分享',
+    Share: '分享',
     LoadMore: '加載更多',
     FacebookLogin: 'Facebook 登入',
     HotPot: '火鍋類',

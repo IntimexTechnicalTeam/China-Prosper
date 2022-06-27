@@ -1,27 +1,26 @@
 <template>
-  <div class="productDetail_container">
+  <div class="productDetail_container NomralBg" >
      <div v-if="this.Permission == 3" class="IsDetailshow">
-
-     {{$t('messageTips.NoProduct')}}
-
+        {{$t('messageTips.NoProduct')}}
     </div>
     <div v-else>
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
+      <div class="ProductUp">
+          <div class="prev" @click="getGetProductUp()"><img src="/images/mobile/pre.png">{{$t('Message.Prev')}}</div>
+          <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<img src="/images/mobile/next.png"></div>
+      </div>
       <ProductSwiper width="100%"  :imgList="ImgList" :ProductTitleName="ProductTitleName"></ProductSwiper>
-      <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%" style="margin-top:2rem;"></PkProductInfo>
-      <div class="ProductRate"><el-rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></div>
-      <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+      <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%"></PkProductInfo>
       <inPanel :panelDetail="PanelDetail" width="100%" :ProductSku="ProductSku"  @getPrice="showPrice" itemscopestyle="margin-top:2rem;"></inPanel>
     </div>
     <div class="tab_warpper">
       <div class="tab_header">
-        <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
-        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}" v-if="FrontE.version !== 1">{{$t('product.comments.title')}}</div>
+        <div class="detail_title">{{$t('product.ProductIntroduction')}}</div>
       </div>
       <div class="clear"></div>
       <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail && Tabs.Detail!=''"></div>
       <div class="product_detail" v-show="IsDetail" v-if="Tabs.Detail==''"><h3>{{$t('messageTips.NoContent')}}</h3></div>
-      <inComments :ProductSku="ProductSku" v-show="!IsDetail"></inComments>
+      <!-- <inComments :ProductSku="ProductSku" v-show="!IsDetail"></inComments> -->
     </div>
     <div class id="tab"></div>
     <inYouWouldLike
@@ -109,6 +108,32 @@ export default class ProductDetail extends Vue {
        }
     });
   }
+    // 获取上个产品
+  getGetProductUp () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, true).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('Message.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
+  }
+    // 获取下个产品
+  getGetProductDown () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, false).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('Message.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
+  }
   showPrice (val) {
     if (val[0]) {
       this.PriceA = val[0].AdditionalPrice;
@@ -141,13 +166,6 @@ export default class ProductDetail extends Vue {
 }
 </script>
 <style  lang="less">
-.product_detail p,.product_detail h3{
-  padding:2rem;
-}
-.product_detail h3{
-  font-size:1.4rem;
-  font-weight:100;
-}
 .el-rate__decimal {
     display: inline-block;
     overflow: hidden;
@@ -219,51 +237,52 @@ export default class ProductDetail extends Vue {
 }
 .productDetail_container {
   width: 100%;
-  background: #fff;
   background-size: 100% 100%;
   display: inline-block;
   box-sizing: border-box;
+  padding-top: 4rem;
   .IsDetailshow {
-    width: 98%;
+    width: 90%;
     margin: 0 auto;
     text-align: center;
     padding: 60px 0;
     font-size: 1.4rem;
   }
   .tab_warpper{
-    margin: 5rem 0 0 0;
+    margin: 1rem 0 0 0;
     .tab_header{
-      width: 95%;
+      width: 90%;
       margin:0 auto;
-      .comment_title,.detail_title{
-        width: 48%;
-        color:#000000;
-        text-align: center;
-        font-size: 1.4rem;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        float: left;
-        border-radius: 5px;
-      }
       .detail_title{
-        margin-right: calc(4% - 4px);
-         border:1px solid #000;
+         width: 100%;
+         background: url('/images/mobile/ptx_26.png') no-repeat center center;
+         background-size: 100%;
+         height: 50px;
+         line-height: 50px;
+         font-size: 1.6rem;
+         text-align: center;
+         color:#b19162;
       }
       .comment_title{
         border:1px solid #000;
       }
     }
     .product_detail{
-      width: 95%;
+      width: 90%;
       margin:0 auto;
-      background: #fff;
-      border: 1px solid #000;
       min-height: 20rem;
-      border-radius: 5px;
       margin-top: 1rem;
       margin-bottom: 1rem;
-      p{
-        font-size: 1.6rem;
+      h3 {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        color: #333333;
+        font-weight: 500;
+      }
+      /deep/ p{
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        color: #333333;
      }
     }
   }
@@ -302,5 +321,30 @@ export default class ProductDetail extends Vue {
   margin-left: 20px;
   font-size: 24px;
   text-decoration: line-through;
+}
+.ProductUp {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  .prev ,.next{
+    padding: 5px 10px;
+    border: 1px solid #9f1e3c;
+    color: #9f1e3c;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    border-radius: 5px;
+  }
+  img {
+    width: .7rem;
+    cursor: pointer;
+    margin-left: .5rem;
+    margin-right: .5rem;
+  }
 }
 </style>

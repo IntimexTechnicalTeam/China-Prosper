@@ -214,8 +214,8 @@ export default class InsShoppingCart extends Vue {
 /*头部购物车弹框 css*/
 .handle-icon {
   display: block;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   color: #cccccc;
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;

@@ -1,8 +1,7 @@
 <template>
   <div class="in_panel_warpper mobileWarper" :style="warpperStyle">
-    <p v-if="panelDetail.negotiable===true" class="MinOrderQty">{{$t('Enquiry.MinOrderQty')}}:{{panelDetail.MinPurQty}}</p>
     <div class="in_panel_content">
-      <inSelect
+      <!-- <inSelect
         v-for="(item,index) in panelDetail.AttrList"
         :items="item"
         :key="index"
@@ -10,7 +9,7 @@
         v-model="ProductInfor['Attr'+(index+1)]"
         @input="changeAttr"
         @changePrice="AdditionalPrice"
-      ></inSelect>
+      ></inSelect> -->
       <div v-if="panelDetail.negotiable===null || panelDetail.negotiable===false">
         <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>
       </div>
@@ -44,6 +43,7 @@
         </div>
     </div>
    <div class="in_panel_footer" v-else>
+        <p class="productTips">{{$t('Message.AskFor')}}</p>
         <button type="button" @click="AddProdToMyEnquiry()" class="CartBtn">{{$t('Enquiry.AddToEnquiry')}}</button>
     </div>
   </div>
@@ -303,27 +303,14 @@ export default class InsPanel extends Vue {
   width: auto!important;
   margin-right: 1rem;
 }
-.mobileWarper  .el-input-number{
-  border:none!important;
-  box-sizing: border-box;
-}
-.mobileWarper  .el-input__inner{
-  border:none!important;
-  box-sizing: border-box;
-  width: 4rem;
-}
 .mobileWarper  .el-input-number__decrease,.mobileWarper .el-input-number__increase{
-    width: 2rem !important;
-    border: 1px solid #000;
-    border-radius: 5px;
-    height: 2rem;
-    line-height: 2rem;
+    width: 3rem !important;
+    border: 0px solid #000;
+    border-radius: 0px;
+    top: 0px;
 }
 .mobileWarper .el-input-number__decrease i, .el-input-number__increase i{
   color:#000;
-}
-.mobileWarper  .el-input-number{
-  width: auto!important;
 }
 .mobileWarper .el-input-number .el-input__inner{
   padding-left: 0rem;
@@ -350,8 +337,9 @@ export default class InsPanel extends Vue {
   margin-right: 1rem;
 }
 .in_panel_warpper .el-input-number{
-  border:0px solid #eee;
+  border:1px solid #eee;
   box-sizing: border-box;
+   width: auto!important;
 }
 .in_panel_warpper .el-input__inner{
   border:none!important;
@@ -367,9 +355,6 @@ export default class InsPanel extends Vue {
 }
 .in_panel_warpper .in_num_main .el-input-number__decrease i, .in_panel_warpper .in_num_main .el-input-number__increase i{
   color:#000;
-}
-.in_panel_warpper  .el-input-number{
-  width: auto!important;
 }
 .in_panel_warpper .el-input-number .el-input__inner{
   padding-left: 0rem;
@@ -393,19 +378,16 @@ export default class InsPanel extends Vue {
       .CartBtn{
       height: 3.5rem;
       font-size:1.4rem;
-      color: #333333;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      background-color: #333333;
-      color: #fff;
-      border-radius: 3px;
       margin-bottom: 1rem;
-      border:1px solid #333333;
-      text-transform: uppercase;
-      width: 48%;
-      float: left;
+      background: url('/images/mobile/ptx_03.png') no-repeat center center;
+      background-size: 100%;
+      width: 100%;
+      color: #fff;
       margin-left: 0px!important;
+      border: 0px;
         &:disabled{
           cursor:not-allowed;
           background: #ccc;
@@ -469,18 +451,23 @@ export default class InsPanel extends Vue {
 }
 </style>
 <style lang="less" scoped>
+.productTips {
+  font-size: 1.2rem;
+  color: #9f1e3c;
+  margin-bottom: 1rem;
+}
 .MinOrderQty {
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
 .in_panel_content{
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
 }
 .in_panel_footer{
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
 }
 .in_panel_footer .actionBtn{
@@ -527,7 +514,6 @@ export default class InsPanel extends Vue {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 1.6rem;
 }
 
 .productDetail_price_warpper {

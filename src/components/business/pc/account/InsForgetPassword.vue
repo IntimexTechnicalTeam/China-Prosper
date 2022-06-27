@@ -1,7 +1,7 @@
 <template>
-  <div id="container">
-    <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ForgetPassword')}}</div></div></div>
+  <div id="container" class="NormalTop NomralBg">
     <div class="maincontent forgetMain">
+    <p class="pageTitle">{{$t('Forgetpassword.ForgetPassword')}}</p>
     <div class="ForgetPassMain">
       <div style="margin-top: 15px;" v-if="ResetPwd">
         <h2 class="ResetPwdTips">{{$t('Forgetpassword.ResetPwdTips')}}</h2>
@@ -144,11 +144,11 @@ export default class InsForgetPassword extends Vue {
   }
 }
 .forgetMain{
-  background: #FFF;
   margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 60px;
   margin-bottom: 20px;
+  min-height: 600px;
 }
 #container {
   width: 100%;

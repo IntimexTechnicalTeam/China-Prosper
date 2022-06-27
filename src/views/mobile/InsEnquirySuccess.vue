@@ -1,5 +1,5 @@
 <template>
-<div class="pc">
+<div class="mobile">
   <div id="container" class="paySuccess">
     <div class="payment-box">
         <div class="logo">
@@ -28,45 +28,6 @@ export default class paySuccess extends Vue {
 </script>
 
 <style scoped lang="less">
-.pc {
-    .paySuccess {
-        .payment-box {
-            width: 1200px;
-            margin: 0 auto;
-            padding: 100px 0;
-            text-align: center;
-
-            .logo {
-                img {
-                    max-width: 35%;
-                }
-                span{
-                    font-size: 4rem;
-                    color: #59ab61;
-                    text-align: center;
-                }
-            }
-
-            .tips {
-                font-size: 20px;
-                margin: 50px 0;
-            }
-
-            .payment-btn {
-                a {
-                    display: inline-block;
-                    padding: 10px 35px;
-                    margin: 0 20px;
-                    background-color: #59ab61;
-                    color: #fff;
-                    border-radius: 5px;
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-}
-
 .mobile {
     .paySuccess {
         .payment-box {
@@ -76,6 +37,11 @@ export default class paySuccess extends Vue {
             .logo {
                 img {
                     max-width: 45%;
+                }
+                span{
+                    font-size: 4rem;
+                    color: #59ab61;
+                    text-align: center;
                 }
             }
 

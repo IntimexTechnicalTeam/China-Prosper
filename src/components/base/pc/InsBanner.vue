@@ -1,5 +1,5 @@
 <template>
-  <div class="banner" v-loading="loading">
+  <div class="banner NormalTop" v-loading="loading">
     <swiper class="swiper-no-swiping" :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
       <!-- slides -->
       <swiper-slide v-for="(slide, index) in bannerList" :key="index">

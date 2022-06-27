@@ -1183,6 +1183,10 @@ router.beforeEach((to, from, next) => {
       }
       next();
     } else {
+      if (to.matched.length === 0) {
+        next('/'); // 判断此跳转路由的来源路由是否存在，存在的情况跳转到来源路由，否则跳转到首页
+      }
+      next(); // 如果匹配到正确跳转
       if (to.matched.some(record => record.meta.requiresAuth) && !storage.get('isLogin')) {
         // router.push({ path: '/account/login' });
         next({

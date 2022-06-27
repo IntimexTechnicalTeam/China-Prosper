@@ -1,9 +1,9 @@
 <template>
-  <div class="MemberPc">
+  <div class="MemberPc NomralBg">
     <!-- 正常购买模式 -->
     <div v-if="!isPtx">
       <accountHeader />
-        <div class="MemberInfoNavPC">
+        <div class="MemberInfoNavPC ">
           <ul class="NormalUl">
             <div @click="openlink('/account/memberInfo')">
             <li :class="NormalactiveClass == 1?'activeInfo':''" >
@@ -116,7 +116,6 @@ export default class InsMenberCenter extends Vue {
   text-align: left !important;
 }
 .MemberPc {
-  background: #f4f4f4;
   display: inline-block;
   background-size: 100% 100%;
   width: 100%;
@@ -126,6 +125,7 @@ export default class InsMenberCenter extends Vue {
   display: inline-block;
   margin-top: 50px;
   margin-bottom: 20px;
+  padding-top: 7.5rem;
   ul {
     width: 1000px;
     margin: 0 auto;

@@ -158,7 +158,7 @@ export default class InsMenberCenter extends Vue {
 }
 .MemberMobile .activeInfo{
   color: #fff !important;
-  background: #333333 !important;
+  background: @base_color !important;
 }
 .MembercenterMobile .MemberInfoNav{
     width: 100%;

@@ -4,12 +4,12 @@
     <div class="in_pdWindow_page_item" :style="styla" @mouseenter="Enter=true" @mouseleave="Enter=false" @click="click">
       <div class="topWindowsImg imgbox">
         <img :src="(item.Image?item.Image:item.Img_L?item.Img_L:item.Img)"  :class="{'height_line':Enter}" :style="imgStyla" :data-key="item.Sku" @error="loadError" />
-        <div class="shopMark">
+        <!-- <div class="shopMark">
             <div class="innerBox">
                 <a  href="javascript:;"><i class="indexfav" v-bind:class="{'indexfav_hover':item.IsFavorite}"  v-on:click="addToFavorite(item)"></i><span v-on:click="addToFavorite(item)">{{$t('MyFavorite.MyFavorite')}}</span></a>
                 <a  href="javascript:;" ><i class="showDetail" v-on:click="addCart(item)"></i><span v-on:click="addCart(item)">{{$t('home.ViewDetail')}}</span></a>
             </div>
-        </div>
+        </div> -->
       </div>
         <div class="in_pdWindow_item_description">
             <a  href="javascript:;" class="in_pdWindow_item_title" v-on:click="addCart(item)">{{item.Name}}</a>
@@ -127,8 +127,7 @@ export default class InsProductWindow extends Vue {
     border: 1px solid #cd0909;
 }
 .productMain:hover .in_pdWindow_item_title {
-    transform: translateY(-3px);
-    color: #cd0909!important;
+    color: @base_color!important;
 }
 </style>
 <style lang="less" scoped>
@@ -214,7 +213,7 @@ export default class InsProductWindow extends Vue {
   border-radius:0px;
 }
 .height_line {
-  border: 1px solid black !important;
+  border: 1px solid @base_color !important;
 }
 .in_pdWindow_item_title {
     font-size: 1.4rem;

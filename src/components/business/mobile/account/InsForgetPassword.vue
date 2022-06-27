@@ -1,9 +1,9 @@
 <template>
-  <div id="container">
+  <div id="container" class="NoramlPaddingTop NomralBg">
     <!-- <div class="Banner"  :style="{backgroundImage: 'url('+ ImgList +')',backgroundSize:'100% 100%'}">
         <div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ForgetPassword')}}</div></div>
     </div> -->
-    <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ForgetPassword')}}</div></div></div>
+    <p class="pageTitle">{{$t('Forgetpassword.ForgetPassword')}}</p>
     <div class="ForgetPassMain">
       <div style="margin-top: 15px;" v-if="ResetPwd">
         <h2 class="ResetPwdTips">{{$t('Forgetpassword.ResetPwdTips')}}</h2>
@@ -173,6 +173,7 @@ export default class InsForgetPassword extends Vue {
 #container {
   width: 100%;
   display: inline-block;
+  min-height: 20rem;
   .forgetpsw_title{
     font-size: 2rem;
     line-height: 4rem;
@@ -184,7 +185,7 @@ export default class InsForgetPassword extends Vue {
 .ForgetPassMain {
     width: 95%;
     margin: 0 auto;
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-bottom: 2rem;
     display: flex;
     align-items: center;

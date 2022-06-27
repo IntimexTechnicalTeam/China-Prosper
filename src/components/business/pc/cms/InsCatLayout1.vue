@@ -1,5 +1,5 @@
 <template>
-    <div class="CatMain NoramlPaddingTop">
+    <div class="CatMain NormalTop">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
            <div class="DetailTitle"><img :src="BannerImg" v-show="BannerImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
@@ -36,12 +36,12 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 @Component({
   components: {
-    InsPage: () => import('@/components/base/mobile/InsPage.vue')
+    InsPage: () => import('@/components/base/pc/InsPage.vue')
   }
 })
 export default class InsCatLayout1 extends Vue {
     currentPage:number=1;
-    pageSize:number=1;
+    pageSize:number=9;
     totalRecord:number=0;
     ListData:any[]=[];
     BannerImg:string='';
@@ -68,7 +68,7 @@ export default class InsCatLayout1 extends Vue {
     }
    // 根据设备类型获取CMSCategory信息
   getCategoryByDevice () {
-    this.$Api.cms.getCategoryByDevice({ CatId: this.cid, IsMobile: true }).then(async (result) => {
+    this.$Api.cms.getCategoryByDevice({ CatId: this.cid, IsMobile: false }).then(async (result) => {
      console.log(result, 'gggggggg');
      this.BannerImg = result.ImagePath;
      this.CateName = result.Name;
@@ -94,6 +94,11 @@ export default class InsCatLayout1 extends Vue {
 </script>
 
 <style scoped lang="less">
+.pager {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
 .faker {
     width: 100%;
     height: 30rem;
@@ -103,16 +108,18 @@ export default class InsCatLayout1 extends Vue {
     display: flex;
     flex-wrap: wrap;
 }
+.NomralBg {
+  margin-top: 1rem;
+}
 .PathData {
-  width: 90%;
+  width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: 1rem;
-  margin-top: 1rem;
   span,a,i{
-    font-size: 1.4rem;
+    font-size: 20px;
   }
   .HomePath {
     color: #666;
@@ -135,8 +142,8 @@ export default class InsCatLayout1 extends Vue {
     width: 5rem;
     margin: 0 auto;
     margin-bottom: 20px;
-    top: 10%;
-    left: 10%;
+    top: 18%;
+    left: 30%;
     position: absolute;
     height: 12rem;
     background:url('/images/mobile/ptx_01.png') no-repeat center center;
@@ -160,33 +167,47 @@ export default class InsCatLayout1 extends Vue {
   }
 }
 .cms-list {
-    width: 90%;
+    width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
         .perData {
-            width: 100%;
+            width: 31%;
+            margin-right: 3.5%;
+            float: left;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
-            border-bottom: 1px solid #e6e6e6;
-            padding-bottom: 2rem;
-            padding-top: 2rem;
-            .left {
-                width: 40%;
+            margin-bottom: 3.5%;
+            cursor: pointer;
+            &:hover {
+              .left {
                 .imgs {
-                    width: 100%;
+                  border:1px solid @base_color;
+                }
+              }
+            }
+            &:nth-child(3n) {
+              margin-right: 0px!important;
+            }
+            .left {
+                width: 100%;
+                .imgs {
+                    width: calc(100% - 2px);
                     display: flex;
                     flex-wrap: wrap;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    border: 1px solid #eee;
+                    transition: all .3s;
                     img {
                         width: 100%;
                     }
                 }
             }
             .right {
-                width: 55%;
+                width: 100%;
                 .title {
-                    font-size: 1.2rem;
+                    font-size: 22px;
                     color: #9f1e3c;
                     text-overflow: -o-ellipsis-lastline;
                     overflow: hidden;
@@ -199,11 +220,11 @@ export default class InsCatLayout1 extends Vue {
                     margin-bottom: .5rem;
                 }
                 .contentTime {
-                    font-size: 1.2rem;
+                    font-size: 18px;
                     color: #999999;
                 }
                  .desc {
-                    font-size: 1.2rem;
+                    font-size: 18px;
                     color: #333333;
                     text-overflow: -o-ellipsis-lastline;
                     overflow: hidden;
@@ -219,10 +240,10 @@ export default class InsCatLayout1 extends Vue {
                     width: 100%;
                     display: flex;
                     flex-wrap: wrap;
-                    justify-content: flex-end;
-                    margin-top: 2rem;
+                    justify-content: flex-start;
+                    margin-top: 1rem;
                     a {
-                        font-size: 1.2rem;
+                        font-size: 18px;
                         color: #b19162;
                         border-bottom: 1px solid #b19162;
                     }

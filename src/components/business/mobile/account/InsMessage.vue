@@ -168,7 +168,7 @@ export default class InsNotification extends Vue {
     margin-top: 20px;
     margin-bottom: 50px;
     .bgcolor {
-       background: #666666!important;
+       background: #931a36!important;
        span{
          color: #fff!important;
        }

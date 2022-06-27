@@ -1,22 +1,5 @@
 <template>
   <div id="container" class="ProductSearch  NomralBg">
-        <!-- <div class="SearchSlide">
-          <div class="leftSide">
-            <advancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
-          </div>
-        </div>
-      <div class="selectBar">
-          <ul>
-            <li @click="showSearchSlide"><span class="el-icon-s-operation"></span><b>{{$t('product.Screening')}}</b></li>
-            <li>
-              <select v-model="PriceItem" @change="getselect(PriceItem)">
-                <option value="desc">{{$t('product.PriceHL')}}</option>
-                <option value="asc">{{$t('product.PriceLH')}}</option>
-              </select>
-            </li>
-          </ul>
-        </div> -->
-
     <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
     <div class="ProductTips">
       <p>{{$t('Message.TipsA')}}</p>

@@ -435,7 +435,7 @@ export default class InsNotification extends Vue {
       justify-content: center;
       margin-bottom: 10px;
       .SearBtn {
-        background: #666666;
+        background: @base_color;
         color: #fff;
         font-size: 18px;
         border-radius: 5px;

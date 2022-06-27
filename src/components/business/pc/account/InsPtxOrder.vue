@@ -322,9 +322,8 @@ export default class InsNotification extends Vue {
 .ptxOrder {
   width: 1000px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
   padding-bottom: 50px;
+  min-height: 600px;
   .pageName {
     width: 100%;
     height: 35px;
@@ -420,7 +419,7 @@ export default class InsNotification extends Vue {
       align-items: center;
       justify-content: center;
       .SearBtn {
-        background: #666666;
+        background: @base_color;
         color: #fff;
         font-size: 18px;
         border-radius: 5px;

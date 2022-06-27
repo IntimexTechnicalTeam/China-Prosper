@@ -197,119 +197,6 @@ export default class InsCmsContent extends Vue {
     }
   }
 }
-.MobileContact{
-    .OurStores{
-      font-size: 2.5rem;
-      font-weight: 700;
-      color:#333333;
-      text-align: right;
-    }
-    .BusinessHours{
-      font-size: 1.6rem;
-      color:#333333;
-      margin-bottom: 30px;
-      text-align: right;
-    }
-    .aboutUSbg{
-      width: 100%;
-      float: left;
-      background: #FFF;
-      border-radius: 10px;
-      padding: 5px;
-     .innerBox{
-       border:1px solid #000;
-       border-radius: 10px;
-       position: relative;
-        min-height: 400px;
-        padding: 20px;
-        p{
-          font-size: 1.4rem;
-          text-align: justify;
-        }
-        &::before{
-            content: '';
-            width: 98%;
-            height: 20px;
-            background: url(/images/mobile/productList_icon.png) no-repeat center center;
-            background-size: 100%;
-            position: absolute;
-            top: 10px;
-            left: 1%;
-        }
-        &::after{
-            content: '';
-            width: 98%;
-            height: 20px;
-            background: url(/images/mobile/productList_icon.png) no-repeat center center;
-            background-size: 100%;
-            position: absolute;
-            bottom: 10px;
-            left: 1%;
-        }
-     }
-   }
-  }
-.MobileContact .activeColor .content p:nth-child(1){
-    text-decoration: underline;
-    font-weight: 700;
-}
-.MobileContact .aboutBg{
-    width: 80%;
-    background-size: 100%;
-    min-height: 65rem;
-    padding: 10%;
-    word-break: break-all;
-}
-.MobileContact .abooutImg{
-    width: 70%;
-    margin: 0 auto;
-    margin-bottom: 1rem;
-    img{
-      width: 100%;
-    }
-}
-.MobileContact .contactBox{
-  width: 100%;
-  display: inline-block;
-  p{
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid #666;
-    &:last-child{
-      border-bottom: 1px solid #666;
-    }
-    .icon1{
-      background: url('/images/mobile/Mobile-Contact-02.png') no-repeat center center;
-      background-size: 100%;
-      width: 2.5rem;
-      height: 2.5rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:1rem;
-    }
-    .icon2{
-      background: url('/images/mobile/Mobile-Contact-03.png') no-repeat center center;
-      background-size: 100%;
-      width: 2.5rem;
-      height: 2.5rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:1rem;
-    }
-    .icon3{
-      background: url('/images/mobile/Mobile-Contact-04.png') no-repeat center center;
-      background-size: 100%;
-      width: 2.5rem;
-      height:2.5rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:1rem;
-    }
-  }
-}
 .MobileContact .CmsMap .MapInfo{
   width:100%;
   margin-bottom: 1rem;
@@ -347,7 +234,6 @@ export default class InsCmsContent extends Vue {
       border: none;
     }
     h4{
-      background: #fff;
       background-size: 100% 100%;
       display: inline-block;
       width: 100%;

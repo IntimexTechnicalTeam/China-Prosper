@@ -1,7 +1,7 @@
 <template>
-  <div id="container" class="resetPWD">
-      <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ResetPwd')}}</div></div></div>
+  <div id="container" class="resetPWD NormalTop NomralBg">
          <div class="resetPwdMain">
+          <p class="pageTitle">{{$t('Forgetpassword.ResetPwd')}}</p>
           <InsForm ref="pwdForm" v-model="pwdForm">
             <div class="login-register-content">
                   <InsInput2 :placeholder="$t('Register.UserNewPassword')" width="100%" v-model="pwdForm.newPassword" type="password"/>
@@ -125,6 +125,7 @@ export default class InsResetPwd extends Vue {
 .resetPwdMain{
   width: 800px;
   margin: 0 auto;
+  min-height: 600px;
 }
 .login-register-content{
   margin-bottom: 30px;

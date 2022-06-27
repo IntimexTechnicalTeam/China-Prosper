@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="MobileContact">
+  <div id="container" class="NomralBg NormalTop">
     <div class="CmsNormal">
       <div class="CmsContent">
           <p class="textTitle">{{content.Title}}</p>
@@ -25,7 +25,7 @@ export default class InsCmsContentN extends Vue {
     return this.$route.params.id ? this.$route.params.id : '';
   }
   getContent () {
-    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: true }).then(result => {
+    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: false }).then(result => {
       this.content = result.CMS;
       if (result.CMS.Title) document.title = result.CMS.Title;
     });
@@ -54,14 +54,14 @@ export default class InsCmsContentN extends Vue {
   display: flex;
   flex-wrap: wrap;
   .CmsContent {
-    width: 90%;
+    width: 1200px;
     margin: 0 auto;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    min-height: 15rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    min-height:500px;
     .textTitle {
       font-size: 1.8rem;
-      color: #666666;
+      color: #9f1e3c;
       line-height: 2rem;
       display: flex;
       align-items: center;
@@ -70,7 +70,7 @@ export default class InsCmsContentN extends Vue {
         content: '';
         height: 2rem;
         width: 3px;
-        background: @base_color;
+        background:#9f1e3c;
         display: inline-block;
         margin-right: .5rem;
       }

@@ -1,5 +1,5 @@
 <template>
-<div id="container">
+<div id="container" class="NomralBg">
   <div class="insLogin_warrper NoramlPaddingTop">
       <div class="insLogin_title" v-if="FrontE.version !== 1">
          <div class="fblogin" @touchstart="fbLogin">

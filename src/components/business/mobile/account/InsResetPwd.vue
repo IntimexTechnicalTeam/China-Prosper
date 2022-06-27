@@ -1,6 +1,6 @@
 <template>
-  <div id="container" class="resetPWD">
-      <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{$t('Forgetpassword.ResetPwd')}}</div></div></div>
+  <div id="container" class="resetPWD NoramlPaddingTop NomralBg">
+        <p class="pageTitle">{{$t('Forgetpassword.ResetPwd')}}</p>
          <div class="resetPwdMain">
           <InsForm ref="pwdForm" v-model="pwdForm">
             <div class="login-register-content">
