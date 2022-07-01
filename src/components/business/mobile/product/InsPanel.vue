@@ -1,7 +1,7 @@
 <template>
   <div class="in_panel_warpper mobileWarper" :style="warpperStyle">
     <div class="in_panel_content">
-      <!-- <inSelect
+      <inSelect
         v-for="(item,index) in panelDetail.AttrList"
         :items="item"
         :key="index"
@@ -9,7 +9,7 @@
         v-model="ProductInfor['Attr'+(index+1)]"
         @input="changeAttr"
         @changePrice="AdditionalPrice"
-      ></inSelect> -->
+      ></inSelect>
       <div v-if="panelDetail.negotiable===null || panelDetail.negotiable===false">
         <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>
       </div>
@@ -303,14 +303,20 @@ export default class InsPanel extends Vue {
   width: auto!important;
   margin-right: 1rem;
 }
+.mobileWarper  .el-input-number__decrease {
+  left: 0px;
+}
+.mobileWarper .el-input-number__increase {
+  right: 0px;
+}
 .mobileWarper  .el-input-number__decrease,.mobileWarper .el-input-number__increase{
     width: 3rem !important;
-    border: 0px solid #000;
     border-radius: 0px;
     top: 0px;
+    background: #cab597;
 }
 .mobileWarper .el-input-number__decrease i, .el-input-number__increase i{
-  color:#000;
+    color: #fff;
 }
 .mobileWarper .el-input-number .el-input__inner{
   padding-left: 0rem;
@@ -337,7 +343,7 @@ export default class InsPanel extends Vue {
   margin-right: 1rem;
 }
 .in_panel_warpper .el-input-number{
-  border:1px solid #eee;
+  border:1px solid #cab597;
   box-sizing: border-box;
    width: auto!important;
 }
@@ -382,12 +388,12 @@ export default class InsPanel extends Vue {
       justify-content: center;
       align-items: center;
       margin-bottom: 1rem;
-      background: url('/images/mobile/ptx_03.png') no-repeat center center;
-      background-size: 100%;
+      background: url(/images/pc/btnbg_03.jpg) no-repeat center center;
+      background-size:cover;
       width: 100%;
       color: #fff;
       margin-left: 0px!important;
-      border: 0px;
+      border: 5px;
         &:disabled{
           cursor:not-allowed;
           background: #ccc;

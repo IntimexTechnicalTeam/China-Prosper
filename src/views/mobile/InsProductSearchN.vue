@@ -1,11 +1,37 @@
 <template>
   <div id="container" class="ProductSearch  NomralBg">
-    <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
-    <div class="ProductTips">
-      <p>{{$t('Message.TipsA')}}</p>
-      <p>{{$t('Message.TipsB')}} <span> {{totalRecord}} </span>{{$t('Message.TipsC')}} </p>
-      <p class="redcolor"><router-link to="/account/login">{{$t('Message.LoginNow')}},</router-link><span class="bcolor">{{$t('Message.TipsD')}} </span></p>
-      <p>{{$t('Message.TipsE')}} {{totalRecord}} </p>
+    <div class="NsMain"  v-if="isPtx">
+        <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
+        <div class="ProductTips">
+          <p>{{$t('Message.TipsA')}}</p>
+          <p>{{$t('Message.TipsB')}} <span> {{totalRecord}} </span>{{$t('Message.TipsC')}} </p>
+          <p class="redcolor"><router-link to="/account/login">{{$t('Message.LoginNow')}},</router-link><span class="bcolor">{{$t('Message.TipsD')}} </span></p>
+          <p>{{$t('Message.TipsE')}} {{totalRecord}} </p>
+        </div>
+    </div>
+    <div class="NsMain" v-if="!isPtx">
+        <div class="SearchSlide">
+          <div class="leftSide">
+            <NsadvancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
+          </div>
+        </div>
+      <div class="selectBar">
+          <ul>
+            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('product.Filter')}}</b></li>
+            <li  class="sortBox">
+              <p class="sortTitle" @click.stop="showList=!showList">
+                {{$t('product.SortBy')}}
+                <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
+              </p>
+              <transition name="el-fade-in-linear">
+                <ul class="sortList" v-if="showList">
+                  <li @click="handleCommand('desc')" :style="{'color':command=='desc'?'#b19162':'#333333'}">{{$t('product.PriceHL')}}</li>
+                  <li @click="handleCommand('asc')" :style="{'color':command=='asc'?'#b19162':'#333333'}">{{$t('product.PriceLH')}}</li>
+                </ul>
+              </transition>
+            </li>
+          </ul>
+        </div>
     </div>
     <div class="prolist-box">
       <div class="products_container" v-if="proList.length>0">
@@ -14,13 +40,15 @@
         <div class="products_container" v-else>
              <h3 class="nocontentTips">{{$t('messageTips.NoContent')}}</h3>
         </div>
-        <div class="pager" v-if="totalRecord > pageSize">
-          <InsPage
-            :total="totalRecord"
-            v-model="currentPage"
-            :pageNum="pageSize"
-            :currentPage = "currentPage"
-          ></InsPage>
+        <div  v-if="islogin">
+          <div class="pager" v-if="totalRecord > pageSize">
+            <InsPage
+              :total="totalRecord"
+              v-model="currentPage"
+              :pageNum="pageSize"
+              :currentPage = "currentPage"
+            ></InsPage>
+          </div>
         </div>
     </div>
   </div>
@@ -33,6 +61,7 @@ import $ from 'jquery';
   components: {
     InsProductList: () => import('@/components/hkTasteBusiness/mobile/product/HkProductWindow.vue'),
     advancedSearch: () => import('@/components/hkTasteBusiness/mobile/product/InsAdvancedSearch.vue'),
+    NsadvancedSearch: () => import('@/components/hkTasteBusiness/mobile/product/NsAdvancedSearch.vue'),
     ProductListSwiper: () => import('@/components/hkTasteBusiness/mobile/product/HkProductListSwiper.vue'),
     InsPage: () =>
       import(
@@ -43,7 +72,7 @@ import $ from 'jquery';
 export default class InsProductSearch extends Vue {
   proList: YouWouldLike[] = []; // 产品数据
   currentPage: number = 1; // 当前页
-  pageSize: number =10; // 每页显示条目个数
+  pageSize: number =12; // 每页显示条目个数
   totalRecord: number = 0;// 总条目数
   private tips:boolean = true;
   private LoadingInstance!: any;
@@ -53,7 +82,16 @@ export default class InsProductSearch extends Vue {
   searchType: number = 1; // 搜索类型（0 => 叠加，1 => 筛选）
   PriceItem:string='desc';
   isAdvanced: boolean = true;
-
+  showList:boolean = false;
+  command:string='';
+  SortName:string = '';
+  get isPtx () {
+      if (localStorage.getItem('isPtx') === '0') {
+        return false;
+      } else {
+        return true;
+      }
+  }
   // 搜索关键词
   get searchKey () {
     let a = this.$store.state.searchKey;
@@ -63,9 +101,26 @@ export default class InsProductSearch extends Vue {
       return a;
     }
   }
+  get islogin () {
+    return this.$Storage.get('isLogin');
+  }
   // 价格传值
   getselect (val) {
     this.PriceItem = val;
+    this.productSearch();
+  }
+  handleCommand(command) {
+    this.command = command;
+    if (command === 'newest') {
+      this.SortName = 'createdate';
+      this.PriceItem = 'desc';
+      this.showList = false;
+    } else {
+      this.SortName = 'SalePrice';
+      this.PriceItem = command;
+      this.showList = false;
+    }
+
     this.productSearch();
   }
   // 产品高级搜索
@@ -78,7 +133,7 @@ export default class InsProductSearch extends Vue {
           PageInfo: {
             Page: this.currentPage,
             PageSize: this.pageSize,
-            SortName: 'SalePrice',
+            SortName: this.SortName,
             SortOrder: this.PriceItem
           },
           CatIdS: this.searchCatalogs,
@@ -182,6 +237,43 @@ export default class InsProductSearch extends Vue {
 </style>
 
 <style scoped lang="less">
+.NsMain {
+  width: 100%;
+  display: inline-block;
+}
+.sortBox{
+  position: relative;
+  z-index: 1;
+  .sortTitle{
+    width: 100%;
+    height: 3rem;
+    font-size: 1.4rem;
+    color: #b19162;
+    text-align: center;
+    img{
+      margin-left:13%;
+      margin-right:10%;
+      width:10px;
+    }
+  }
+  .sortList{
+    width:100%;
+    box-shadow: 0px 2px 5px #ccc;
+    position: absolute;
+    left:0;
+    top:3.5rem;
+    box-sizing:border-box;
+    background: #fff;
+    li{
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      font-size: 1.2rem;
+      &:last-of-type{
+        border-bottom: none;
+      }
+    }
+  }
+}
 .ProductTips {
   width: 90%;
   margin: 0 auto;
@@ -245,6 +337,7 @@ export default class InsProductSearch extends Vue {
 .product_item{
   width: 48%;
   margin-right: 4%;
+  margin-bottom: 4%;
   &:nth-child(2n) {
     margin-right: 0px!important;
   }
@@ -263,16 +356,18 @@ export default class InsProductSearch extends Vue {
   left: 0;
   top: 0px;
   bottom: 0px;
-  background: rgba(0,0,0,.6);
-  overflow-x: scroll;
+  background: rgba(0,0,0,.7);
+  overflow-x: auto;
   z-index: 999999;
   display: none;
   .leftSide{
-    width: 80%;
-    left:-80%;
+    width: 70%;
+    left:-70%;
     min-height: 100%;
     position: absolute;
     transition: all .5s;
+    background: #f2f1f0;
+    border-top-right-radius: 1rem;
   }
 
 }
@@ -284,21 +379,21 @@ export default class InsProductSearch extends Vue {
     margin: 0 auto;
     display: inline-block;
     margin-top: 2rem;
-  ul{
+  > ul{
     width: 95%;
     margin: 0 auto;
-  }
-  li{
+  > li{
     float: left;
     margin-right: 4%;
     width: 47%;
     background: #FFF;
     border:1px solid #eee;
     font-size: 1.6rem;
-    background: #666666;
+    background: url('/images/mobile/filterbg.png') no-repeat center center;
+    background-size: 100% 100%;
     color: #FFF;
-    height: 3.5rem;
-    line-height: 3.5rem;
+    height: 4rem;
+    line-height: 4rem;
     list-style: none;
     span{
     width: 20%;
@@ -310,8 +405,9 @@ export default class InsProductSearch extends Vue {
       width: 60%;
       display: inline-block;
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 500;
+      color: #b19162;
     }
     select{
     width: 100%;
@@ -323,15 +419,15 @@ export default class InsProductSearch extends Vue {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: url(/images/mobile/arrow-down-back.png) 98% 15px no-repeat;
+    background: url(/images/mobile/ptx_30.png) 80% 15px no-repeat;
     background-size: 15px;
     outline: none;
+    color: #b19162;
     }
     &:last-child{
       margin-right: 0px!important;
-      background: #FFF!important;
-      color:#333333;
     }
+  }
   }
 }
 </style>

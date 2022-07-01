@@ -1,5 +1,5 @@
 <template>
-  <div class="shoppingcart_warrper">
+  <div class="shoppingcart_warrper NomralBg">
     <!--main-content-->
         <div class="shoppingcart_header">{{$t('Shoppingcart.ShoppingcartTitle')}}</div>
         <div class="ShoppingCartItem_warpper"  v-for="(one,index) in items" :key="index">
@@ -279,6 +279,7 @@ export default class InsShoppingcart extends Vue {
 .shoppingcart_warrper{
     background-color: white;
     padding: 2rem 0;
+    padding-top: 5rem;
     border-radius: .5rem;
     // min-height: calc(100vh - 402px);
     .shoppingcart_header{

@@ -1,5 +1,5 @@
 <template>
-  <div class="checkoutn_warpper mobileV">
+  <div class="checkoutn_warpper mobileV NomralBg">
     <div class="shoppingcart_header" >{{$t('Action.Checkout')}}</div>
     <div class="main_warpper">
         <div class="checkoutl checkoutr">
@@ -594,23 +594,20 @@ export default class InsCheckoutN extends Vue {
     }
      /deep/ .shoppingcart_item_qty .qty_count {
         display: inline-block;
-        &:last-child {
-          // margin-left: 1rem;
-        }
     }
     .shoppingcart_header{
         font-size: 2rem;
         line-height: 5rem;
         text-align: center;
         font-weight: 700;
-        background-color: white;
         padding: 2rem 0;
         border-radius: .5rem;
     }
 
 .checkoutn_warpper{
   // margin: 100px auto;
-  width: 100vw;
+  width: 100%;
+  padding-top: 5rem;
   .main_warpper{
     display: flex;
     width: 100vw;
@@ -636,7 +633,6 @@ export default class InsCheckoutN extends Vue {
         // }
         .payment_warpper{
           width: 100vw;
-          background-color: white;
           border-radius: .5rem;
           // margin-top: 1rem;
           .title{

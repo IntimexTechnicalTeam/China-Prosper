@@ -1,5 +1,5 @@
 <template>
-<div class="mobile">
+<div class="mobile NomralBg">
   <div id="container" class="payFail">
     <div class="payment-box">
         <div class="logo">
@@ -47,46 +47,8 @@ export default class payFail extends Vue {
     color: #cd0909;
     text-align: center;
 }
-.pc {
-    .payFail {
-        .payment-box {
-            width: 1200px;
-            margin: 0 auto;
-            padding: 100px 0;
-            text-align: center;
-
-            .logo {
-                img {
-                    max-width: 35%;
-                }
-              span{
-                    font-size: 4rem;
-                    color: #cd0909;
-                    text-align: center;
-                }
-            }
-
-            .tips {
-                font-size: 20px;
-                margin: 50px 0;
-            }
-
-            .payment-btn {
-                a {
-                    display: inline-block;
-                    padding: 10px 35px;
-                    margin: 0 20px;
-                    background-color: @base_color;
-                    color: #fff;
-                    border-radius: 5px;
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-}
-
 .mobile {
+    padding-top: 5rem;
     .payFail {
         .payment-box {
             padding: 6rem 1rem;

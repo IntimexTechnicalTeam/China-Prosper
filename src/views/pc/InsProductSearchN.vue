@@ -15,13 +15,15 @@
             <div key="1" v-if="!waiting">
               <div class="prolist-box" v-if="proList.length > 0">
                 <ins-productList :column="4" :allItems="proList" />
-                <div class="pager" v-if="totalRecord > pageSize">
-                  <InsPage
-                    :total="totalRecord"
-                    v-model="currentPage"
-                    :pageNum="pageSize"
-                    :currentPage = "currentPage"
-                  ></InsPage>
+                <div  v-if="islogin">
+                  <div class="pager" v-if="totalRecord > pageSize">
+                    <InsPage
+                      :total="totalRecord"
+                      v-model="currentPage"
+                      :pageNum="pageSize"
+                      :currentPage = "currentPage"
+                    ></InsPage>
+                  </div>
                 </div>
               </div>
               <div class="prolist-box" v-else>
@@ -78,6 +80,9 @@ export default class InsProductSearch extends Vue {
     } else {
       return a;
     }
+  }
+  get islogin () {
+    return this.$Storage.get('isLogin');
   }
   // 重置搜索
   resetAll() {

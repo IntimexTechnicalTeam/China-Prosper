@@ -136,7 +136,10 @@ export default {
     Total: 'Total',
     Product: 'Products',
     ProductDetail: 'Product Detail',
-    Unit: 'Unit'
+    Unit: 'Unit',
+    Filter: 'Filter',
+    ViewAll: 'View All',
+    SortBy: 'SortBy'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',

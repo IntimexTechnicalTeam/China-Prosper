@@ -138,8 +138,7 @@ div {
    background: url('/images/mobile/ptx_29.jpg') no-repeat center center;
    background-size: cover;
    width: 100%;
-   display: flex;
-   flex-wrap: wrap;
+   display: inline-block;
 }
 .messageBoxMobile {
    z-index: 10000!important;

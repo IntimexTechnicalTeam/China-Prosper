@@ -69,7 +69,6 @@ export default class InsLangSwitch extends Vue {
 </script>
 <style scoped lang="less">
   .menberCentral{
-    padding-left: 1rem;
     float: left;
     height: 3.5rem;
     display: flex;

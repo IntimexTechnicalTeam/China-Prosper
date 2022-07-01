@@ -1,6 +1,5 @@
 <template>
   <div class="in_panel_warpper PcVersion" :style="warpperStyle">
-    <p v-if="panelDetail.negotiable===true" class="MinOrderQty">{{$t('Enquiry.MinOrderQty')}}:{{panelDetail.MinPurQty}}</p>
     <div class="in_panel_content">
       <inSelect
         v-for="(item,index) in panelDetail.AttrList"
@@ -44,6 +43,7 @@
         </div>
     </div>
    <div class="in_panel_footer" v-else>
+        <p class="productTips">{{$t('Message.AskFor')}}</p>
         <button type="button" @click="AddProdToMyEnquiry()" class="CartBtn">{{$t('Enquiry.AddToEnquiry')}}</button>
     </div>
     <!-- <inRecommend :Skus="ProductSku"></inRecommend> -->
@@ -278,10 +278,6 @@ export default class Panel extends Vue {
 .PcVersion  .el-button{
   padding: 20px 10px!important;
 }
-.PcVersion .in_panel_footer button:hover{
-  transform: translateY(-3px);
-  border:1px solid #262626!important;
-}
 .PcVersion .in_panel_footer .el-button+.el-button{
   margin-left:20px!important;
 }
@@ -296,27 +292,29 @@ export default class Panel extends Vue {
   width: auto!important;
   margin-right: 1rem;
 }
-.PcVersion  .el-input-number{
-  border:none!important;
-  box-sizing: border-box;
-}
 .PcVersion  .el-input__inner{
   border:none!important;
   box-sizing: border-box;
   width: 4rem;
 }
+.PcVersion  .el-input-number {
+  border: 1px solid #cab597;
+  width: auto;
+}
+.PcVersion  .el-input-number__decrease {
+  left: 0px;
+}
+.PcVersion .el-input-number__increase {
+  right: 0px;
+}
 .PcVersion  .el-input-number__decrease,.PcVersion .el-input-number__increase{
     width: 2rem !important;
-    border: 1px solid #000;
-    border-radius: 5px;
-    height: 2rem;
-    line-height: 2rem;
+    top:0px!important;
+    background: #cab597;
+    border-radius: 0px;
 }
 .PcVersion .el-input-number__decrease i, .el-input-number__increase i{
-  color:#000;
-}
-.PcVersion  .el-input-number{
-  width: auto!important;
+  color:#fff;
 }
 .PcVersion .el-input-number .el-input__inner{
   padding-left: 0rem;
@@ -331,6 +329,11 @@ export default class Panel extends Vue {
 }
 </style>
 <style lang="less" scoped>
+.productTips {
+  font-size: 1.2rem;
+  color: #9f1e3c;
+  margin-bottom: 1rem;
+}
 .MinOrderQty {
   margin-bottom: 20px;
 }
@@ -376,9 +379,9 @@ export default class Panel extends Vue {
   min-height: 70%;
 }
 .in_panel_footer {
-  display: flex;
-  justify-content: space-between;
   margin-top: 20px;
+  width: 100%;
+  display: inline-block;
 }
 
 .productDetail_price_warpper {
@@ -426,19 +429,18 @@ export default class Panel extends Vue {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #333333;
         color: #fff;
         border-radius: 3px;
         transition: .1s;
         text-transform: uppercase;
-        width: 48%;
         background-color: unset;
-        color: #333333;
-        margin-right: 4%;
+        background: url(/images/pc/btnbg_03.jpg) no-repeat center center;
+        background-size: cover;
+        width: 100%;
+        border: 0px;
         &:disabled{
           cursor:not-allowed;
           background: #ccc;
-          border: 1px solid #ccc;
           color: #333333;
            &:hover{
            transform: translateY(0px)!important;
@@ -475,7 +477,6 @@ export default class Panel extends Vue {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid @base_color;
         background-color: unset;
         border-radius: 5px;
         transition: .1s;

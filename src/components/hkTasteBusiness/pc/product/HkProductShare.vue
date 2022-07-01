@@ -1,11 +1,8 @@
 <template>
   <div class="productshare_icon_warpper">
-    <a @click="whatsApp" class="xq-whatsapp" data-action="share/whatsapp/share"
-      ><img src="/images/mobile/productDetail_03.png"
-    /></a>
     <a
       onclick="window.open('http://www.facebook.com/share.php?u=' + window.location.href+'&t=' + document.title);"
-      ><img src="/images/mobile/productDetail_02.png"
+      ><img src="/images/mobile/face.png"
     /></a>
     <!-- <a
       onclick="window.open('https://lineit.line.me/share/ui?url='+window.location.href);"
@@ -32,13 +29,18 @@ export default class HkProductShare extends Vue {
 <style lang="less" scoped>
 .productshare_icon_warpper {
   text-align: right;
+  display: inline-block;
 }
 .productshare_icon_warpper a {
   display: inline-block;
   margin-right: 0.5rem;
 }
+.productshare_icon_warpper a:last-child {
+  margin-right: 0px !important;
+}
 .productshare_icon_warpper img {
-  width: 30px;
+  width: 2rem;
+  margin-right: 5px;
   cursor: pointer;
 }
 </style>

@@ -1,125 +1,240 @@
 <template>
-<div>
-    <div class="catTree" v-if="catData.length">
-        <el-tree :data="catData" :props="defaultProps" node-key="Id" @node-click="handleNodeClick" :current-node-key="catData[0] ? catData[0].Id : 0" :check-on-click-node="true"></el-tree>
+    <div class="CatMain NoramlPaddingTop">
+      <transition name="slide">
+        <div key="1" v-if="!waiting" style="display:flex;">
+           <div class="DetailTitle"><img :src="BannerImg" v-show="BannerImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+      </div>
+      </transition>
+      <transition name="slide">
+        <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
+      </transition>
+        <div class="NomralBg">
+            <p class="PathData"><router-link to="/" class="HomePath">{{$t('Message.HomeTips')}}</router-link><i class="el-icon-arrow-right"></i><span class="currentTitle">{{CateName}}</span></p>
+            <div class="cms-list">
+                <div class="perData" v-for="(v,index) in ListData" :key="index" >
+                     <div class="Title"><div class="InnerBg" @click="goClick(index)" :class="'perList'+index"><span>{{v.Title}}</span><i class="Icon IconA"></i></div></div>
+                     <p v-html="v.Body" class="Content" :class="'show'+index"></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="cmsList" :class="{'hasTree': catData.length}">
-        <ul>
-            <li v-for="(cms,index) in cmsData" :key="index">
-                <router-link :to="'/cms/content/'+cms.Id">
-                    <div class="cover">
-                        <img :src="cms.Cover" />
-                    </div>
-                    <div class="introduce">
-                        <p class="title">{{cms.Title}}</p>
-                        <p class="desc">{{cms.Desc}}</p>
-                    </div>
-                </router-link>
-            </li>
-        </ul>
-    </div>
-</div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-@Component
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+@Component({
+  components: {
+    InsPage: () => import('@/components/base/pc/InsPage.vue')
+  }
+})
 export default class InsCatLayout1 extends Vue {
-    @Prop({ default: () => [] }) private catData!: object[]; // cms目录数据
-    @Prop({ default: () => [] }) private cmsData!: object[]; // cms内容数据
+    currentPage:number=1;
+    pageSize:number=9;
+    totalRecord:number=0;
+    ListData:any[]=[];
+    BannerImg:string='';
+    CateName:string='';
+    private waiting: boolean = true;
+    ActiveIndex:number=-1;
+    NoImg:string='/images/pc/proddef.jpg';
 
-    // 树形控件配置选项
-    defaultProps: object = {
-      children: 'Children',
-      label: 'Name'
-    };
-
-    handleNodeClick (data) {
-      console.log(data, 'handleNodeClick');
-      this.$emit('changeCatSelect', data.Id);
+      get cid () {
+      return this.$route.params.id;
+    }
+    GoLink(v) {
+        window.location.href = '/cms/contentN/' + v.Id;
+    }
+    goClick (v) {
+      $('.show' + v).slideToggle(300);
+      $('.perList' + v).find('.Icon').toggleClass('IconB');
+    }
+    getContentsByCatId () {
+        this.$Api.cms.getContentsByCatId(this.cid, this.currentPage, this.pageSize).then((result) => {
+            if (result) {
+                this.ListData = result.Data;
+            }
+            result.Data.forEach(function (i) {
+            var newDate = new Date(i.ContentDateTime.replace(/-/g, '-'));
+            i.ContentDateTime = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+            });
+            this.totalRecord = result.TotalRecord;
+        });
+    }
+   // 根据设备类型获取CMSCategory信息
+  getCategoryByDevice () {
+    this.$Api.cms.getCategoryByDevice({ CatId: this.cid, IsMobile: true }).then(async (result) => {
+     console.log(result, 'gggggggg');
+     this.BannerImg = result.ImagePath;
+     this.CateName = result.Name;
+      this.waiting = false;
+    }).catch((error) => {
+      console.log(error, 'error');
+      this.$message({
+        message: error,
+        type: 'error'
+      });
+    });
+  }
+    created() {
+        this.getContentsByCatId();
+        this.getCategoryByDevice();
+    }
+    @Watch('currentPage', { deep: true })
+    onPagerChange() {
+      this.getContentsByCatId();
+      this.getCategoryByDevice();
     }
 }
 </script>
 
-<style lang="less">
-.catTree {
-    .el-tree {
-        border: 2px solid @base_color;
-        border-radius: 5px;
-        div[role="treeitem"] {
-            .el-tree-node__content {
-                height: auto;
-                padding: 10px;
-
-                &:hover {
-                    background-color: unset;
-                }
-            }
-
-            &.is-current {
-                >.el-tree-node__content {
-                    background-color: @base_color;
-                    color: #fff;
-                }
-            }
-        }
-
-        > div[role="treeitem"] {
-            border-bottom: 2px solid @base_color;
-
-            &:last-child {
-                border-bottom: 0;
-            }
-        }
-    }
-}
-</style>
-
 <style scoped lang="less">
-.cmsList {
-    width: 95%;
-    margin: 2rem auto;
-
-    li {
-        border-bottom: 1px solid fade(@base_color,50%);
-
-        &:last-child {
-            border-bottom: 0;
+.pager {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.faker {
+    width: 100%;
+    height: 30rem;
+}
+.CatMain {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.NomralBg {
+  padding-top: 1rem;
+}
+.PathData {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  span,a,i{
+    font-size: 1.4rem;
+  }
+  .HomePath {
+    color: #666;
+  }
+  .currentTitle {
+    color:#9f1e3c;
+  }
+}
+.DetailTitle{
+  width: 100%;
+  display: flex;
+  flex-wrap:wrap;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  img{
+    width: 100%;
+  }
+  .TitleBg{
+    width: 5rem;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    top: 10%;
+    left: 10%;
+    position: absolute;
+    height: 12rem;
+    background:url('/images/mobile/ptx_01.png') no-repeat center center;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    .innerBoxText{
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      background-size: cover;
+      text-align: center;
+      width: 2rem;
+      margin: 0 auto;
+      padding-left: 1.5rem;
+    }
+  }
+}
+.cms-list {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    .perData {
+        width:100%;
+        display:flex;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+        .Title {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          .InnerBg {
+              width: 100%;
+              background: url(/images/mobile/ptx_26.png) no-repeat center center;
+              background-size: 100% 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              -ms-flex-negative: 0;
+              flex-shrink: 0;
+              height: 45px;
+              line-height: 45px;
+              position: relative;
+              cursor: pointer;
+              span {
+                font-size: 18px;
+                color: #b59669;
+              }
+              i {
+                margin-left: 10px;
+              }
+             .IconA {
+               background: url('/images/mobile/up.png') no-repeat center center;
+               width: 20px;
+               height: 20px;
+               background-size: 15px;
+               display: flex;
+              }
+             .IconB {
+               background: url('/images/mobile/ptx_30.png') no-repeat center center!important;
+               width: 20px;
+               height: 20px;
+               background-size: 15px;
+               display: flex;
+              }
+          }
         }
-
-        a {
+        .Content {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          /deep/ .NestContent {
+            width: 100%;
             display: flex;
-            justify-content: space-between;
-            padding: 1.5rem 1rem;
-
-            .cover {
-                width: 25%;
-                img {
-                    max-width: 100%;
-                }
+            flex-wrap: wrap;
+            margin-top: 20px;
+            .Perdata {
+              margin-bottom: 20px;
+              .redText {
+                color: @base_color;
+              }
             }
-
-            .introduce {
-                width: 70%;
-
-                .title {
-                    font-size: 1.5rem;
-                    font-weight: bold;
-                    margin-bottom: 0.5rem;
-                    color: #000;
-                }
-
-                .desc {
-                    font-size: 1.2rem;
-                    color: #535353;
-                }
+            p {
+              font-size: 1.2rem;
+              line-height: 2rem;
+              margin-bottom: 10px;
             }
-        }
-
-        &:first-child {
-            a {
-                padding-top: 0;
-            }
+          }
         }
     }
 }

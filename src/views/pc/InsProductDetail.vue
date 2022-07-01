@@ -1,27 +1,27 @@
 <template>
-<div class="productDetailWarper PcVersion">
+<div class="productDetailWarper PcVersion NomralBg">
   <div v-if="this.Permission == 3" class="IsDetailshow">
      {{$t('messageTips.NoProduct')}}
   </div>
   <div v-else>
   <div class="productDetail_container">
+    <div class="ProductUp">
+        <div class="prev" @click="getGetProductUp()"><i class="img"></i>{{$t('Message.Prev')}}</div>
+        <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<i class="img"></i></div>
+    </div>
     <div class="productDetail_main">
       <inPreview style="width:50%" :imgList="ImgList" :pageNum="userAgent === 'mobile' ?  1 : 4" :ProductTitleName="ProductTitleName"></inPreview>
       <div style="width:45%;margin-left:5%;float:right;">
-          <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-top:4rem;margin-bottom: 2rem;"></PkProductInfo>
-          <div class="ProductRate"><el-rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></div>
-          <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+          <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-bottom: 2rem;"></PkProductInfo>
           <inPanel :panelDetail.sync="PanelDetail" :ProductSku="ProductCode" @getPrice="showPrice" width="100%"></inPanel>
       </div>
     </div>
     <div class="tab_warpper">
       <div class="tab_header">
-        <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
-        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}" v-if="FrontE.version !== 1">{{$t('product.comments.title')}}</div>
+        <div class="detail_title" >{{$t('product.ProductIntroduction')}}</div>
       </div>
       <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail" v-if="Tabs.Detail!==''"></div>
       <div class="product_detail"  v-show="IsDetail" v-if="Tabs.Detail==''">{{$t('messageTips.NoContent')}}</div>
-      <inComments :ProductSku="ProductCode" v-show="!IsDetail" style="background:#FFF;min-height: 300px;"></inComments>
     </div>
   </div>
     <div class="commentsLine"></div>
@@ -100,6 +100,32 @@ export default class InsProductDetail extends Vue {
   created () {
     this.getProduct();
   }
+    // 获取上个产品
+  getGetProductUp () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, true).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('Message.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
+  }
+    // 获取下个产品
+  getGetProductDown () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, false).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('Message.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
+  }
   getProduct () {
     var that = this;
     that.ProductCode = that.$route.params.id ? that.$route.params.id : '0';
@@ -152,13 +178,6 @@ export default class InsProductDetail extends Vue {
 }
 </script>
 <style  lang="less">
-.PcVersion .product_detail p,.product_detail h3{
-  padding:2rem;
-}
-.PcVersion .product_detail h3{
-  font-size:1.4rem;
-  font-weight:100;
-}
 .PcVersion .el-rate__decimal {
     display: inline-block;
     overflow: hidden;
@@ -228,16 +247,15 @@ export default class InsProductDetail extends Vue {
 .productDetailWarper{
   width: 100%;
   display: inline-block;
-  background: #fff;
-  background-size: 100% 100%;
   box-sizing: border-box;
+  padding-top: 9rem;
   .IsDetailshow {
     width: 1200px;
     margin: 0 auto;
     text-align: center;
     padding: 60px 0;
     min-height: 400px;
-        font-size: 20px;
+    font-size: 20px;
   }
 }
 .commentsLine{
@@ -246,52 +264,38 @@ export default class InsProductDetail extends Vue {
     background: #000;
     margin-top: 100px;
 }
-.isActive{
-  color:#FFF!important;
-  background: #262626 !important;
-  border:1px solid #262626;
-}
 .productDetail_container {
   margin:0 auto;
   width:1200px;
   display: block;
   .tab_warpper{
-    margin: 5rem 0 0 0;
     .tab_header{
       display: inline-block;
       width: 100%;
-      justify-content: space-between;
       margin-bottom: 10px;
       .comment_title,.detail_title{
-        width: 20%;
-        text-align: center;
-        font-size: 20px;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        border:1px solid #000;
-        float: left;
-        margin-right:24px;
-        cursor: pointer;
-        background: #FFF;
-        border-radius: 5px;
-        color:#000;
-      }
-      .comment_title{
-        border:1px solid #000;
-        color:#000;
-        cursor: pointer;
+          width: 350px;
+          margin: 0 auto;
+          background: url(/images/mobile/ptx_26.png) no-repeat center center;
+          background-size: 100% 100%;
+          text-align: center;
+          font-size: 24px;
+          color: #b19162;
+          height: 70px;
+          line-height: 70px;
       }
     }
     .product_detail{
-      background-color: white;
       padding: 1rem;
       display: block;
       clear: both;
       min-height: 300px;
-      border:1px solid #000;
       border-radius: 5px;
-      p{
-        font-size: 1.6rem;
+      font-size: 20px;
+      color:#333333;
+      /deep/ p{
+        font-size: 20px;
+        color:#333333;
      }
     }
   }
@@ -329,5 +333,60 @@ export default class InsProductDetail extends Vue {
   margin-left: 20px;
   font-size: 24px;
   text-decoration: line-through;
+}
+.ProductUp {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  .prev {
+    .img {
+      background: url('/images/mobile/pre.png') no-repeat center center;
+      background-size: contain;
+      width: 15px;
+      height: 15px;
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+    &:hover {
+      .img {
+        background: url('/images/mobile/pre_hover.png') no-repeat center center!important;
+      }
+    }
+  }
+  .next {
+    .img {
+      background: url('/images/mobile/next.png') no-repeat center center;
+      background-size: contain;
+      width: 15px;
+      height: 15px;
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+    &:hover {
+      .img {
+        background: url('/images/mobile/next_hover.png') no-repeat center center!important;
+      }
+    }
+  }
+  .prev ,.next{
+    padding: 5px 10px;
+    border: 1px solid #9f1e3c;
+    color: #9f1e3c;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: all .3s;
+    cursor: pointer;
+    &:hover {
+      background: #9f1e3c;
+      color: #fff;
+    }
+  }
 }
 </style>

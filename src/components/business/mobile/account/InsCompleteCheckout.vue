@@ -1,5 +1,5 @@
 <template>
-    <div class="cco_warpper">
+    <div class="cco_warpper NomralBg">
       <div class="title">{{$t('CheckOut.OrderSent')}}</div>
       <div class="title">{{$t('CheckOut.PaymentProcess')}}</div>
       <div class="container" style="margint-top:2rem;">
@@ -95,6 +95,7 @@ export default class InsCompleteCheckout extends Vue {
   background-color: white;
   padding: 2rem 1rem;
   border-radius: .5rem;
+  padding-top: 5rem;
   .title{
     font-size: 2rem;
     font-weight: 600;

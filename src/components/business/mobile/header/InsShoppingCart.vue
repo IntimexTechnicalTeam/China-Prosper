@@ -57,7 +57,7 @@ export default class InsShoppingCart extends Vue {
   shopCart: ShopCart = new ShopCart();
   hiddenClick:boolean=true;
   toggleDialog () {
-    this.isShow = !this.isShow;
+    this.$router.push('/account/shoppingcart');
   }
 
   closeDialog () {
@@ -141,7 +141,7 @@ export default class InsShoppingCart extends Vue {
     transition-timing-function: ease-out;
 }
 .cart-icon {
-  background: url("/images/mobile/Mobile-index_03.png") no-repeat center center;
+  background: url("/images/mobile/cart.png") no-repeat center center;
   background-size: contain;
   position: relative;
   display: block;

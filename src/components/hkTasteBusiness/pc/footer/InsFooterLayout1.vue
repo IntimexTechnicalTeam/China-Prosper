@@ -60,6 +60,13 @@ export default class InsFooter extends Vue {
         return true;
       }
   }
+    toUrl (n) {
+    if (!n.IsNewWin && n.Url) {
+      window.location.href = n.Url;
+    } else if (n.IsNewWin && n.Url) {
+      window.open(n.Url);
+    }
+  }
   showMeun (item, index) {
     $('.sub' + index).slideToggle();
   }

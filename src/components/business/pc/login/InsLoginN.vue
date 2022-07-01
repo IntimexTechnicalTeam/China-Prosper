@@ -1,6 +1,6 @@
 <template>
   <div class="insLogin_warrper">
-      <div style="min-height:131px;">
+      <div>
         <div class="insLogin_title" v-if="!isIe">
           <div class="facebook_login" @click="fbLogin">
             <img src="/static/facebook.png" />
@@ -230,12 +230,12 @@ export default class InsLoginN extends Vue {
 .insLogin_warrper{
     width: 1200px;
     margin: 0rem auto;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     .insLogin_title{
         width: 1060px;
         margin: 0 auto;
         text-align: center;
-        padding: 20px;
+        padding: 10px;
         box-sizing: border-box;
         .facebook_login{
           display: inline-block;
@@ -259,7 +259,7 @@ export default class InsLoginN extends Vue {
     .insLogin_divide{
         white-space: nowrap;
         width: 1060px;
-        margin: 20px auto;
+        margin: 0px auto;
         .divide{
             display: inline-block;
             width: 500px;

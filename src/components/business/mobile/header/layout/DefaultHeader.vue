@@ -6,11 +6,11 @@
             <img class="slide-menu" src="/images/mobile/ptx_09.png" @click="showSlideMenu" />
             <ins-logo class="logoSide" />
             <div class="rightSide">
-                <ins-login />
                  <router-link to="/account/GetEnquiry" v-if="isPtx" class="shoppingcart">
                     <i class="handle-icon ptxicon"></i>
                 </router-link>
                 <shopcart class="shoppingcart" v-show="!isPtx" />
+                <ins-login />
             </div>
         </div>
       </div>
@@ -20,11 +20,11 @@
             <img class="slide-menu" src="/images/mobile/ptx_09.png" @click="showSlideMenu" />
             <ins-logo class="logoSide" />
             <div class="rightSide">
-                <ins-login />
                  <router-link to="/account/GetEnquiry" v-if="isPtx" class="shoppingcart">
                     <i class="handle-icon ptxicon"></i>
                 </router-link>
                 <shopcart class="shoppingcart" v-show="!isPtx" />
+                <ins-login />
             </div>
         </div>
       </div>

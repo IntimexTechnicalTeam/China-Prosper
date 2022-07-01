@@ -6,8 +6,8 @@
     <div v-else>
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
       <div class="ProductUp">
-          <div class="prev" @click="getGetProductUp()"><img src="/images/mobile/pre.png">{{$t('Message.Prev')}}</div>
-          <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<img src="/images/mobile/next.png"></div>
+          <div class="prev" @click="getGetProductUp()"><i class="img"></i>{{$t('Message.Prev')}}</div>
+          <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<i class="img"></i></div>
       </div>
       <ProductSwiper width="100%"  :imgList="ImgList" :ProductTitleName="ProductTitleName"></ProductSwiper>
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%"></PkProductInfo>
@@ -331,6 +331,26 @@ export default class ProductDetail extends Vue {
   justify-content: space-between;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  .prev {
+    .img {
+      background: url('/images/mobile/pre.png') no-repeat center center;
+      background-size: contain;
+      width: 15px;
+      height: 15px;
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+  }
+  .next {
+    .img {
+      background: url('/images/mobile/next.png') no-repeat center center;
+      background-size: contain;
+      width: 15px;
+      height: 15px;
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+  }
   .prev ,.next{
     padding: 5px 10px;
     border: 1px solid #9f1e3c;

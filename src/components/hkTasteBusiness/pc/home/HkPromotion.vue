@@ -238,6 +238,9 @@ export default class HkPromotion extends Vue {
             .TitleName {
               color: #9f1e3c;
             }
+            img {
+              border:1px solid #9f1e3c;
+            }
           }
         }
         span{
@@ -251,6 +254,7 @@ export default class HkPromotion extends Vue {
           width: 100%;
           border: 1px solid #d9c5a8;
           border-radius: 100%;
+          transition: all .3s;
         }
         .TitleName{
           color: #333333;
