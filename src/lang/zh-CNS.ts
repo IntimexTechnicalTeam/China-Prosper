@@ -72,7 +72,11 @@ export default {
     Catalog: '目录',
     AskFor: '欲查询报价，请按',
     ProductInformation: '产品资料',
-    OtherDetails: '其他资料'
+    OtherDetails: '其他资料',
+    Fav: '收藏',
+    Payments: '付款方式',
+    ProductList: '产品分类',
+    ResetOptions: '重置选项'
   },
   Account: {
     MemberCenter: '会员中心',
@@ -210,7 +214,7 @@ export default {
     UserLanguageT: '繁体',
     UserLanguageS: '简体',
     RegisterBtn: '注册',
-    RegisterAgree: '我同意购买条款和使用条款',
+    RegisterAgree: '我同意使用条款',
     RegisterEmail: '邮箱不能为空',
     RegisterEmail01: '请输入正式的邮箱格式',
     RegisterPassword: '请输入密码',

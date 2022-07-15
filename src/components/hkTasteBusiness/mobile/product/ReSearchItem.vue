@@ -131,6 +131,10 @@ export default class InsAdvancedSearch extends Vue {
        box-shadow: 0px 2px 5px #ccc;
        margin-top: 10px;
        display: none;
+       position: absolute;
+       width: 100%;
+       z-index: 999;
+       background: #fff;
         >li {
             height: 50px;
             display: flex;

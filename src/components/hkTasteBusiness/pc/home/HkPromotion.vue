@@ -18,6 +18,7 @@
               <p class="NoramlTitle"><span class="text">{{nestContent.Title}}</span></p>
                 <div class="ContentText">
                   <p v-html="nestContent.Body"></p>
+                  <p class="learnMore"><router-link to="/cms/catDetail/40113">{{$t('Message.LearnMore')}}>></router-link></p>
                 </div>
             </div>
           </div>
@@ -161,6 +162,7 @@ export default class HkPromotion extends Vue {
         font-size: 26px;
         color: #fff;
         padding-left: 3rem;
+        font-weight: 700;
       }
     }
     .nestContent {
@@ -191,6 +193,28 @@ export default class HkPromotion extends Vue {
           }
           .ContentText {
             padding-top: 4rem;
+            .learnMore {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              a {
+                width: 20%;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                text-align: center;
+                border-radius:5px;
+                border:1px solid @base_color;
+                color: @base_color;
+                transition: all .3s;
+                &:hover {
+                  background: @base_color;
+                  color: #fff;
+                }
+              }
+            }
             /deep/ p {
               font-size: 1.2rem;
               line-height: 2rem;
@@ -228,7 +252,6 @@ export default class HkPromotion extends Vue {
           background: #8f1121!important;
         }
         .borderInner {
-          border-radius: 100%;
           display: flex;
           flex-wrap: wrap;
           width: 100%;
@@ -238,12 +261,9 @@ export default class HkPromotion extends Vue {
             .TitleName {
               color: #9f1e3c;
             }
-            img {
-              border:1px solid #9f1e3c;
-            }
           }
         }
-        span{
+        .bgTitle{
           background: url(/images/pc/pcptx_12.png) no-repeat center center;
           background-size: contain;
           overflow: hidden;
@@ -263,7 +283,8 @@ export default class HkPromotion extends Vue {
           width: 100%;
           align-items: center;
           justify-content: center;
-          font-size: 20px;
+          font-size: 24px;
+          font-weight: 700;
           margin-top: 10px;
           transition: all .3s;
         }
@@ -279,6 +300,9 @@ export default class HkPromotion extends Vue {
           display: flex;
           flex-wrap: wrap;
           /deep/ p{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
             img {
               width: 100%;
             }
@@ -385,6 +409,7 @@ export default class HkPromotion extends Vue {
                     .Text {
                       font-size:22px;
                       color: #9f1e3c;
+                      font-weight: 700;
                     }
                     .IconA {
                       width: 2rem;

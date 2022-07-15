@@ -415,7 +415,7 @@ export default class InsDeliveryAddress extends Vue {
 
             .el-button {
               width: 100%;
-              background: #333;
+              background: @base_color;
               border: 0;
 
               i[class^='el-icon'] {
@@ -437,10 +437,11 @@ export default class InsDeliveryAddress extends Vue {
 
     .new-address {
       border: 1px solid #e5e5e5;
+      margin-top: 2rem;
       .common-title {
         color: #fff;
         font-size: 22px;
-        background-color: #666;
+        background-color: @base_color;
         height: 40px;
         line-height: 40px;
         cursor: pointer;
@@ -484,7 +485,7 @@ export default class InsDeliveryAddress extends Vue {
           .submit-btn {
             display: block;
             width: 100%;
-            background: #333;
+            background: @base_color;
             border: none;
             margin-top: 20px;
 

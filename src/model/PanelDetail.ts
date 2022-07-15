@@ -27,6 +27,13 @@ export default class PanelDetail {
   public set OverView (v : string) {
     this._OverView = v;
   }
+  private _Specification : string;
+  public get Specification () : string {
+    return this._Specification;
+  }
+  public set Specification (v : string) {
+    this._Specification = v;
+  }
   private _Code : string;
   public get Code () : string {
     return this._Code;
@@ -204,8 +211,15 @@ export default class PanelDetail {
   public set negotiateMinQty (v : number) {
     this._negotiateMinQty = v;
   }
+  private _CatPathName : string;
+  public get CatPathName () : string {
+    return this._CatPathName;
+  }
+  public set CatPathName (v : string) {
+    this._CatPathName = v;
+  }
   public button: Button[] = [];
-  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', attrList:ProductAttr[][] = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _negotiable:boolean = false, _Score:number = 0, _negotiateMinQty:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = []) {
+  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', Specification:string = '', CatPathName:string, attrList:ProductAttr[][] = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _negotiable:boolean = false, _Score:number = 0, _negotiateMinQty:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = []) {
     this._Name = name;
     this._Sku = sku;
     this._Code = code;
@@ -213,6 +227,7 @@ export default class PanelDetail {
     this._SalePrice = salePrice;
     this._ProductStatus = productStatus;
     this._OverView = overView;
+    this._Specification = Specification;
     this._AttrList = attrList;
     this._ExtAttrList = extAttrList;
     this._Currency = currency;
@@ -232,5 +247,6 @@ export default class PanelDetail {
     this._SoldOutAttrComboList = _SoldOutAttrComboList;
     this._AttrComboImgList = _AttrComboImgList;
     this._Permission = Permission;
+    this._CatPathName = CatPathName;
   }
 }

@@ -163,6 +163,7 @@ export default class InsCatLayout1 extends Vue {
       width: 2rem;
       margin: 0 auto;
       padding-left: 1.5rem;
+      font-weight: 700;
     }
   }
 }
@@ -193,14 +194,14 @@ export default class InsCatLayout1 extends Vue {
                 width: 100%;
                 .imgs {
                     width: calc(100% - 2px);
-                    display: flex;
-                    flex-wrap: wrap;
+                    display: inline-block;
                     border-radius: 5px;
                     overflow: hidden;
                     border: 1px solid #eee;
                     transition: all .3s;
                     img {
                         width: 100%;
+                        display: block;
                     }
                 }
             }
@@ -222,6 +223,7 @@ export default class InsCatLayout1 extends Vue {
                 .contentTime {
                     font-size: 18px;
                     color: #999999;
+                    font-family: '宋体';
                 }
                  .desc {
                     font-size: 18px;

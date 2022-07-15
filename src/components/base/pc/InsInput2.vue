@@ -356,7 +356,6 @@ this.error =
   .error {
     font-size: 1.2rem;
     color: red;
-    position: absolute;
   }
 }
 .input_warpper {

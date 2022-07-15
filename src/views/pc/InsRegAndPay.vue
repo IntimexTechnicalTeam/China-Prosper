@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="NormalTop NomralBg">
       <div class="RNPForm default">
       <div class="FormMain">
         <div v-html="htmlString" class="to_vertical" id="content"></div>
@@ -99,4 +99,7 @@ export default class InsRegAndPay extends Vue {
 </style>
 <style lang="less" scoped>
 @import "../../assets/less/regnpay.less";
+/deep/ .RNPResult.default {
+  background-color: transparent!important;
+}
 </style>

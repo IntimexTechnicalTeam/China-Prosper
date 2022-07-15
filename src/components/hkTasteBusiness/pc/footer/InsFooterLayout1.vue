@@ -19,15 +19,8 @@
           </div>
           <p class="footerLogo"><img src="/images/mobile/ptx_04.png"></p>
           <div class="footerAccept" v-if="!isPtx">
-            <p>{{$t('home.Weaccept')}}</p>
-            <div>
-              <img src="/images/payment/stripe.png" />
-              <img src="/images/payment/WeChatPay.png" />
-              <img src="/images/payment/Alipay.png" />
-              <img src="/images/payment/PayMe.png" />
-              <img src="/images/payment/Paypal.png" />
-              <img src="/images/payment/MasterCard.png" />
-              <img src="/images/payment/VISA.png" />
+            <div class="InnerContent">
+                <span>{{$t('Message.Payments')}}</span><img src="/images/mobile/payment.png" />
             </div>
           </div>
           <div class="footerCpy">
@@ -132,15 +125,18 @@ export default class InsFooter extends Vue {
     }
     .footerAccept{
       width: 100%;
-      >p{
-        font-size: 1.4rem;
-        color:#fff;
+      .InnerContent {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
-        margin-bottom: 1rem;
-      }
-
-      >div {
+        margin-top: 1rem;
+        span {
+        font-size: 18px;
+        color: #fff;
         text-align: center;
+        }
         img {
           height: 2.5rem;
           margin: 0.3rem 0.5rem;

@@ -2,12 +2,12 @@
   <div class="PromotionMain">
        <div class="productCat">
           <p class="NoramlTitle"><span class="text">{{productCatName}}</span></p>
-          <swiper class="swiper-no-swiping" :options="productCatOption" ref="mySwiper" v-if="productCatData.length">
+          <swiper class="swiper-no-swiping" :options="productCatOption" ref="mySwiper" v-if="productCatData.length > 0">
             <!-- slides -->
             <swiper-slide v-for="(slide, index) in productCatData" :key="index">
               <a :href="'/product/search/-?' + 'catalogs=' + JSON.stringify([slide.Id]) + '&type=0'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''" class="borderInner">
-                <img :src="slide.Img" />
-                <p>{{slide.Name}}</p>
+                <span class="bgTitle"><img :src="slide.Img" /></span>
+                <p class="TitleName">{{slide.Name}}</p>
               </a>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination" v-if="productCatOption.pagination"></div>
@@ -19,6 +19,7 @@
               <p class="NoramlTitle"><span class="text">{{nestContent.Title}}</span></p>
                 <div class="ContentText">
                   <p v-html="nestContent.Body"></p>
+                  <p class="learnMore"><router-link to="/cms/catDetail/40113">{{$t('Message.LearnMore')}}>></router-link></p>
                 </div>
             </div>
           </div>
@@ -70,15 +71,14 @@ export default class HkPromotion extends Vue {
     return this.$Storage.get('locale');
   }
   productCatOption: any = {
+    slidesPerView: 2,
+    spaceBetween: 20,
+    observer: true, // 修改swiper自己或子元素时，自动初始化swiper
+    observeParents: true, // 修改swiper的父元素时，自动初始化swiper
     pagination: {
       el: '.swiper-pagination',
       clickable: true
-    },
-    slidesPerView: 2,
-    spaceBetween: 20,
-    autoHeight: true, // 高度随内容变化
-    observer: true, // 修改swiper自己或子元素时，自动初始化swiper
-    observeParents: true // 修改swiper的父元素时，自动初始化swiper
+    }
   };
     getProductCat () {
     // 获取产品详情数据
@@ -189,6 +189,24 @@ export default class HkPromotion extends Vue {
           }
           .ContentText {
             padding-top: 4rem;
+            .learnMore {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-top: 1rem;
+              margin-bottom: 1rem;
+              a {
+                width: 40%;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                text-align: center;
+                border-radius:5px;
+                border:1px solid @base_color;
+                color: @base_color;
+                font-size: 1.2rem;
+              }
+            }
             /deep/ p {
               font-size: 1.2rem;
               line-height: 2rem;
@@ -227,9 +245,7 @@ export default class HkPromotion extends Vue {
           background: #8f1121!important;
         }
         .borderInner {
-          border-radius: 100%;
           overflow: hidden;
-          border:1px solid #9f1e3c;
           display: flex;
           flex-wrap: wrap;
           width: 100%;
@@ -237,22 +253,28 @@ export default class HkPromotion extends Vue {
           position: relative;
         }
         img {
-          width: 170px;
-          height: 170px;
+          width: 100%;
+          border: 1px solid #d9c5a8;
+          border-radius: 100%;
+          transition: all .3s;
         }
-        p{
-          height: 3rem;
-          background: #9f1e3c;
-          color: #fff;
+        .bgTitle{
+          background: url(/images/pc/pcptx_12.png) no-repeat center center;
+          background-size: contain;
+          overflow: hidden;
+          display: inline-block;
+          padding: 2rem;
+        }
+        .TitleName{
+          color: #333333;
           display: flex;
           flex-wrap: wrap;
           width: 100%;
           align-items: center;
           justify-content: center;
-          position: absolute;
-          bottom: 0px;
-          left: 0px;
-          font-size: 1.4rem;
+          font-size: 20px;
+          margin-top: 10px;
+          transition: all .3s;
         }
       }
     }
@@ -325,6 +347,9 @@ export default class HkPromotion extends Vue {
             display: flex;
             flex-wrap: wrap;
             /deep/ p{
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
               img {
                 width: 100%;
               }
@@ -362,6 +387,7 @@ export default class HkPromotion extends Vue {
                   .Text {
                     font-size: 1.4rem;
                     color: #9f1e3c;
+                    font-weight: 700;
                   }
                   .IconA {
                     width: 2.5rem;

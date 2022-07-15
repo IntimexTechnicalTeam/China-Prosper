@@ -148,7 +148,7 @@ export default class InsComments extends Vue {
     padding:20px 20px 0 20px;
     border-radius: 5px;
     min-height: 20rem;
-    border:1px solid #000;
+    font-size: 20px;
     >.show_comment_img{
         position: fixed;
         top: 0;
@@ -247,7 +247,7 @@ export default class InsComments extends Vue {
   .owner{
     font-size: 16px;
     margin-bottom:5px;
-    color:#333333;
+    color:@base_color;
     font-weight: 700;
   }
 }

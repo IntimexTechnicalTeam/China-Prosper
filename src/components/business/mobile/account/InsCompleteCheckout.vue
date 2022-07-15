@@ -93,9 +93,8 @@ export default class InsCompleteCheckout extends Vue {
 .cco_warpper{
   min-height: 12rem;
   background-color: white;
-  padding: 2rem 1rem;
-  border-radius: .5rem;
-  padding-top: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 2rem;
   .title{
     font-size: 2rem;
     font-weight: 600;

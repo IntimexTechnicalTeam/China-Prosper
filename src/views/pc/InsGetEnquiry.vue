@@ -1,5 +1,5 @@
 <template>
-<div class="warper NomralBg">
+<div class="warper NomralBg NormalTop">
     <el-form
         :model="ruleForm"
         :rules="rules"

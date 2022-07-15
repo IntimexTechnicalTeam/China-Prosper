@@ -88,6 +88,9 @@ export default class InsCmsContentN extends Vue {
       font-weight: 700;
       word-break: break-word;
     }
+    /deep/ img {
+      max-width: 100%;
+    }
   }
 }
 </style>

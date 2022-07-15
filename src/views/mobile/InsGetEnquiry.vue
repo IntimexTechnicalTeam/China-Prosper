@@ -1,5 +1,5 @@
 <template>
-<div class="warper">
+<div class="warper NomralBg">
     <el-form
         :model="ruleForm"
         :rules="rules"
@@ -360,6 +360,7 @@ export default class InsAddEnquiry extends Vue {
     border-bottom: 0px!important;
     padding-top: 5px;
     padding-bottom: 5px;
+    align-items: center;
 }
 .colorStyle {
     background: #ddd!important;
@@ -422,7 +423,7 @@ export default class InsAddEnquiry extends Vue {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        width: 45%!important;
+        width: 20%!important;
         line-height: initial;
         padding-top: 0px!important;
         padding-bottom: 0px!important;

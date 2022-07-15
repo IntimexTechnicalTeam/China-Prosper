@@ -5,7 +5,7 @@
     </div>
     <div v-else>
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
-      <div class="ProductUp">
+      <div class="ProductUp" v-if="isPtx">
           <div class="prev" @click="getGetProductUp()"><i class="img"></i>{{$t('Message.Prev')}}</div>
           <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<i class="img"></i></div>
       </div>
@@ -13,14 +13,25 @@
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%"></PkProductInfo>
       <inPanel :panelDetail="PanelDetail" width="100%" :ProductSku="ProductSku"  @getPrice="showPrice" itemscopestyle="margin-top:2rem;"></inPanel>
     </div>
-    <div class="tab_warpper">
+    <div class="tab_warpper" v-if="isPtx">
       <div class="tab_header">
         <div class="detail_title">{{$t('product.ProductIntroduction')}}</div>
       </div>
       <div class="clear"></div>
       <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail && Tabs.Detail!=''"></div>
       <div class="product_detail" v-show="IsDetail" v-if="Tabs.Detail==''"><h3>{{$t('messageTips.NoContent')}}</h3></div>
-      <!-- <inComments :ProductSku="ProductSku" v-show="!IsDetail"></inComments> -->
+    </div>
+   <div class="tab_warpper" v-else>
+      <div class="tab_header">
+        <div class="tab_inner">
+          <div class="detail"   @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
+          <div class="comment"  @click="IsDetail=false"  v-if="FrontE.version !== 1" v-bind:class="{isActive:!IsDetail}">{{$t('product.comments.title')}}</div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail && Tabs.Detail!=''"></div>
+      <div class="product_detail" v-show="IsDetail" v-if="Tabs.Detail==''"><h3>{{$t('messageTips.NoContent')}}</h3></div>
+      <inComments :ProductSku="ProductSku" v-show="!IsDetail"></inComments>
     </div>
     <div class id="tab"></div>
     <inYouWouldLike
@@ -65,7 +76,7 @@ import ProductListSwiper from '@/components/hkTasteBusiness/mobile/product/HkPro
 export default class ProductDetail extends Vue {
   private Slider: YouWouldLike[] = [];
   private Tabs: Tab = new Tab('none');
-  private PanelDetail: PanelDetail = new PanelDetail('', '', '', '', 0, 0, 0, 0, '');
+  private PanelDetail: PanelDetail = new PanelDetail('', '', '', '', 0, 0, 0, 0, '', '', '', '');
   private Src: string = '';
   private ImgList: string[] = [];
   private ExtAttrList: any[] = [];
@@ -79,6 +90,13 @@ export default class ProductDetail extends Vue {
   private PriceC:number=0;
   private ProductTitleName:string = '';
   private Permission: string = '';
+  get isPtx () {
+      if (localStorage.getItem('isPtx') === '0') {
+        return false;
+      } else {
+        return true;
+      }
+  }
   getProduct () {
     this.ProductSku = this.$route.params.id ? this.$route.params.id : '0';
     // 获取产品详情数据
@@ -193,11 +211,11 @@ export default class ProductDetail extends Vue {
       display: inline-block;
       &:nth-child(1){
         font-size: 1.6rem;
+        color: #ca3636;
       }
       &:nth-child(2){
-        font-size:2rem;
-        color:#b40606;
-        font-weight: 700;
+        font-size:1.6rem;
+        color:#ca3636;
       }
     }
   }
@@ -230,11 +248,6 @@ export default class ProductDetail extends Vue {
   margin: 0 auto;
   margin-top: .5rem;
 }
-.isActive{
-  color:#FFF!important;
-  background: #262626 !important;
-  border:1px solid #262626!important;
-}
 .productDetail_container {
   width: 100%;
   background-size: 100% 100%;
@@ -253,6 +266,36 @@ export default class ProductDetail extends Vue {
     .tab_header{
       width: 90%;
       margin:0 auto;
+      .tab_inner {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .detail {
+        width: 48%;
+         background: url('/images/mobile/normalbg.png') no-repeat center center;
+         background-size: 100% 100%;
+         height: 50px;
+         line-height: 50px;
+         font-size: 1.6rem;
+         text-align: center;
+         color:#b19162;
+        }
+        .comment {
+          width: 48%;
+          background: url('/images/mobile/normalbg.png') no-repeat center center;
+          background-size: 100% 100%;
+          height: 50px;
+          line-height: 50px;
+          font-size: 1.6rem;
+          text-align: center;
+          color:#b19162;
+        }
+        .isActive {
+          background: url('/images/mobile/selectBg.png') no-repeat center center!important;
+          background-size: 100% 100%!important;
+        }
+      }
       .detail_title{
          width: 100%;
          background: url('/images/mobile/ptx_26.png') no-repeat center center;
@@ -274,14 +317,19 @@ export default class ProductDetail extends Vue {
       margin-top: 1rem;
       margin-bottom: 1rem;
       h3 {
-        font-size: 1.2rem;
-        line-height: 1.8rem;
+        font-size: 1.4rem;
+        line-height: 2rem;
         color: #333333;
         font-weight: 500;
       }
       /deep/ p{
-        font-size: 1.2rem;
-        line-height: 1.8rem;
+        font-size: 1.4rem;
+        line-height: 2rem;
+        color: #333333;
+     }
+     /deep/ span{
+        font-size: 1.4rem!important;
+        line-height: 2rem;
         color: #333333;
      }
     }

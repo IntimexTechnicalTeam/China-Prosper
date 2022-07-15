@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="NotificationMain">
+  <div id="container" class="NotificationMain NomralBg">
     <accountHeader />
     <p class="pageTitle">{{ $t("Notification.MyMessages") }}</p>
     <div id="main-content">

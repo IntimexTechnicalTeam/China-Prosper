@@ -1,13 +1,13 @@
 <template>
   <div class="in_preview_warpper pkswiperN">
       <div v-if="!isClick">
-        <swiper :options="swiperOption" ref="mySwiper" v-if="imgList.length>0">
+        <swiper :options="swiperOptionNew" ref="mySwiper" v-if="imgList.length>0">
             <!-- slides -->
             <swiperSlide v-for="(slide, index) in imgList" :key="index">
                 <img :src="slide[0]" class="BannerImg"  @click="viewImg(index)">
             </swiperSlide>
         </swiper>
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination peswiper"></div>
       </div>
       <div class="AttrImg" v-else>
            <img :src="AttrImg" class="BannerImg"  @click="viewImg(0)">
@@ -45,9 +45,9 @@ export default class PkProductSwiper extends Vue {
   @Prop() private readonly imgList!: string[];
   @Prop() private readonly ProductTitleName!: string[];
   private currentIndex = 0;
-      swiperOption: object = {
+      swiperOptionNew: object = {
         pagination: {
-          el: '.swiper-pagination',
+          el: '.peswiper',
           clickable: true
         }
       };

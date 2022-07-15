@@ -5,7 +5,7 @@ function fbLogin () {
     checkLoginState();
   }, { scope: 'email' });
 }
-appid = '1158481254532659';
+appid = '4999877723471455';
 function checkLoginState () {
   FB.getLoginStatus(function (response) {
     statusChangeCallback(response);

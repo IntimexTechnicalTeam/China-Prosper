@@ -17,7 +17,7 @@
         </div>
       <div class="selectBar">
           <ul>
-            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('product.Filter')}}</b></li>
+            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('Message.ProductList')}}</b></li>
             <li  class="sortBox">
               <p class="sortTitle" @click.stop="showList=!showList">
                 {{$t('product.SortBy')}}

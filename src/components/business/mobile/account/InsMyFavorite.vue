@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="container" class="NomralBg">
     <!--main-content-->
     <accountHeader/>
     <p class="pageTitle">{{$t('MyFavorite.MyFavorite')}}</p>

@@ -1,5 +1,5 @@
 <template>
-    <div class="add_comments_warpper mobileComments">
+    <div class="add_comments_warpper mobileComments NomralBg">
         <div class="product_and_comments" >
             <el-card :body-style="{ padding: '0px',margin:'0px' }" shadow="never" v-for="(item,index) in commentsList" :key="index">
                 <div class="warpper">
@@ -119,6 +119,9 @@ export default class InsAddComments extends Vue {
 <style lang="less">
 .NormalBg{
   z-index: 9999999!important;
+}
+.mobileComments {
+     padding-top: 6rem!important;
 }
 .mobileComments .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;

@@ -1,6 +1,7 @@
 <template>
-    <div class="in_pdWindow_page_item" :style="styla" @mouseenter="Enter=true" @mouseleave="Enter=false" @click="click" v-if="item">
-        <img :src="(item.Image?item.Image:item.Img_L?item.Img_L:item.Img)"  :class="{'height_line':Enter}" :style="imgStyla" :data-key="item.Sku" @error="loadError" />
+    <div class="in_pdWindow_page_item" :style="styla" @mouseenter="Enter=true" @mouseleave="Enter=false"  v-if="item">
+        <img :src="(item.Image?item.Image:item.Img_L?item.Img_L:item.Img)"   :style="imgStyla" :data-key="item.Sku" @error="loadError"  @click="goUrl(item)"/>
+        <div class="fav" v-if="!isPtx"><img :src="item.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click.stop="addToFavorite(item)" /></div>
         <div class="in_pdWindow_item_description">
              <router-link :to="'/product/detail/'+item.Sku" class="in_pdWindow_item_title" >&nbsp;{{item.Name}}</router-link >
             <!-- <div class="in_pdWindow_item_code">&nbsp;{{item.Code}}</div> -->
@@ -21,13 +22,16 @@ export default class InsProductWindow extends Vue {
     @Prop() private item!:YouWouldLike;
     @Prop() private imgStyla!:string;
     @Prop() private styla!:string;
-  get isPtx () {
-      if (localStorage.getItem('isPtx') === '0') {
-        return false;
-      } else {
-        return true;
-      }
-  }
+    get isPtx () {
+        if (localStorage.getItem('isPtx') === '0') {
+          return false;
+        } else {
+          return true;
+        }
+    }
+    goUrl (val) {
+      window.location.href = '/product/detail/' + val.Sku;
+    }
     buttonSubmit (item) {
       this.$router.push({
         path: '/product/detail',
@@ -37,9 +41,28 @@ export default class InsProductWindow extends Vue {
         }
       });
     }
-    click (e) {
-      let target = e.target as HTMLElement;
-      if (target.nodeName === 'IMG') { this.$router.push('/product/detail/' + target.dataset.key); };
+    addToFavorite (p) {
+      if (p.IsFavorite) {
+        this.$Api.member.removeFavorite(p.Sku).then((result) => {
+          p.IsFavorite = false;
+          this.$message({
+            message: this.$t('MyFavorite.RemoveSuccess') as string
+          });
+        });
+      } else {
+        this.$Api.member.addFavorite(p.Sku).then((result) => {
+          if (result.Succeeded) {
+            p.IsFavorite = true;
+            this.$message({
+              message: this.$t('MyFavorite.AddSuccess') as string,
+              type: 'success',
+              customClass: 'messageboxNoraml'
+            });
+          } else {
+            this.$router.push('/Account/login');
+          }
+        });
+      }
     }
     loadError (e) {
       e.target.src = '/static/Image/proddef.jpg';
@@ -79,6 +102,19 @@ export default class InsProductWindow extends Vue {
 }
 </style>
 <style lang="less" scoped>
+.in_pdWindow_page_item {
+  position: relative;
+  .fav {
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    top: .5rem;
+    right: .5rem;
+    img {
+      width: 100%;
+    }
+  }
+}
 .in_pdWindow_page_item img {
   box-sizing: border-box;
   cursor: pointer;

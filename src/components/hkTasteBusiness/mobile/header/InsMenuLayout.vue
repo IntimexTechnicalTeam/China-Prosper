@@ -3,7 +3,13 @@
         <div class="header_logo" v-if="!this.FrontE.slideMenu.Embedded">
             <i class="el-icon-close" @click="closeSlideMenu"></i>
         </div>
-        <div class="topLang"><InsLangSwitch/></div>
+        <div class="topLang">
+          <div class="left"><InsLangSwitch/></div>
+          <div class="right" v-if="!isPtx">
+                <router-link to="/account/myFavorite" class="favImg"><img src="/images/mobile/unfav.png"></router-link>
+                <InsCodeSelect class="codeSelect"/>
+          </div>
+        </div>
         <div class="search-box">
             <div class="search-input">
                 <input type="text" v-model="key" @keyup.enter="search" />
@@ -24,7 +30,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   components: {
     InsLogo: () => import('@/components/base/mobile/InsLogo.vue'),
     Menu: () => import('@/components/business/mobile/header/InsElMenu.vue'),
-    InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue')
+    InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue'),
+    InsCodeSelect: () => import('@/components/business/mobile/header/InsCodeSelect.vue')
   }
 })
 export default class InsMenuLayout extends Vue {
@@ -38,7 +45,13 @@ export default class InsMenuLayout extends Vue {
     value: 1,
     label: 'CMS'
   }];
-
+  get isPtx () {
+      if (localStorage.getItem('isPtx') === '0') {
+        return false;
+      } else {
+        return true;
+      }
+  }
   private searchType: number = 0;
 
   handleOpen (key, keyPath) {
@@ -297,6 +310,22 @@ export default class InsMenuLayout extends Vue {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  .left {
+    width: 48%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .right {
+    width: 48%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
 }
 /deep/ .langSwitch {
     font-size: 1.5rem;

@@ -48,15 +48,18 @@ export default class InsCodeSelect extends Vue {
 </style>
 <style scoped lang="less">
 .main-code {
-  display: inline-block;
-
+  display: flex;
+  width: 6rem;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
   select {
       width: 100%;
-      background: transparent url('/images/mobile/arrow-down-back.png')  80% 50% no-repeat;
+      background: transparent url('/images/mobile/arrowbase.png')  90% 50% no-repeat;
       background-size: 1rem;
       border:none;
       box-sizing: border-box;
-      color:#666666;
+      color: @base_color;
       appearance: none;
       -moz-appearance: none;
       -webkit-appearance: none;

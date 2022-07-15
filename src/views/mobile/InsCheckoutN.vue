@@ -144,8 +144,8 @@
         </div>
     </div>
     <div class="btn_warpper">
-      <InsButton style="display:inline-block;margin-top:20px" class="btnStyle" width="100%" size="middle" :nama="$t('CheckOut.Checkout')" @click="checkOut" :loading="COloading"/>
-      <InsButton v-show="checkouting" style="display:inline-block;" class="btnStyle" width="100%" size="middle" :nama="$t('CheckOut.BacktoShoppingCart')" @click="Hyperlink"  />
+      <InsButton  class="btnStyle" width="100%" size="middle" :nama="$t('CheckOut.Checkout')" @click="checkOut" :loading="COloading"/>
+      <InsButton v-show="checkouting" class="btnStyle" width="100%" size="middle" :nama="$t('CheckOut.BacktoShoppingCart')" @click="Hyperlink"  />
     </div>
   </div>
 </template>
@@ -574,9 +574,6 @@ export default class InsCheckoutN extends Vue {
       border: solid 1px transparent;
   }
 }
-.btnStyle span{
-    font-size: 1.4rem;
-  }
 .payment_item .el-radio{
   display: inline-flex;
   align-items: center;
@@ -584,6 +581,13 @@ export default class InsCheckoutN extends Vue {
 </style>
 <style lang="less" scoped>
     // min-height: calc(100vh - 402px);
+    .btnStyle {
+      margin: 0px;
+      margin-bottom: 10px;
+      /deep/ span {
+        font-size: 1.4rem;
+      }
+    }
     /deep/ .shoppingcart_item_name {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -657,7 +661,7 @@ export default class InsCheckoutN extends Vue {
               vertical-align: middle;
           }
           .payment_item_img img{
-              height: 40px;
+              height: 60px;
           }
       }
     }
@@ -688,7 +692,7 @@ export default class InsCheckoutN extends Vue {
                   top: 50%;
                   left: 50%;
                   transform: translate(-50%, -50%);
-                  font-size: 1.6rem;
+                  font-size: 14px;
               }
           }
           .price_item{
@@ -696,7 +700,7 @@ export default class InsCheckoutN extends Vue {
             justify-content: space-between;
             padding: 20px 0;
             span{
-              font-size: 1.4rem;
+              font-size: 14px;
             }
           }
           .discount,.price{

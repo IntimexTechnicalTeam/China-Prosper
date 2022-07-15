@@ -1,5 +1,5 @@
 <template>
-    <div class="add_comments_warpper PcComments">
+    <div class="add_comments_warpper PcComments NomralBg">
         <div class="product_and_comments" >
             <el-card :body-style="{ padding: '0px' }" shadow="hover" v-for="(item,index) in commentsList" :key="index">
                 <div class="warpper">
@@ -120,6 +120,9 @@ export default class InsAddComments extends Vue {
 <style lang="less">
 .NormalBg{
   z-index: 9999999!important;
+}
+.PcComments {
+  padding-top: 6.8rem!important;
 }
 .PcComments .el-button--primary{
     background-color: @base_color;

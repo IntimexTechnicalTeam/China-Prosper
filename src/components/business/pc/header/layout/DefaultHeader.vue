@@ -8,8 +8,9 @@
             </div>
             <div class="rightside">
                 <p class="Langcode">
+                   <router-link to="/account/myFavorite" class="favImg" v-if="!isPtx"><img src="/images/mobile/favwhite.png"></router-link>
+                   <CodeSelect v-if="!isPtx" />
                   <InsLangSwitch class="lang"></InsLangSwitch>
-                  <CodeSelect v-if="!isPtx" />
                 </p>
                 <div class="Search">
                   <div class="search-box">
@@ -160,6 +161,13 @@ export default class DefaultHeader extends Vue {
   width: 100%;
   display: flex;
 }
+.favImg {
+  width: 30px;
+  height: 30px;
+  img {
+    width: 100%;
+  }
+}
 .headerBg{
    width: 100%;
    background:url('/images/pc/pcptx_05.jpg') no-repeat center center;
@@ -229,7 +237,7 @@ export default class DefaultHeader extends Vue {
 // new css
 .header-layout {
  /deep/ .header_menu {
-   width: 80%;
+   width: 100%;
    > ul {
      > li {
       float: left;
@@ -238,13 +246,13 @@ export default class DefaultHeader extends Vue {
       position: relative;
       > a {
         width: 100%;
-        font-size: 18px;
+        font-size: 22px;
         color: #ffffff;
         display: block;
         text-align: center;
         font-weight: 500;
         text-transform: uppercase;
-        padding: 10px 5px;
+        padding: 5px 20px;
       }
 
       &:hover{
@@ -256,16 +264,21 @@ export default class DefaultHeader extends Vue {
       }
 
       ul {
-        box-shadow: 0 0 5px #ccc;
-
+        width: 200px;
+        left: 50%;
+        transform: translate(-50%);
+        box-shadow: #ddd 0px 1px 1px 0px;
         li {
           border:0;
           border-bottom: 1px solid #eee;
+          &:first-child {
+            margin-top: 10px;
+          }
           &:last-child {
               border:0!important;
           }
           > a {
-            font-size: 16px;
+            font-size: 22px;
             color: #333333;
             display: block;
             text-align: center;

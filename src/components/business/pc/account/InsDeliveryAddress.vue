@@ -385,8 +385,7 @@ export default class InsDeliveryAddress extends Vue {
     .select-delivery-address {
       .select-delivery-one {
         box-sizing: border-box;
-        padding: 10px;
-
+        margin-bottom: 20px;
         .OrderCard {
           display: inline-block;
           width: 100%;
@@ -447,7 +446,7 @@ export default class InsDeliveryAddress extends Vue {
       .common-title {
         color: #fff;
         font-size: 22px;
-        background-color: #666;
+        background-color: @base_color;
         height: 40px;
         line-height: 40px;
         cursor: pointer;
@@ -490,7 +489,7 @@ export default class InsDeliveryAddress extends Vue {
         .submit-btn {
           display: block;
           width: 100%;
-          background: #333;
+          background: @base_color;
           border: none;
           margin-top: 20px;
 

@@ -12,7 +12,7 @@
         @changePrice="AdditionalPrice"
       ></inSelect>
       <div v-if="isPtx===false">
-        <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>
+        <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty"></inNum>
       </div>
       <div v-else>
         <el-input-number v-model="panelDetail.negotiateMinQty" :min="panelDetail.MinPurQty"  :label="$i18n.t('product.countTitle')"></el-input-number>
@@ -262,19 +262,6 @@ export default class Panel extends Vue {
 }
 </style>
 <style lang="less">
-.PcVersion .in_panel_footer .addToCart {
-    border: 1px solid #242424!important;
-    background: #fff!important;
-    color: #242424!important;
-    width: 35%!important;
-}
-.PcVersion .in_panel_footer .buyNow{
-    border: 1px solid #262626!important;
-    background: #262626!important;
-    background-size: contain;
-    color: #fff;
-    width: 35%!important;
-}
 .PcVersion  .el-button{
   padding: 20px 10px!important;
 }
@@ -288,7 +275,7 @@ export default class Panel extends Vue {
   font-size: 18px;
 }
 .PcVersion  .in_num_label{
-  display: inline-block;
+  display: block;;
   width: auto!important;
   margin-right: 1rem;
 }
@@ -298,8 +285,9 @@ export default class Panel extends Vue {
   width: 4rem;
 }
 .PcVersion  .el-input-number {
-  border: 1px solid #cab597;
+  border: 1px solid #e6e6e6;
   width: auto;
+  height: 38px;
 }
 .PcVersion  .el-input-number__decrease {
   left: 0px;
@@ -310,25 +298,26 @@ export default class Panel extends Vue {
 .PcVersion  .el-input-number__decrease,.PcVersion .el-input-number__increase{
     width: 2rem !important;
     top:0px!important;
-    background: #cab597;
+    background: #f5f5f5;
     border-radius: 0px;
 }
 .PcVersion .el-input-number__decrease i, .el-input-number__increase i{
-  color:#fff;
+  color:#666666;
 }
 .PcVersion .el-input-number .el-input__inner{
   padding-left: 0rem;
   padding-right: 0rem;
   background: transparent!important;
   width: 10rem;
-  line-height: 2rem!important;
-  height: 2rem!important;
   color:#000!important;
   font-weight: 500;
   font-size: 1.4rem;
 }
 </style>
 <style lang="less" scoped>
+/deep/ .in_num_main {
+  display: block!important;
+}
 .productTips {
   font-size: 1.2rem;
   color: #9f1e3c;
@@ -341,17 +330,6 @@ export default class Panel extends Vue {
     width: 49%;
     display: block;
     text-align: center;
-}
-.in_panel_footer .addToCart{
-  border:1px solid #f8ae57;
-  background: #fff;
-  color:#f8ae57;
-}
-.in_panel_footer .buyNow{
-  border:1px solid #f8ae57;
-  background: url('/static/Image/buynowbg.jpg') repeat-x center center;
-  background-size: contain;
-  color:#fff;
 }
 @media screen and (max-width: 800px)  {
   .in_panel_warpper {
@@ -453,8 +431,9 @@ export default class Panel extends Vue {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #333333;
-        background-color: #333333;
+        background: url(/images/pc/btnbg_03.jpg) no-repeat center center;
+        background-size: cover;
+        width: 100%;
         color: #fff;
         border-radius: 3px;
         transition: .1s;
@@ -471,21 +450,19 @@ export default class Panel extends Vue {
         }
       }
       .in_btn {
-        height: 60px;
-        font-size: 24px;
-        color: @base_color;
+        height: 50px;
+        font-size: 20px;
+        background: url(/images/pc/btnbg_03.jpg) no-repeat center center;
+        background-size: cover;
+        width: 100%;
+        color: #fff;
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        background-color: unset;
         border-radius: 5px;
         transition: .1s;
-        &:hover{
-          transform: translateY(-3px);
-        }
+        font-weight: 700;
         &:first-child {
-          background-color: @base_color;
-          color: #fff;
           margin-right: 4%;
         }
       }

@@ -1,19 +1,19 @@
 <template>
-    <li class="NsReSearchItem">
-        <p class="category">
+    <li class="NsSearchItem">
+          <p class="category">
           {{searchGroup.Name}}
-            <i class="el-icon-arrow-up colorstyle"  @click="isOpen = !isOpen" v-if="!isOpen"></i>
+            <i class="el-icon-arrow-up"  @click="isOpen = !isOpen" v-if="!isOpen"></i>
             <i class="el-icon-arrow-down" @click="isOpen = !isOpen" v-else></i>
         </p>
-        <transition name="fade">
-        <ul :class="{'open': isOpen}" >
+          <transition name="fade">
+          <ul :class="{'open': isOpen}">
             <li class="viewall" :class="{'borderLine':isAll}">
-                <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)" style="display:none;">
+                <input type="checkbox" :id="searchGroup.Name+'-All'" v-model="isAll" @click="checkAll($event,searchGroup)"  style="display:none;">
                 <label :for="searchGroup.Name+'-All'" >{{$t('Message.All')}}</label>
             </li>
             <li v-for="(child, index2) in (searchType === 1 ? searchGroup.AttrValues : searchType === 2 ? searchGroup.Children : [])" :key="index2">
-                <input style="display:none;" type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)">
-                <label :for="child.Name+index2"  @click="checkLi(index2)">{{child.Name}}</label>
+                <input type="checkbox" :id="child.Name+index2" :value="child.Id" v-model="checkedValue" @click="selectAttr(searchGroup)"  style="display:none;">
+                <label :for="child.Name+index2" @click="checkLi(index2)">{{child.Name}}</label>
             </li>
             <!-- <i class="el-icon-plus" @click="isOpen = !isOpen" v-if="!isOpen"></i>
             <i class="el-icon-minus" @click="isOpen = !isOpen" v-else></i> -->
@@ -28,7 +28,7 @@ export interface attrItem {
   Vals: number[]
 }
 @Component
-export default class NsNsReSearchItem extends Vue {
+export default class InsAdvancedSearch extends Vue {
     @Prop({ default: () => {} }) private searchGroup!: any;
     @Prop({ default: () => [] }) private defaultSelected!: number[];
     @Prop({ default: 1 }) private searchType!: number; // 搜索数据类型（1 => 产品属性， 2 => 产品目录）
@@ -37,13 +37,11 @@ export default class NsNsReSearchItem extends Vue {
     isAll: boolean = false; // 是否全选
     checkedValue: number[] = []; // 选中的产品属性值
     selectedAttrs: attrItem[] = []; // 选中的产品属性值
-    showSubmeun () {
-      this.isOpen = !this.isOpen;
-    }
+    isCheck:number = -1;
+    //  全选（产品属性）
     checkLi (val) {
       $('.toggleLi' + val).toggleClass('borderLine');
     }
-    //  全选（产品属性）
     checkAll (e, attr) {
       console.log('checkAll');
       let a = e.target.checked;
@@ -107,7 +105,7 @@ export default class NsNsReSearchItem extends Vue {
 }
 </script>
 <style scoped lang="less">
-.NsReSearchItem {
+.NsSearchItem {
       .colorstyle {
         color: @base_color;
       }
@@ -118,9 +116,6 @@ export default class NsNsReSearchItem extends Vue {
         border-radius: .5rem;
         background: #fff;
         margin-top: 1rem;
-        label {
-          color: @base_color!important;
-        }
       }
       p.category {
         width: 100%;
@@ -139,26 +134,28 @@ export default class NsNsReSearchItem extends Vue {
         position: relative;
         height: 3.5rem;
         line-height: 3.5rem;
-        border-radius: 2rem;
+        border-radius: .3rem;
         i{
           position: absolute;
           right: 0px;
           top: 20px;
           font-size: 1.6rem;
+          cursor: pointer;
         }
     }
 
      >ul {
        transition: all 3s;
         >li {
-            height: 3.5rem;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             background: #f2f1f0;
-            border-radius: .5rem;
+            border-radius: .3rem;
             margin-bottom: 1rem;
             border:1px solid #f2f1f0;
+            cursor: pointer;
             input[type="checkbox"] {
                 width: 18px;
                 height: 18px;
@@ -185,6 +182,9 @@ export default class NsNsReSearchItem extends Vue {
             color: #666666;
             width: 90%;
             margin: 0 auto;
+            cursor: pointer;
+            height: 50px;
+            line-height: 50px;
             }
         }
 

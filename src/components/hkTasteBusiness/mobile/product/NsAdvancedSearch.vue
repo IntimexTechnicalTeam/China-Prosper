@@ -2,7 +2,7 @@
     <div class="NsAdvancedSearch">
       <div class="TopMeun">
           <p class="resetTitle">{{$t('product.Filter')}}<span class="el-icon-close" @click="closeSub"></span></p>
-          <p class="resetAll" @click="resetAll">{{$t('product.Resetall')}}</p>
+          <p class="resetAll" @click="resetAll">{{$t('Message.ResetOptions')}}</p>
        </div>
         <ul class="attrSearch" v-if="init" style="display:none;">
           <NsReSearchItem v-for="(attr, index) in attrList" :key="index" :searchGroup="attr" :defaultSelected="deAttrGIds.indexOf(attr.Id) !== -1 ? selectedAttrs[deAttrGIds.indexOf(attr.Id)].Vals : []"  @changeSelect="changeAttrSelect" />

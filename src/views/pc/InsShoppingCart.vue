@@ -1,5 +1,5 @@
 <template>
-  <div id="container" v-cloak>
+  <div id="container" v-cloak class="NomralBg NormalTop">
     <!--main-content-->
     <div id="main-content">
       <div class="favorite-box order-box">

@@ -8,15 +8,9 @@
             </div>
               </div>
           <div class="footerAccept" v-if="!isPtx">
-            <p>{{$t('home.Weaccept')}}</p>
+            <p>{{$t('Message.Payments')}}</p>
             <div>
-              <img src="/images/payment/stripe.png" />
-              <img src="/images/payment/WeChatPay.png" />
-              <img src="/images/payment/Alipay.png" />
-              <img src="/images/payment/PayMe.png" />
-              <img src="/images/payment/Paypal.png" />
-              <img src="/images/payment/MasterCard.png" />
-              <img src="/images/payment/VISA.png" />
+              <img src="/images/mobile/payment.png" />
             </div>
           </div>
           <div class="footerCpy">
@@ -152,6 +146,8 @@ export default class InsFooter extends Vue {
   .el-menu--inline {
     width: 100%!important;
     background-color: #fff!important;
+    position: absolute;
+    z-index: 999;
           > li {
               height: auto;
               line-height: unset;

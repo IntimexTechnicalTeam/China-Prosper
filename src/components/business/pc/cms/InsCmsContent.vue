@@ -334,6 +334,7 @@ export default class InsCmsContent extends Vue {
       width: 2rem;
       margin: 0 auto;
       padding-left: 1.5rem;
+      font-weight: 700;
     }
   }
 }
@@ -393,9 +394,11 @@ export default class InsCmsContent extends Vue {
       font-size: 22px;
       line-height:40px;
       width: 100%;
+      font-family: 'Arial', '宋体'!important;
       span {
         font-size: 22px!important;
         line-height: 40px!important;
+        font-family: 'Arial', '宋体'!important;
       }
     }
     /deep/ img {
@@ -412,6 +415,9 @@ export default class InsCmsContent extends Vue {
   flex-wrap: wrap;
   margin-top: 2rem;
   /deep/ p{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
     img {
       width: 100%;
     }
@@ -467,6 +473,7 @@ export default class InsCmsContent extends Vue {
           .Text {
             font-size: 22px;
             color: #9f1e3c;
+            font-weight: 700;
           }
           .IconA {
             width: 2rem;

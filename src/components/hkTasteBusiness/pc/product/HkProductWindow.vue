@@ -4,12 +4,7 @@
     <div class="in_pdWindow_page_item" :style="styla" @mouseenter="Enter=true" @mouseleave="Enter=false" @click="click">
       <div class="topWindowsImg imgbox">
         <img :src="(item.Image?item.Image:item.Img_L?item.Img_L:item.Img)"  :class="{'height_line':Enter}" :style="imgStyla" :data-key="item.Sku" @error="loadError" />
-        <!-- <div class="shopMark">
-            <div class="innerBox">
-                <a  href="javascript:;"><i class="indexfav" v-bind:class="{'indexfav_hover':item.IsFavorite}"  v-on:click="addToFavorite(item)"></i><span v-on:click="addToFavorite(item)">{{$t('MyFavorite.MyFavorite')}}</span></a>
-                <a  href="javascript:;" ><i class="showDetail" v-on:click="addCart(item)"></i><span v-on:click="addCart(item)">{{$t('home.ViewDetail')}}</span></a>
-            </div>
-        </div> -->
+        <div class="fav" v-if="!isPtx"><img :src="item.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click.stop="addToFavorite(item)" /></div>
       </div>
         <div class="in_pdWindow_item_description">
             <a  href="javascript:;" class="in_pdWindow_item_title" v-on:click="addCart(item)">{{item.Name}}</a>
@@ -41,13 +36,16 @@ export default class InsProductWindow extends Vue {
         }
       });
     }
-  get isPtx () {
-      if (localStorage.getItem('isPtx') === '0') {
-        return false;
-      } else {
-        return true;
-      }
-  }
+    get isPtx () {
+        if (localStorage.getItem('isPtx') === '0') {
+          return false;
+        } else {
+          return true;
+        }
+    }
+    goUrl (val) {
+      window.location.href = '/product/detail/' + val.Sku;
+    }
     addToFavorite (p) {
       if (p.IsFavorite) {
         this.$Api.member.removeFavorite(p.Sku).then((result) => {
@@ -99,16 +97,19 @@ export default class InsProductWindow extends Vue {
   text-align: center;
 }
 .PcVersion .in_pdWindow_item_price .currentPricesMain  .small:nth-child(1) {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   word-break: break-all;
   text-align: center;
-  color: #0b0b0b;
+  color: #ca3636;
   display: inline-block;
+  font-family: '宋体';
+  margin-right: 5px;
 }
 .PcVersion .in_pdWindow_item_price .currentPricesMain .small:nth-child(2) {
-    font-size: 1.4rem;
-    color: #cd0909;
+    font-size: 1.6rem;
+    color: #ca3636;
     display: inline-block;
+    font-family: '宋体';
 }
 .PcVersion .in_pdWindow_item_price .primePricesMain  .small:nth-child(1) {
   font-size: 1rem;
@@ -117,11 +118,13 @@ export default class InsProductWindow extends Vue {
   color: #999;
   display: inline-block;
   text-decoration:line-through;
+  font-family: '宋体';
 }
 .PcVersion .in_pdWindow_item_price .primePricesMain .small:nth-child(2) {
   font-size: 1rem;
   color: #999;
   display: inline-block;
+  font-family: '宋体';
 }
 .productMain:hover .in_pdWindow_page_item img {
     border: 1px solid #cd0909;
@@ -136,6 +139,17 @@ export default class InsProductWindow extends Vue {
     display: inline-block;
     width: 100%;
     overflow: hidden;
+    position: relative;
+    .fav {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      img {
+        width: 25px;
+        height: 25px;
+        border: 0px!important;
+      }
+    }
 }
 
 .imgbox:hover .shopMark{
@@ -199,7 +213,6 @@ export default class InsProductWindow extends Vue {
 .imgbox img{
     width: 100%;
     border-radius:0px;
-    border:1px solid #020202;
     transition: border all 1s;
     box-sizing: border-box;
 }
@@ -209,8 +222,8 @@ export default class InsProductWindow extends Vue {
 .in_pdWindow_page_item img {
   box-sizing: border-box;
   cursor: pointer;
-  border: 1px solid #cdcdcd;
-  border-radius:0px;
+  border: 1px solid #eee;
+  border-radius:5px;
 }
 .height_line {
   border: 1px solid @base_color !important;

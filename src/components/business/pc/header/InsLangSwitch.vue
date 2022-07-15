@@ -36,7 +36,10 @@ export default class InsLangSwitch extends Vue {
 </script>
 <style scoped lang="less">
 .langSwitch {
-   color: #dbabb6;
+    color: #dbabb6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     p {
       display: inline-block;
       padding: 0 10px;

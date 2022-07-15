@@ -1,13 +1,23 @@
 <template>
-  <div :style="styla" v-if="ShowItemsLength>0">
-    <div class="in_slider_title">{{title}}</div>
-    <swiper :options="SwiperOption" ref="mySwiper">
-      <!-- slides -->
-      <swiperSlide v-for="(item,idx) in InnerItems" :key="idx">
-        <inProductWindow :item="item" :imgStyla="imgStyla" styla="width:70%;margin:0 auto;padding-bottom:2rem;margin-bottom: 3rem;"></inProductWindow>
-      </swiperSlide>
-      <div class="swiper-scrollbar"   slot="scrollbar"></div>
-    </swiper>
+  <div :style="styla" v-if="ShowItemsLength > 0 ">
+    <div class="productCat">
+          <p class="NoramlTitle"><span class="text">{{title}}</span></p>
+          <swiper class="swiper-no-swiping" :options="SWproductCatOption" ref="mySwiper" v-if="InnerItems.length > 0">
+            <!-- slides -->
+            <swiper-slide v-for="(item, index) in InnerItems" :key="index">
+                  <inProductWindow :item="item" :imgStyla="imgStyla" styla="width:90%;margin:0 auto;padding-bottom:2rem;margin-bottom: 2rem;"></inProductWindow>
+            </swiper-slide>
+            <div class="swiper-pagination pwswiper" slot="pagination" v-if="SWproductCatOption.pagination"></div>
+          </swiper>
+       </div>
+    <!-- <div class="productBox">
+      <swiper :options="SwiperOption" ref="mySwiper" class="youlikeMain">
+        <swiperSlide v-for="(item,idx) in InnerItems" :key="idx">
+          <inProductWindow :item="item" :imgStyla="imgStyla" styla="width:90%;margin:0 auto;padding-bottom:2rem;margin-bottom: 2rem;"></inProductWindow>
+        </swiperSlide>
+          <div class="swiper-pagination" slot="pagination" v-if="SwiperOption.pagination"></div>
+      </swiper>
+    </div> -->
   </div>
 </template>
 <script lang="ts">
@@ -24,15 +34,13 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper/src';
 })
 export default class InsYouWouldLike2 extends Vue {
   // data
-  private SwiperOption = {
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-    scrollbar: {
-      el: '.swiper-scrollbar'
-    },
-    slidesPerView: 1
+  SWproductCatOption = {
+    slidesPerView: 2,
+    spaceBetween: 20,
+    pagination: {
+      el: '.pwswiper',
+      clickable: true
+    }
   };
   private InnerItems: YouWouldLike[] = [];
   private InnerItemsCopy: YouWouldLike[] = [];
@@ -67,34 +75,63 @@ export default class InsYouWouldLike2 extends Vue {
   }
 }
 </script>
-<style>
-.swiper-scrollbar {
-   border-radius:0px!important;
-    position: relative;
-    background: #f2f2f2!important;
+<style lang="less" scoped>
+.productBox {
+  margin-top: 3rem;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
 }
-.swiper-scrollbar-drag{
-      background: #d9d9d9;
+.clear {
+  clear: both;
 }
-.swiper-container-horizontal > .swiper-scrollbar{
-      height: 10px!important;
-}
-</style>
-<style scoped>
-.in_slider_title {
-  text-align: center;
-  margin: 4rem 0;
-  font-size: 2rem;
-}
-.in_slider_page_container {
-  box-sizing: border-box;
+.youlikeMain{
+  width: 90%;
+  margin: 0 auto;
   display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  padding: 0 4rem;
-  user-select: none;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  padding-top: 10px;
+  padding-bottom:2rem;
 }
-.in_slider_page_item {
-  width: 100%;
-}
+  .NoramlTitle {
+    background: url('/images/mobile/ptx_14.png') no-repeat center center;
+    background-size: contain;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    width: 60%;
+    height: 3rem;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    .text {
+      font-size: 1.6rem;
+      color: #fff;
+      padding-left: 3rem;
+    }
+  }
+    .productCat {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      /deep/ .swiper-container {
+        padding-bottom: 3rem;
+        padding-top: 2rem;
+        width: 90%;
+        margin: 0 auto;
+        .swiper-pagination-bullet{
+          width: 10px!important;
+          height: 10px!important;
+          background: #e6e6e6;
+          opacity: 1;
+        }
+
+        .swiper-pagination-bullet-active{
+          background: #8f1121!important;
+        }
+      }
+    }
 </style>

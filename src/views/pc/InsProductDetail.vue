@@ -5,7 +5,7 @@
   </div>
   <div v-else>
   <div class="productDetail_container">
-    <div class="ProductUp">
+    <div class="ProductUp" v-if="isPtx">
         <div class="prev" @click="getGetProductUp()"><i class="img"></i>{{$t('Message.Prev')}}</div>
         <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<i class="img"></i></div>
     </div>
@@ -16,15 +16,27 @@
           <inPanel :panelDetail.sync="PanelDetail" :ProductSku="ProductCode" @getPrice="showPrice" width="100%"></inPanel>
       </div>
     </div>
-    <div class="tab_warpper">
+    <div class="tab_warpper" v-if="isPtx">
       <div class="tab_header">
-        <div class="detail_title" >{{$t('product.ProductIntroduction')}}</div>
+        <div class="detail_title">{{$t('product.ProductIntroduction')}}</div>
       </div>
-      <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail" v-if="Tabs.Detail!==''"></div>
-      <div class="product_detail"  v-show="IsDetail" v-if="Tabs.Detail==''">{{$t('messageTips.NoContent')}}</div>
+      <div class="clear"></div>
+      <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail && Tabs.Detail!=''"></div>
+      <div class="product_detail" v-show="IsDetail" v-if="Tabs.Detail==''"><h3>{{$t('messageTips.NoContent')}}</h3></div>
+    </div>
+   <div class="tab_warpper" v-else>
+      <div class="tab_header">
+        <div class="tab_inner">
+          <div class="detail"   @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
+          <div class="comment"  @click="IsDetail=false"  v-if="FrontE.version !== 1"  v-bind:class="{isActive:!IsDetail}">{{$t('product.comments.title')}}</div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail && Tabs.Detail!=''"></div>
+      <div class="product_detail" v-show="IsDetail" v-if="Tabs.Detail==''"><h3>{{$t('messageTips.NoContent')}}</h3></div>
+      <inComments :ProductSku="ProductCode" v-show="!IsDetail"></inComments>
     </div>
   </div>
-    <div class="commentsLine"></div>
     <div class="maincontent">
     <inYouWouldLike
       styla="margin-bottom:50px;"
@@ -66,7 +78,7 @@ import ProductListSwiper from '@/components/hkTasteBusiness/pc/product/HkProduct
 export default class InsProductDetail extends Vue {
   private Slider: YouWouldLike[] = [];
   private Tabs: Tab[] = [new Tab('none')];
-  private PanelDetail: PanelDetail = new PanelDetail('', '', '', '', 0, 0, 0, 0, '');
+  private PanelDetail: PanelDetail = new PanelDetail('', '', '', '', 0, 0, 0, 0, '', '', '', '');
   private Src: string = '';
   private IsDetail:boolean = true;
   private ImgList: string[] = [];
@@ -84,6 +96,13 @@ export default class InsProductDetail extends Vue {
   private Permission: string = '';
   get pc () {
     return this.$route.params.id;
+  }
+  get isPtx () {
+      if (localStorage.getItem('isPtx') === '0') {
+        return false;
+      } else {
+        return true;
+      }
   }
   showPrice (val) {
     if (val[0]) {
@@ -129,6 +148,7 @@ export default class InsProductDetail extends Vue {
   getProduct () {
     var that = this;
     that.ProductCode = that.$route.params.id ? that.$route.params.id : '0';
+    console.log(that.ProductCode, 'that.ProductCodethat.ProductCode');
     // 获取产品详情数据
     that.$Api.product.GetProduct(that.pc).then((result) => {
     if (result) {
@@ -204,12 +224,15 @@ export default class InsProductDetail extends Vue {
     .huge{
       display: inline-block;
       &:nth-child(1){
-        font-size: 1.6rem;
+        font-size: 26px;
+        color:#ca3636;
+        font-family: '宋体';
+        margin-right: 5px;
       }
       &:nth-child(2){
-        font-size:2rem;
-        color:#b40606;
-        font-weight: 700;
+        font-size:26px;
+        color:#ca3636;
+        font-family: '宋体';
       }
     }
   }
@@ -217,12 +240,12 @@ export default class InsProductDetail extends Vue {
     .huge{
       display: inline-block;
       &:nth-child(1){
-        font-size: 1rem;
+        font-size: 16px;
         color: #999;
         text-decoration: line-through;
       }
       &:nth-child(2){
-        font-size: 1rem;
+        font-size: 16px;
         color: #999;
         text-decoration: line-through;
       }
@@ -248,7 +271,7 @@ export default class InsProductDetail extends Vue {
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
-  padding-top: 9rem;
+  padding-top: 11rem;
   .IsDetailshow {
     width: 1200px;
     margin: 0 auto;
@@ -273,7 +296,40 @@ export default class InsProductDetail extends Vue {
       display: inline-block;
       width: 100%;
       margin-bottom: 10px;
-      .comment_title,.detail_title{
+        .tab_inner {
+          width: 500px;
+          margin: 0 auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          .detail {
+          width: 48%;
+          background: url('/images/mobile/normalbg.png') no-repeat center center;
+          background-size: 100% 100%;
+          height: 70px;
+          line-height: 70px;
+          font-size: 24px;
+          text-align: center;
+          color:#b19162;
+          cursor: pointer;
+          }
+          .comment {
+            width: 48%;
+            background: url('/images/mobile/normalbg.png') no-repeat center center;
+            background-size: 100% 100%;
+            height: 70px;
+            line-height: 70px;
+            font-size: 24px;
+            text-align: center;
+            color:#b19162;
+            cursor: pointer;
+          }
+          .isActive {
+              background: url('/images/mobile/selectBg.png') no-repeat center center!important;
+              background-size: 100% 100%!important;
+          }
+        }
+      .detail_title{
           width: 350px;
           margin: 0 auto;
           background: url(/images/mobile/ptx_26.png) no-repeat center center;
@@ -293,8 +349,17 @@ export default class InsProductDetail extends Vue {
       border-radius: 5px;
       font-size: 20px;
       color:#333333;
+      h3 {
+        font-size: 20px;
+        color:#333333;
+        font-weight: 500;
+      }
       /deep/ p{
         font-size: 20px;
+        color:#333333;
+     }
+     /deep/ span{
+        font-size: 20px!important;
         color:#333333;
      }
     }

@@ -1,6 +1,6 @@
 <template>
   <div id="container" class="NomralBg NormalTop">
-    <div class="ProductSearch">
+    <div class="ProductSearch" v-if="isPtx">
       <div class="leftSide">
          <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
       </div>
@@ -15,6 +15,55 @@
             <div key="1" v-if="!waiting">
               <div class="prolist-box" v-if="proList.length > 0">
                 <ins-productList :column="4" :allItems="proList" />
+                <div  v-if="islogin">
+                  <div class="pager" v-if="totalRecord > pageSize">
+                    <InsPage
+                      :total="totalRecord"
+                      v-model="currentPage"
+                      :pageNum="pageSize"
+                      :currentPage = "currentPage"
+                    ></InsPage>
+                  </div>
+                </div>
+              </div>
+              <div class="prolist-box" v-else>
+                <h3 class="nocontentTips">{{ $t("messageTips.NoContent") }}</h3>
+              </div>
+            </div>
+          </transition>
+          <transition name="slide">
+            <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
+          </transition>
+      </div>
+    </div>
+    <div class="ProductSearch" v-else>
+      <div class="SearchSlide">
+        <div class="leftSide">
+          <NsadvancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
+        </div>
+      </div>
+      <div class="selectBar">
+          <ul>
+            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('Message.ProductList')}}</b></li>
+            <li  class="sortBox">
+              <p class="sortTitle" @click.stop="showList=!showList">
+                {{$t('product.SortBy')}}
+                <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
+              </p>
+              <transition name="el-fade-in-linear">
+                <ul class="sortList" v-if="showList">
+                  <li @click="handleCommand('desc')" :style="{'color':command=='desc'?'#b19162':'#333333'}">{{$t('product.PriceHL')}}</li>
+                  <li @click="handleCommand('asc')" :style="{'color':command=='asc'?'#b19162':'#333333'}">{{$t('product.PriceLH')}}</li>
+                </ul>
+              </transition>
+            </li>
+          </ul>
+        </div>
+      <div class="NsProduct">
+          <transition name="slide">
+            <div key="1" v-if="!waiting">
+              <div class="prolist-box" v-if="proList.length > 0">
+                <ins-productList :column="4" :allItems="proList" class="productPer" />
                 <div  v-if="islogin">
                   <div class="pager" v-if="totalRecord > pageSize">
                     <InsPage
@@ -52,7 +101,8 @@ import $ from 'jquery';
       import(
         /* webpackChunkName: 'product' */ '@/components/hkTasteBusiness/pc/product/InsAdvancedSearch.vue'
       ),
-    InsPage: () =>
+     NsadvancedSearch: () => import('@/components/hkTasteBusiness/pc/product/NsAdvancedSearch.vue'),
+     InsPage: () =>
       import(
         /* webpackChunkName: 'product' */ '@/components/base/pc/InsPage.vue'
       )
@@ -70,7 +120,10 @@ export default class InsProductSearch extends Vue {
   searchCatalogs: number[] = []; // 选中的产品目录数组
   searchType: number = 1; // 搜索类型（0 => 叠加，1 => 筛选）
   isAdvanced: boolean = true;
-  PriceItem: string = '';
+  PriceItem:string='desc';
+  showList:boolean = false;
+  command:string='';
+  SortName:string = '';
   private waiting: boolean = true;
   // 搜索关键词
   get searchKey() {
@@ -81,8 +134,29 @@ export default class InsProductSearch extends Vue {
       return a;
     }
   }
+  get isPtx () {
+      if (localStorage.getItem('isPtx') === '0') {
+        return false;
+      } else {
+        return true;
+      }
+  }
   get islogin () {
     return this.$Storage.get('isLogin');
+  }
+  handleCommand(command) {
+    this.command = command;
+    if (command === 'newest') {
+      this.SortName = 'createdate';
+      this.PriceItem = 'desc';
+      this.showList = false;
+    } else {
+      this.SortName = 'SalePrice';
+      this.PriceItem = command;
+      this.showList = false;
+    }
+
+    this.productSearch();
   }
   // 重置搜索
   resetAll() {
@@ -165,65 +239,55 @@ export default class InsProductSearch extends Vue {
   }
 }
 </script>
-
-<style lang="less">
-.prolist-box {
-  .pager {
-    text-align: center;
-    margin: 60px 0;
-    button,
-    li {
-      margin: 0 6px !important;
-      // border: 1px solid #e5e5e5;
-      width: 50px;
-      height: 50px;
-      padding: 0 !important;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-      min-width: unset;
-      border-radius: 5px;
-      background-color: #f0f0f0;
+<style scoped lang="less">
+.sortBox{
+  position: relative;
+  z-index: 1;
+  .sortTitle{
+    font-size: 26px;
+    font-weight: 500;
+    color: #b19162;
+    img{
+      margin-left:24px;
+      margin-right:23px;
     }
-
-    li {
-      font-family: "SourceHanSansSC-Regular";
-      font-size: 20px;
-      color: #333333;
-      font-weight: normal;
-      border-left: 0;
-      &.active {
-        background-color: #95d303;
-        color: #fff;
-      }
-
-      &:last-child {
-        border-right: 0;
-      }
-    }
-
-    .el-pagination button {
-      background-color: #95d303;
-
-      .el-icon {
-        font-size: 20px;
-        color: #fff;
-      }
-
-      &:disabled {
-        background-color: #f0f0f0;
-        .el-icon {
-          color: #333333;
-        }
+  }
+  .sortList{
+    width:100%;
+    box-shadow: 0px 2px 5px #ccc;
+    position: absolute;
+    left:0;
+    top:52px;
+    box-sizing:border-box;
+    background: #fff;
+    li{
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      font-size: 18px;
+      &:last-of-type{
+        border-bottom: none;
       }
     }
   }
 }
-</style>
-<style scoped lang="less">
 #container {
   min-height: 700px;
+}
+.NsProduct {
+  width: 100%;
+  display: inline-block;
+    /deep/ .products_container{
+      .product_item {
+        width: 23%!important;
+        margin-right: 2.33%;
+        &:nth-child(3n) {
+          margin-right: 2.33%!important;
+        }
+        &:nth-child(4n) {
+          margin-right: 0px!important;
+        }
+      }
+  }
 }
 .ProductTips {
   width: 90%;
@@ -302,11 +366,15 @@ export default class InsProductSearch extends Vue {
   z-index: 999999;
   display: none;
   .leftSide {
-    width: 25%;
-    left: -25%;
+    width: 20%;
+    left: -20%;
     min-height: 100%;
     position: absolute;
     transition: all 0.5s;
+    background: #f2f1f0;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    overflow: hidden;
   }
 }
 .closeBar {
@@ -317,60 +385,50 @@ export default class InsProductSearch extends Vue {
   margin: 0 auto;
   display: inline-block;
   margin-top: 2rem;
-  ul {
+  >ul {
     width: 100%;
     margin: 0 auto;
-  }
-  li {
-    float: left;
-    margin-right: 4%;
-    border: 1px solid #eee;
-    height: 40px;
-    line-height: 40px;
-    list-style: none;
     display: flex;
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
-    span {
-      width: 20%;
-      display: inline-block;
-      font-size: 20px;
-      text-align: center;
-      color: #909399;
-    }
-    b {
-      width: 60%;
-      display: inline-block;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 500;
-      color: #333333;
-    }
-    select {
-      width: 100%;
-      border: none;
-      padding-left: 0.5rem;
-      height: 40px;
-      line-height: 40px;
-      font-size: 14px;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background: url(/images/mobile/arrow-down-back.png) 90% 17px no-repeat;
-      background-size: auto;
-      outline: none;
+    flex-wrap: wrap;
+    justify-content: space-between;
+     >li {
+      float: left;
+      margin-right: 2.5%;
+      height: 70px;
+      line-height: 70px;
+      list-style: none;
+      display: flex;
+      justify-items: center;
+      justify-content: center;
+      align-items: center;
+      background: url('/images/mobile/filterbg.png') no-repeat center center;
+      background-size: 100% 100%;
+      color: #b19162;
+      width: 250px;
       cursor: pointer;
-    }
-    &:last-child {
-      margin-right: 0px !important;
-      background: #fff !important;
-      color: #333333;
-      cursor: pointer;
-    }
-    &:first-child {
-      width: 140px;
-      cursor: pointer;
+      b {
+        width: 60%;
+        display: inline-block;
+        text-align: center;
+        font-size: 26px;
+        font-weight: 500;
+        color: #b19162;
+      }
+      select {
+        width: 100%;
+        border: none;
+        padding-left: 0.5rem;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(/images/mobile/arrow-down-back.png) 90% 17px no-repeat;
+        background-size: auto;
+        outline: none;
+        cursor: pointer;
+      }
     }
   }
 }

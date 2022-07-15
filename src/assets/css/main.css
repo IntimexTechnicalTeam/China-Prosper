@@ -22,11 +22,8 @@ li {
 a {
   text-decoration: none;
 }
-p, a, span {
-  font-family: 'Arial', 'Microsoft YaHei';
-}
 body {
-  font-family: 'Arial', 'Microsoft YaHei';
+  font-family: 'Arial', '宋体';
   overflow-x: hidden!important;
 }
 .clear {
@@ -39,14 +36,13 @@ body {
   margin-top:0px;
 }
 .NormalTop {
-   padding-top: 7.5rem;
+   padding-top: 6.8rem!important;
 }
 .NomralBg{
-   background: url('/images/pc/pcptx_01.jpg') no-repeat center center;
-   background-size: cover;
+   background: url('/images/pc/pcptx_01.jpg') no-repeat center center!important;
+   background-size: cover!important;
    width: 100%;
-   display: flex;
-   flex-wrap: wrap;
+   display: block;
 }
 .mid-box {
   width: 1000px;

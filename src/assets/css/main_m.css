@@ -108,11 +108,8 @@ a{
 div,li,ul{
   list-style: none;
 }
-p, a, span {
-  font-family: 'Arial', 'Microsoft YaHei';
-}
 body {
-  font-family: 'Arial', 'Microsoft YaHei';
+  font-family: 'Arial', '宋体';
 }
 div {
   user-select: none;
@@ -132,13 +129,13 @@ div {
   text-indent: 10px;
 }
 .NoramlPaddingTop{
-   padding-top: 4rem;
+   padding-top: 4rem!important;
 }
 .NomralBg{
-   background: url('/images/mobile/ptx_29.jpg') no-repeat center center;
-   background-size: cover;
+   background: url('/images/mobile/ptx_29.jpg') no-repeat center center!important;
+   background-size: cover!important;
    width: 100%;
-   display: inline-block;
+   display: block!important;
 }
 .messageBoxMobile {
    z-index: 10000!important;

@@ -75,9 +75,9 @@ export default class InsPage extends Vue {
   height: 30px;
   line-height: 30px;
   width: 30px;
-  border-top: 1px solid #b19162;
-  border-right: 1px solid #b19162;
-  border-bottom: 1px solid #b19162;
+  border-top: 1px solid @base_color;
+  border-right: 1px solid @base_color;
+  border-bottom: 1px solid @base_color;
   cursor: pointer;
   user-select: none;
 }
@@ -104,7 +104,7 @@ input[type="number"]{
 .before::after {
   content: " ";
   position: absolute;
-  border-right: 7.5px solid #b19162;
+  border-right: 7.5px solid @base_color;
   border-left: 7.5px solid transparent;
   border-top: 7.5px solid transparent;
   border-bottom: 7.5px solid transparent;
@@ -119,7 +119,7 @@ input[type="number"]{
   content: " ";
   position: absolute;
   border-right: 7.5px solid transparent;
-  border-left: 7.5px solid #b19162;
+  border-left: 7.5px solid @base_color;
   border-top: 7.5px solid transparent;
   border-bottom: 7.5px solid transparent;
   top: 50%;
@@ -127,14 +127,14 @@ input[type="number"]{
   transform: translate(-25%, -50%);
 }
 .first {
-  border-left: 1px solid #b19162;
+  border-left: 1px solid @base_color;
 }
 .last,.next{
   height: 2.3rem;
   line-height: 2.3rem;
   cursor: pointer;
   display: inline-block;
-  border: 1px solid #b19162;
+  border: 1px solid @base_color;
   margin:0 .5rem;
   padding: 0 1rem;
 }
@@ -142,18 +142,18 @@ input[type="number"]{
   color: black;
   background: white;
   cursor: not-allowed;
-  border: 1px solid #b19162;
+  border: 1px solid @base_color;
   line-height: 2.3rem;
   display: inline-block;
 }
 .selectPage{
-    border: 1px solid #b19162;
+    border: 1px solid @base_color;
     height: 2.45rem;
     padding: 0 0.5rem;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     outline: 0;
-    background: #b19162;
+    background: @base_color;
     color: #fff;
 }
 .pageing{

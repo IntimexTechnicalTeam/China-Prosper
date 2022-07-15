@@ -158,6 +158,7 @@ export default class InsCatLayout1 extends Vue {
       width: 2rem;
       margin: 0 auto;
       padding-left: 1.5rem;
+      font-weight: 700;
     }
   }
 }

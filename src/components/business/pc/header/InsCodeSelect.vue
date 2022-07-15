@@ -43,17 +43,20 @@ export default class InsCodeSelect extends Vue {
 </script>
 <style scoped lang="less">
 .main-code {
-  display: inline-block;
-
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   select {
     width: 100%;
     font-size: 15px;
     background: none;
-    color: #333;
+    color: #fff;
     border: none;
     outline: none;
     height: 31px;
     margin-left: 5px;
+    cursor: pointer;
   }
 }
 </style>

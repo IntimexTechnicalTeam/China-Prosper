@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="NoramlPaddingTop NomralBg">
   <div class="RNPResult default">
     <div id="rnp-main-content" ref="print">
       <div class="record-title">{{$t('RegNPay.SubRecord')}}</div>
@@ -196,5 +196,8 @@ export default class Result extends Vue {
     text-align: center;
     padding-bottom: 1rem;
   }
+}
+/deep/ .RNPResult.default {
+  background-color: transparent!important;
 }
 </style>

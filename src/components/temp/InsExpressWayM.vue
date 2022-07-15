@@ -742,12 +742,15 @@ export default class InsExpressWay extends Vue {
   }
 </style>
 <style lang="less" scoped>
+/deep/ .in_select_label {
+  font-size: 14px;
+}
 .input_warpper {
   display: flex;
   margin-top: 30px;
   width: 100%;
   label {
-    font-size: 16px;
+    font-size: 14px;
     width: 120px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -880,9 +883,10 @@ export default class InsExpressWay extends Vue {
     width: 100%;
     display:flex;
     padding-top: 30px;
+    align-items: center;
     .date,.time,.note{
       width: 120px;
-      font-size: 16px;
+      font-size: 14px;
     }
     .inputMain{
       display: flex;

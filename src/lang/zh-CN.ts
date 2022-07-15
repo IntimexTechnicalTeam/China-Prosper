@@ -72,7 +72,11 @@ export default {
     Catalog: '目錄',
     AskFor: '欲查詢報價，請按',
     ProductInformation: '產品資料',
-    OtherDetails: '其他資料'
+    OtherDetails: '其他資料',
+    Fav: '收藏',
+    Payments: '付款方式',
+    ProductList: '產品分類',
+    ResetOptions: '重置選項'
   },
   Account: {
     MemberCenter: '會員中心',
@@ -210,7 +214,7 @@ export default {
     UserLanguageT: '繁體',
     UserLanguageS: '簡體',
     RegisterBtn: '註冊',
-    RegisterAgree: '我同意購買條款和使用條款',
+    RegisterAgree: '我同意使用條款',
     RegisterEmail: '郵箱不能為空',
     RegisterEmail01: '請輸入正式的郵箱格式',
     RegisterPassword: '請輸入密碼',

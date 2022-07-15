@@ -76,14 +76,15 @@ export default class accountHeader extends Vue {
 .accountHeader {
   width: 100%;
   display: flex;
+  padding-top: 7.5rem;
   .memberBg {
-    background: url("/images/pc/pcindex_05.jpg") no-repeat center center;
-    background-size: 100% 100%;
+    background-size: cover;
     box-sizing: border-box;
     display: inline-block;
     width: 100%;
     padding-top: 30px;
     padding-bottom: 30px;
+    background: url('/images/pc/pcptx_06.jpg') no-repeat center center;
     .innerBox {
       width: 1200px;
       margin: 0 auto;
@@ -162,7 +163,7 @@ export default class accountHeader extends Vue {
       }
 
       .router-link-active {
-        border: 1px solid #fff;
+        border: 1px solid @base_color;
         background-size: contain;
         float: left;
         width: 200px !important;
@@ -170,7 +171,7 @@ export default class accountHeader extends Vue {
         text-align: center;
         padding: 10px;
         .innerStyle {
-          background: #fff;
+          background: @base_color;
           display: block;
           width: 100%;
           height: 100%;
@@ -180,6 +181,7 @@ export default class accountHeader extends Vue {
         }
         span {
           font-weight: 600 !important;
+          color: #fff;
         }
       }
     }

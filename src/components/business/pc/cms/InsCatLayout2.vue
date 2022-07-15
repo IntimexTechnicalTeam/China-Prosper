@@ -157,6 +157,7 @@ export default class InsCatLayout1 extends Vue {
       width: 2rem;
       margin: 0 auto;
       padding-left: 1.5rem;
+      font-weight: 700;
     }
   }
 }
@@ -177,7 +178,7 @@ export default class InsCatLayout1 extends Vue {
           justify-content: center;
           align-items: center;
           .InnerBg {
-              width: 300px;
+              width: 400px;
               background: url(/images/mobile/ptx_26.png) no-repeat center center;
               background-size: 100% 100%;
               display: flex;
@@ -185,12 +186,12 @@ export default class InsCatLayout1 extends Vue {
               align-items: center;
               -ms-flex-negative: 0;
               flex-shrink: 0;
-              height: 55px;
-              line-height: 55px;
+              height: 70px;
+              line-height: 70px;
               position: relative;
               cursor: pointer;
               span {
-                font-size: 24px;
+                font-size: 26px;
                 color: #b59669;
               }
               i {
@@ -225,6 +226,7 @@ export default class InsCatLayout1 extends Vue {
               margin-bottom: 20px;
               .redText {
                 color: @base_color;
+                font-size: 24px;
               }
             }
             p {

@@ -1,5 +1,5 @@
 <template>
-  <div class="checkoutn_warpper PcV">
+  <div class="checkoutn_warpper PcV NomralBg">
     <div class="favorite-box-top">
       <div class="login-register-title">{{$t('Action.Checkout')}}</div>
       <div class="clear"></div>
@@ -623,8 +623,14 @@ export default class InsCheckoutN extends Vue {
     -webkit-box-orient: vertical;
   }
 .checkoutn_warpper{
-  margin: 100px auto;
-  width: 1200px;
+  width: 100%;
+  display: inline-block;
+  padding-top: 11rem;
+  .favorite-box-top {
+    display: flex;
+    width: 1200px;
+    margin: 0 auto;
+  }
   .main_warpper{
     display: flex;
     width: 1200px;
@@ -712,6 +718,9 @@ export default class InsCheckoutN extends Vue {
   }
   .btn_warpper{
     text-align: right;
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 50px;
   }
 }
 

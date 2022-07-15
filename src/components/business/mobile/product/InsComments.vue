@@ -167,10 +167,10 @@ export default class InsComments extends Vue {
 </style>
 <style scoped lang=less>
 .NocontentTips{
-  padding: 2rem;
   padding-top: 0px;
   font-size: 1.4rem;
   font-weight: 100;
+  color: #333;
 }
 .sender_name .ShopperName{
   font-size: 1.4rem;
@@ -190,14 +190,11 @@ export default class InsComments extends Vue {
 
 .comments_container::-webkit-scrollbar { width: 0 !important }
 .comments_container{
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
-    padding-top: 2rem;
     min-height: 7rem;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #333;
-    border: 1px solid #000;
-    border-radius: 5px;
     margin-top: 1rem;
     min-height: 20rem;
 }
@@ -296,7 +293,7 @@ export default class InsComments extends Vue {
   margin-top:2rem;
   .owner{
     font-size: 1.4rem;
-    color:#999999;
+    color:@base_color;
   }
 }
 </style>

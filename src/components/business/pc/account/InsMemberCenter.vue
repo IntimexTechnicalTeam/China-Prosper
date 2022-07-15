@@ -3,7 +3,7 @@
     <!-- 正常购买模式 -->
     <div v-if="!isPtx">
       <accountHeader />
-        <div class="MemberInfoNavPC ">
+        <div class="MemberInfoNavPC NormalHead">
           <ul class="NormalUl">
             <div @click="openlink('/account/memberInfo')">
             <li :class="NormalactiveClass == 1?'activeInfo':''" >
@@ -160,7 +160,10 @@ export default class InsMenberCenter extends Vue {
 }
 .MemberPc .activeInfo{
   color: #fff !important;
-  background: #333333 !important;
+  background: @base_color !important;
+}
+.NormalHead {
+  padding-top: 2rem!important;
 }
 .NormalUl {
   width: 800px!important;

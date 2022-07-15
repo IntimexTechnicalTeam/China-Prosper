@@ -10,17 +10,25 @@
         @input="changeAttr"
         @changePrice="AdditionalPrice"
       ></inSelect>
-      <div v-if="panelDetail.negotiable===null || panelDetail.negotiable===false">
-        <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>
+      <div v-if="panelDetail.negotiable===null || panelDetail.negotiable===false" class="productRart">
+        <div class="left">
+            <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty"></inNum>
+        </div>
+        <div class="right" v-if="isPtx===false">
+              <p><el-rate  v-model="panelDetail.Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></p>
+              <p class="ProductCode">{{$t("product.ProductCode")}}:{{panelDetail.Code}}</p>
+        </div>
       </div>
       <div v-else>
          <el-input-number  :label="$i18n.t('product.countTitle')" v-model="panelDetail.negotiateMinQty" :min="panelDetail.MinPurQty" ></el-input-number>
       </div>
+     <p class="productItr" v-html="panelDetail.OverView" v-if="isPtx===false"></p>
       <div class="in_panel_iconList">
         <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
           <img :src="item.src" />
         </div>
       </div>
+
     </div>
 
     <!-- 默认状态为加入购物车和立即购买，如果后台产品开启询价后，则显示加入报价查询按钮 -->
@@ -269,19 +277,6 @@ export default class InsPanel extends Vue {
 }
 </style>
 <style lang="less">
-.mobileWarper .in_panel_footer .addToCart {
-    border: 1px solid #242424!important;
-    background: #fff!important;
-    color: #242424!important;
-    width: 35%!important;
-}
-.mobileWarper .in_panel_footer .buyNow{
-    border: 1px solid #262626!important;
-    background: #262626!important;
-    background-size: contain;
-    color: #fff;
-    width: 35%!important;
-}
 .mobileWarper  .el-button{
   padding: 20px 10px!important;
 }
@@ -313,10 +308,10 @@ export default class InsPanel extends Vue {
     width: 3rem !important;
     border-radius: 0px;
     top: 0px;
-    background: #cab597;
+    background: #f5f5f5;
 }
 .mobileWarper .el-input-number__decrease i, .el-input-number__increase i{
-    color: #fff;
+    color: #666666;
 }
 .mobileWarper .el-input-number .el-input__inner{
   padding-left: 0rem;
@@ -338,14 +333,15 @@ export default class InsPanel extends Vue {
   font-size: 1.6rem;
 }
 .in_panel_warpper .in_num_label{
-  display: inline-block;
+  display: block;
   width: auto!important;
   margin-right: 1rem;
 }
 .in_panel_warpper .el-input-number{
-  border:1px solid #cab597;
+  border:1px solid #e6e6e6;
   box-sizing: border-box;
    width: auto!important;
+   line-height: 36px;
 }
 .in_panel_warpper .el-input__inner{
   border:none!important;
@@ -354,10 +350,6 @@ export default class InsPanel extends Vue {
 }
 .in_panel_warpper .in_num_main .el-input-number__decrease, .in_panel_warpper .in_num_main .el-input-number__increase{
     width: 2.5rem!important;
-    border: 1px solid #000;
-    border-radius: 5px;
-    height: 2.5rem;
-    line-height: 2.5rem;
 }
 .in_panel_warpper .in_num_main .el-input-number__decrease i, .in_panel_warpper .in_num_main .el-input-number__increase i{
   color:#000;
@@ -375,7 +367,6 @@ export default class InsPanel extends Vue {
 }
 .mobileWarper{
   .in_num_warpper{
-    margin-top: 1rem;
     .in_num_label{
       color:#666666;
     }
@@ -407,11 +398,11 @@ export default class InsPanel extends Vue {
       .BuyBtn{
       height: 3.5rem;
       font-size:1.4rem;
-      color: #333333;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      background-color: #333333;
+      background: url(/images/pc/btnbg_03.jpg) no-repeat center center;
+      background-size:cover;
       color: #fff;
       border-radius: 3px;
       margin-bottom: 1rem;
@@ -437,11 +428,11 @@ export default class InsPanel extends Vue {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      background-color: #333333;
+      background: url(/images/pc/btnbg_03.jpg) no-repeat center center;
+      background-size:cover;
       color: #fff;
       border-radius: 3px;
       margin-bottom: 1rem;
-      border:1px solid #333333;
       text-transform: uppercase;
       width: 48%;
       float: left;
@@ -457,6 +448,46 @@ export default class InsPanel extends Vue {
 }
 </style>
 <style lang="less" scoped>
+.productRart {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .left {
+    width: 48%;
+  }
+  .right {
+    width: 48%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    .ProductCode {
+      font-size: 16px;
+    }
+  }
+}
+.productItr {
+  margin-top: 20px;
+  /deep/ p{
+    font-size: 1.4rem;
+    line-height: 2rem;
+    height: 10rem;
+    overflow: hidden;
+    color: #808080!important;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    -webkit-box-orient: vertical;
+  }
+  /deep/  span{
+    font-size:1.4rem!important;
+    color: #808080!important;
+  }
+}
 .productTips {
   font-size: 1.2rem;
   color: #9f1e3c;

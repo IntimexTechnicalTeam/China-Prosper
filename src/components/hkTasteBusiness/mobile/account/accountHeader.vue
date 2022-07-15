@@ -64,26 +64,26 @@ ul,li{
 .accountHeader{
   width: 100%;
   display:inline-block;
+  padding-top: 4rem;
   .memberCenterTitle{
     font-size: 2rem;
     text-align: center;
     display: block;
     padding-top: 2rem;
-    color:#FFF;
+    color:#fff;
     text-transform:uppercase;
   }
   .accountBg{
     width:100%;
-    background: url('/images/mobile/Mobile-Personal-Center_02.jpg') no-repeat center center;
-    background-size: 100% 100%;
     display: inline-block;
     box-sizing: border-box;
     padding-bottom: 3rem;
+    background: url('/images/mobile/ptx_16.jpg') no-repeat center center;
+    background-size: cover;
     .accountMeun{
       width: 90%;
       margin: 0 auto;
       p{
-        border:1px solid #fff;
         padding: .5rem;
         display: block;
         height: 3.5rem;
@@ -94,17 +94,22 @@ ul,li{
           width: 100%;
           align-items: center;
           justify-content: center;
-          color:#333333;
+          color:#333;
+          border-radius: 20px;
           font-size: 1.6rem;
           height: 100%;
           text-transform:uppercase;
+        }
+        .router-link-active {
+          background: @base_color!important;
+          color: #fff!important;
         }
       }
     }
     .accountUser{
       font-size: 2rem;
       text-align: center;
-      color:#FFF;
+      color:#fff;
       padding-top: 2rem;
       padding-bottom: 2rem;
     }

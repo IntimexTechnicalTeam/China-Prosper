@@ -56,7 +56,8 @@ export default {
     SaveAll: 'SaveAll',
     noRMBStripe: 'Currency RMB does not support Stripe payment, please choose another payment method or switch currency mode',
     textareaError: 'Please enter more than 5 characters',
-    FindNoProduct: 'The system is busy, please refresh the page again'
+    FindNoProduct: 'The system is busy, please refresh the page again',
+    Fav: 'Fav'
   },
   RegNPay: {
     BackText: 'Back',
