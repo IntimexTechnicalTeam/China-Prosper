@@ -289,6 +289,7 @@ export default class InsCmsContent extends Vue {
       font-size: 1.6rem;
       margin-bottom: 5rem;
       border-radius: 5px;
+      font-weight: 700;
     }
   }
 }
@@ -447,6 +448,7 @@ export default class InsCmsContent extends Vue {
           justify-content: center;
           text-align: center;
           line-height: 2rem;
+          font-family: '宋体';
         }
         .HeadText {
           width: 100%;

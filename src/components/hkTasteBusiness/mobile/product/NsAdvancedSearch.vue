@@ -291,7 +291,7 @@ export default class NsAdvancedSearch extends Vue {
   }
   .resetAll{
     color: #FFF;
-    font-size: 1.4rem;
+    font-size: 22px;
     width: 90%;
     margin: 0 auto;
     background: url('/images/mobile/ptx_08.jpg') no-repeat center center;
@@ -308,7 +308,7 @@ export default class NsAdvancedSearch extends Vue {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     color:#333333;
-    font-size: 1.6rem;
+    font-size: 22px;
     background: #fff;
     span{
       float:right;

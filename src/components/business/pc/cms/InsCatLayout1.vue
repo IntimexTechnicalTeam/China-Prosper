@@ -13,7 +13,7 @@
             <div class="cms-list">
                 <div class="perData" v-for="(v,index) in ListData" :key="index">
                     <div class="left">
-                        <p class="imgs" @click="GoLink(v)"><img :src="v.Cover?v.Cover:NoImg"></p>
+                        <p class="imgs" @click="GoLink(v)"><img :src="v.Cover.indexOf('.png')!==-1 || v.Cover.indexOf('.jpg')!==-1 || v.Cover.indexOf('.jpeg')!==-1 || v.Cover.indexOf('.gif')!==-1?v.Cover:NoImg"></p>
                     </div>
                     <div class="right">
                         <p class="title">{{v.Title}}</p>

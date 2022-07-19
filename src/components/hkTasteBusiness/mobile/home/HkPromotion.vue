@@ -2,7 +2,7 @@
   <div class="PromotionMain">
        <div class="productCat">
           <p class="NoramlTitle"><span class="text">{{productCatName}}</span></p>
-          <swiper class="swiper-no-swiping" :options="productCatOption" ref="mySwiper" v-if="productCatData.length > 0">
+          <swiper  :options="productCatOption" ref="mySwiper" v-if="productCatData.length > 0">
             <!-- slides -->
             <swiper-slide v-for="(slide, index) in productCatData" :key="index">
               <a :href="'/product/search/-?' + 'catalogs=' + JSON.stringify([slide.Id]) + '&type=0'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''" class="borderInner">
@@ -160,6 +160,7 @@ export default class HkPromotion extends Vue {
         font-size: 1.6rem;
         color: #fff;
         padding-left: 3rem;
+        font-weight: 700;
       }
     }
     .nestContent {
@@ -178,8 +179,8 @@ export default class HkPromotion extends Vue {
         .Innerbg {
           background: #fff url('/images/mobile/ptx_24.png') no-repeat center center;
           background-size: 100% 100%;
-          width: calc(100% - 2rem);
-          padding: 1rem;
+          width: calc(100% - 3rem);
+          padding: 1.5rem;
           position: relative;
           .NoramlTitle {
             position: absolute;
@@ -197,11 +198,11 @@ export default class HkPromotion extends Vue {
               margin-top: 1rem;
               margin-bottom: 1rem;
               a {
-                width: 40%;
+                width: 80%;
                 padding-top: 5px;
                 padding-bottom: 5px;
                 text-align: center;
-                border-radius:5px;
+                border-radius:2px;
                 border:1px solid @base_color;
                 color: @base_color;
                 font-size: 1.2rem;
@@ -275,6 +276,7 @@ export default class HkPromotion extends Vue {
           font-size: 20px;
           margin-top: 10px;
           transition: all .3s;
+          font-weight: 700;
         }
       }
     }
@@ -332,6 +334,7 @@ export default class HkPromotion extends Vue {
                 }
                 .Date {
                   color:#999999;
+                  font-family: '宋体';
                 }
               }
             }
@@ -377,6 +380,7 @@ export default class HkPromotion extends Vue {
                   justify-content: center;
                   text-align: center;
                   line-height: 2rem;
+                   font-family: '宋体';
                 }
                 .HeadText {
                   width: 100%;

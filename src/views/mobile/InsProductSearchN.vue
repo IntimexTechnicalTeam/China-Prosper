@@ -261,7 +261,7 @@ export default class InsProductSearch extends Vue {
     box-shadow: 0px 2px 5px #ccc;
     position: absolute;
     left:0;
-    top:3.5rem;
+    top:4rem;
     box-sizing:border-box;
     background: #fff;
     li{

@@ -124,7 +124,7 @@ export default class NsNsReSearchItem extends Vue {
       }
       p.category {
         width: 100%;
-        font-size: 20px;
+        font-size: 22px;
         color: #333333;
         background-color: #FFF;
         display: -webkit-box;
@@ -140,6 +140,7 @@ export default class NsNsReSearchItem extends Vue {
         height: 3.5rem;
         line-height: 3.5rem;
         border-radius: 2rem;
+        padding-top: 1rem;
         i{
           position: absolute;
           right: 0px;
@@ -181,7 +182,7 @@ export default class NsNsReSearchItem extends Vue {
             }
 
             label {
-            font-size: 18px;
+            font-size: 20px;
             color: #666666;
             width: 90%;
             margin: 0 auto;

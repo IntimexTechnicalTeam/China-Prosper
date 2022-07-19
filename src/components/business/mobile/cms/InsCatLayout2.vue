@@ -188,12 +188,12 @@ export default class InsCatLayout1 extends Vue {
               align-items: center;
               -ms-flex-negative: 0;
               flex-shrink: 0;
-              height: 45px;
-              line-height: 45px;
+              height: 55px;
+              line-height: 55px;
               position: relative;
               cursor: pointer;
               span {
-                font-size: 18px;
+                font-size: 1.8rem;
                 color: #b59669;
               }
               i {
@@ -228,6 +228,7 @@ export default class InsCatLayout1 extends Vue {
               margin-bottom: 20px;
               .redText {
                 color: @base_color;
+                font-size: 1.4rem;
               }
             }
             p {

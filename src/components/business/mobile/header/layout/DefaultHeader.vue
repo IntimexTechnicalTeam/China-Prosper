@@ -3,7 +3,8 @@
     <!-- 正常菜单 -->
       <div class="header-box header-normal">
         <div class="headerTop">
-            <img class="slide-menu" src="/images/mobile/ptx_09.png" @click="showSlideMenu" />
+            <img class="slide-menu" src="/images/mobile/ptx_09.png" @click="showSlideMenu" v-if="!this.$store.state.isShowMenu" />
+             <img class="slide-menu" src="/images/mobile/closeBtn.png" @click="showSlideMenu" v-if="this.$store.state.isShowMenu" />
             <ins-logo class="logoSide" />
             <div class="rightSide">
                  <router-link to="/account/GetEnquiry" v-if="isPtx" class="shoppingcart">
@@ -17,7 +18,8 @@
       <!-- 固定菜单 -->
       <div class="header-box header-fixed">
         <div class="headerTop">
-            <img class="slide-menu" src="/images/mobile/ptx_09.png" @click="showSlideMenu" />
+            <img class="slide-menu" src="/images/mobile/ptx_09.png" @click="showSlideMenu" v-if="!this.$store.state.isShowMenu" />
+            <img class="slide-menu" src="/images/mobile/closeBtn.png" @click="showSlideMenu" v-if="this.$store.state.isShowMenu" />
             <ins-logo class="logoSide" />
             <div class="rightSide">
                  <router-link to="/account/GetEnquiry" v-if="isPtx" class="shoppingcart">

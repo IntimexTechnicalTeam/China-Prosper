@@ -439,6 +439,7 @@ export default class InsPanel extends Vue {
       margin-left: 4%;
       span{
         font-size:1.4rem;
+        font-weight: 700;
       }
       &:first-child {
         margin-left: 0px!important;
@@ -464,6 +465,7 @@ export default class InsPanel extends Vue {
     justify-content: flex-end;
     .ProductCode {
       font-size: 16px;
+      font-family: '宋体';
     }
   }
 }

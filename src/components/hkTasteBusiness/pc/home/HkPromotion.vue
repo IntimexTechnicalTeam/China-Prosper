@@ -2,7 +2,7 @@
   <div class="PromotionMain">
        <div class="productCat">
           <p class="NoramlTitle"><span class="text">{{productCatName}}</span></p>
-          <swiper class="swiper-no-swiping" :options="productCatOption" ref="mySwiper" v-if="productCatData.length">
+          <swiper  :options="productCatOption" ref="mySwiper" v-if="productCatData.length">
             <!-- slides -->
             <swiper-slide v-for="(slide, index) in productCatData" :key="index">
               <a :href="'/product/search/-?' + 'catalogs=' + JSON.stringify([slide.Id]) + '&type=0'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''" class="borderInner">
@@ -365,6 +365,7 @@ export default class HkPromotion extends Vue {
                     }
                     .Date {
                       color:#999999;
+                      font-family: '宋体';
                     }
                   }
                 }
@@ -399,6 +400,7 @@ export default class HkPromotion extends Vue {
                     justify-content: center;
                     text-align: center;
                     line-height: 2.5rem;
+                    font-family: '宋体';
                   }
                   .HeadText {
                     width: 100%;

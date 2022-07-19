@@ -117,13 +117,13 @@ export default class InsMenuLayout extends Vue {
         }
 
         .el-submenu__title {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding-top: 0.64rem;
+            padding-bottom: 0.64rem;
             height: auto!important;
             line-height: unset;
             background: url('/images/mobile/ptx_26.png') no-repeat center center;
             background-color:transparent!important;
-            background-size: cover;
+            background-size: 100% 100%;
             .name{
                 font-size: 1.6rem!important;
                 color:#b19162;
@@ -152,12 +152,12 @@ export default class InsMenuLayout extends Vue {
                     color:#b19162;
                     display:block;
                     width: 100%;
-                    padding-top: 1rem;
-                    padding-bottom: 1rem;
+                    padding-top: 1.2rem;
+                    padding-bottom: 1.2rem;
                     margin: 0 auto;
                     font-weight: 500;
                     background: url('/images/mobile/ptx_26.png') no-repeat center center;
-                    background-size: cover;
+                    background-size: 100% 100%;
                     background-color:transparent;
                     b{
                         color:#FFF;

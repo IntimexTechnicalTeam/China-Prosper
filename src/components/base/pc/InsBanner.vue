@@ -1,6 +1,6 @@
 <template>
   <div class="banner NormalTop" v-loading="loading">
-    <swiper class="swiper-no-swiping" :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
+    <swiper  :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
       <!-- slides -->
       <swiper-slide v-for="(slide, index) in bannerList" :key="index">
         <a :href="slide.Url || 'javascript:;'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''">

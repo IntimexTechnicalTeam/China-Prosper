@@ -109,7 +109,7 @@ div,li,ul{
   list-style: none;
 }
 body {
-  font-family: 'Arial', '宋体';
+  font-family:'宋体';
 }
 div {
   user-select: none;

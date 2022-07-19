@@ -78,6 +78,7 @@ export default class InsProductItem extends Vue {
   min-height: 52px;
   text-align: center;
   word-break: break-word;
+  font-family: '宋体';
 }
 .in_pdWindow_item_code {
   margin-top: 16px;

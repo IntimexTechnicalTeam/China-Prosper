@@ -58,6 +58,7 @@ export default class InsProductWindow extends Vue {
     width: 90%;
     margin: 0 auto;
     word-break: break-word;
+    font-family: '宋体';
 }
 .in_pdWindow_item_code {
   margin-top: 1rem;

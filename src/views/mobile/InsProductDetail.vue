@@ -212,10 +212,13 @@ export default class ProductDetail extends Vue {
       &:nth-child(1){
         font-size: 1.6rem;
         color: #ca3636;
+        font-family: '宋体';
       }
       &:nth-child(2){
         font-size:1.6rem;
         color:#ca3636;
+        font-family: '宋体';
+        margin-left: 5px;
       }
     }
   }
@@ -226,11 +229,13 @@ export default class ProductDetail extends Vue {
         font-size: 1.2rem;
         color: #999;
         text-decoration: line-through;
+        font-family: '宋体';
       }
       &:nth-child(2){
         font-size: 1.2rem;
         color: #999;
         text-decoration: line-through;
+        font-family: '宋体';
       }
     }
   }

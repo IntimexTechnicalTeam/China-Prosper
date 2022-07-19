@@ -2,7 +2,7 @@
   <div :style="styla" v-if="ShowItemsLength > 0 ">
     <div class="productCat">
           <p class="NoramlTitle"><span class="text">{{title}}</span></p>
-          <swiper class="swiper-no-swiping" :options="SWproductCatOption" ref="mySwiper" v-if="InnerItems.length > 0">
+          <swiper  :options="SWproductCatOption" ref="mySwiper" v-if="InnerItems.length > 0">
             <!-- slides -->
             <swiper-slide v-for="(item, index) in InnerItems" :key="index">
                   <inProductWindow :item="item" :imgStyla="imgStyla" styla="width:90%;margin:0 auto;padding-bottom:2rem;margin-bottom: 2rem;"></inProductWindow>
@@ -109,6 +109,7 @@ export default class InsYouWouldLike2 extends Vue {
       font-size: 1.6rem;
       color: #fff;
       padding-left: 3rem;
+      font-weight: 700;
     }
   }
     .productCat {
