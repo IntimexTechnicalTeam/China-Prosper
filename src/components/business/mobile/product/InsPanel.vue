@@ -465,7 +465,7 @@ export default class InsPanel extends Vue {
     justify-content: flex-end;
     .ProductCode {
       font-size: 16px;
-      font-family: '宋体';
+
     }
   }
 }

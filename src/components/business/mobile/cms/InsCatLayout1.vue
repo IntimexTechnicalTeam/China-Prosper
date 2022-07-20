@@ -60,7 +60,7 @@ export default class InsCatLayout1 extends Vue {
                 this.ListData = result.Data;
             }
             result.Data.forEach(function (i) {
-            var newDate = new Date(i.ContentDateTime.replace(/-/g, '-'));
+            var newDate = new Date(i.ContentDateTime.replace(/-/g, '/'));
             i.ContentDateTime = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
             });
             this.totalRecord = result.TotalRecord;
@@ -201,7 +201,7 @@ export default class InsCatLayout1 extends Vue {
                 .contentTime {
                     font-size: 1.2rem;
                     color: #999999;
-                    font-family: '宋体';
+
                 }
                  .desc {
                     font-size: 1.2rem;

@@ -235,7 +235,7 @@ export default class PkProductInfo extends Vue {
   }
   .ProductCode {
     color: #999999;
-    font-family: '宋体';
+
   }
 }
 .redColor {

@@ -272,7 +272,8 @@ export default class NsAdvancedSearch extends Vue {
 .NsAdvancedSearch {
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  overflow: hidden;
+  overflow: auto;
+  height: 100vh;
     .TopMeun {
     background: #fff;
     padding-bottom: 1rem;

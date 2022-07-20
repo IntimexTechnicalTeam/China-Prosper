@@ -13,12 +13,12 @@
                     <li>{{$t('Enquiry.Date')}}</li>
                 </ul>
                 <ul class="Bottom" v-for="(v,index) in EnqList" :key="index">
-                  <li v-if="v.CaseType===1"><router-link :to="'/account/EnquiryDetail/'+v.Id">{{v.OrderCode}}</router-link></li>
-                  <li v-if="v.CaseType===2"><router-link :to="'/account/QuotaDetail/'+v.Id">{{v.OrderCode}}</router-link></li>
-                  <li v-if="v.CaseType===3"><router-link :to="'/account/BuyOrderDetail/'+v.Id">{{v.OrderCode}}</router-link></li>
-                  <li v-if="v.CaseType===4"><router-link :to="'/account/InviceInfoDetail/'+v.Id">{{v.OrderCode}}</router-link></li>
-                  <li v-if="v.CaseType===5"><router-link :to="'/account/DeliveryDetail/'+v.Id">{{v.OrderCode}}</router-link></li>
-                  <li v-if="v.CaseType===6"><router-link :to="'/account/PackingDetail/'+v.Id">{{v.OrderCode}}</router-link></li>
+                  <li v-if="v.CaseType===1"><router-link :to="'/account/EnquiryDetail/'+v.Id+'/0'">{{v.OrderCode}}</router-link></li>
+                  <li v-if="v.CaseType===2"><router-link :to="'/account/QuotaDetail/'+v.Id+'/0'">{{v.OrderCode}}</router-link></li>
+                  <li v-if="v.CaseType===3"><router-link :to="'/account/BuyOrderDetail/'+v.Id+'/0'">{{v.OrderCode}}</router-link></li>
+                  <li v-if="v.CaseType===4"><router-link :to="'/account/InviceInfoDetail/'+v.Id+'/0'">{{v.OrderCode}}</router-link></li>
+                  <li v-if="v.CaseType===5"><router-link :to="'/account/DeliveryDetail/'+v.Id+'/0'">{{v.OrderCode}}</router-link></li>
+                  <li v-if="v.CaseType===6"><router-link :to="'/account/PackingDetail/'+v.Id+'/0'">{{v.OrderCode}}</router-link></li>
                   <li>{{v.OrderType}}</li>
                   <li>{{v.CreateDate}}</li>
                 </ul>

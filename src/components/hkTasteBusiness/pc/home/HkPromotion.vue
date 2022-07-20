@@ -100,7 +100,7 @@ export default class HkPromotion extends Vue {
       this.$Api.cms.getContentsByCatKeyEx(pas).then((result) => {
         this.NewsData = result.Data;
         result.Data.forEach(function (i) {
-        var newDate = new Date(i.ContentDateTime.replace(/-/g, '-'));
+        var newDate = new Date(i.ContentDateTime.replace(/-/g, '/'));
         i.ContentDateTime = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
         });
       });
@@ -365,7 +365,7 @@ export default class HkPromotion extends Vue {
                     }
                     .Date {
                       color:#999999;
-                      font-family: '宋体';
+
                     }
                   }
                 }
@@ -400,7 +400,7 @@ export default class HkPromotion extends Vue {
                     justify-content: center;
                     text-align: center;
                     line-height: 2.5rem;
-                    font-family: '宋体';
+
                   }
                   .HeadText {
                     width: 100%;

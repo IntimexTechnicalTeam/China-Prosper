@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class="footerCpy">
-            <p>Copyright © {{currentYear}} Prosper Bird's Nest & Ginseng Co.<br>powered by Eventizer
+            <p>Copyright © {{currentYear}} Prosper Bird's Nest & Ginseng Co.Powered by Eventizer
             <a href="https://eventizer.hk/" target="_blank">
               <img src="/images/mobile/footerlogo.png">
             </a>
@@ -146,8 +146,6 @@ export default class InsFooter extends Vue {
   .el-menu--inline {
     width: 100%!important;
     background-color: #fff!important;
-    position: absolute;
-    z-index: 999;
           > li {
               height: auto;
               line-height: unset;

@@ -146,7 +146,6 @@
                   style="width: 100%;"
                 >
                   <el-option :value="1" :label="$t('Register.UserLanguageT')">{{$t('Register.UserLanguageT')}}</el-option>
-                  <el-option :value="0" :label="$t('Register.UserLanguageE')">{{$t('Register.UserLanguageE')}}</el-option>
                   <el-option :value="2" :label="$t('Register.UserLanguageS')">{{$t('Register.UserLanguageS')}}</el-option>
                 </el-select>
               </el-form-item>

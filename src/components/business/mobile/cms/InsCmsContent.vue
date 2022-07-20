@@ -448,7 +448,7 @@ export default class InsCmsContent extends Vue {
           justify-content: center;
           text-align: center;
           line-height: 2rem;
-          font-family: '宋体';
+
         }
         .HeadText {
           width: 100%;

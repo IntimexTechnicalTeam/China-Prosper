@@ -102,14 +102,14 @@ export default class InsProductWindow extends Vue {
   text-align: center;
   color: #ca3636;
   display: inline-block;
-  font-family: '宋体';
+
   margin-right: 5px;
 }
 .PcVersion .in_pdWindow_item_price .currentPricesMain .small:nth-child(2) {
     font-size: 1.6rem;
     color: #ca3636;
     display: inline-block;
-    font-family: '宋体';
+
 }
 .PcVersion .in_pdWindow_item_price .primePricesMain  .small:nth-child(1) {
   font-size: 1rem;
@@ -118,13 +118,13 @@ export default class InsProductWindow extends Vue {
   color: #999;
   display: inline-block;
   text-decoration:line-through;
-  font-family: '宋体';
+
 }
 .PcVersion .in_pdWindow_item_price .primePricesMain .small:nth-child(2) {
   font-size: 1rem;
   color: #999;
   display: inline-block;
-  font-family: '宋体';
+
 }
 .productMain:hover .in_pdWindow_page_item img {
     border: 1px solid #cd0909;
@@ -245,7 +245,7 @@ export default class InsProductWindow extends Vue {
     word-break: break-word;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-family: '宋体';
+
 }
 .in_pdWindow_item_code {
   margin-top: 1rem;

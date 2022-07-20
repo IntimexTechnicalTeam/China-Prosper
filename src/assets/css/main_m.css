@@ -173,7 +173,7 @@ input[type=button], button { cursor: pointer; -webkit-appearance: none; }
   width: calc(100% - 20px);
   display: inline-flex;
   flex-wrap: wrap;
-  background: #f4f4f4;
+  /* background: #f4f4f4; */
   padding: 10px;
   position: relative;
   padding-top: 4rem;
@@ -398,7 +398,7 @@ input[type=button], button { cursor: pointer; -webkit-appearance: none; }
   text-align: center;
   line-height: 45px;
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   border-radius: 10px;
   cursor: pointer;
   -webkit-transition: all .3s;

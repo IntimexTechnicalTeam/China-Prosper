@@ -81,13 +81,13 @@ export default class InsProductWindow extends Vue {
   text-align: center;
   color: #ca3636;
   display: inline-block;
-  font-family: '宋体';
+
 }
 .in_pdWindow_item_price .currentPricesMain .small:nth-child(2) {
     font-size: 1.6rem;
     color: #ca3636;
     display: inline-block;
-    font-family: '宋体';
+
     margin-left: 5px;
 }
 .in_pdWindow_item_price .primePricesMain  .small:nth-child(1) {
@@ -97,13 +97,13 @@ export default class InsProductWindow extends Vue {
   color: #b2b2b2;
   display: inline-block;
   text-decoration: line-through;
-  font-family: '宋体';
+
 }
 .in_pdWindow_item_price .primePricesMain .small:nth-child(2) {
     font-size: 1.2rem;
     color: #b2b2b2;
     display: inline-block;
-    font-family: '宋体';
+
 }
 </style>
 <style lang="less" scoped>
@@ -142,7 +142,7 @@ export default class InsProductWindow extends Vue {
     word-break: break-word;
     margin-top: .5rem;
     margin-bottom: .5rem;
-    font-family: '宋体';
+
 }
 .in_pdWindow_item_code {
   margin-top: 1rem;

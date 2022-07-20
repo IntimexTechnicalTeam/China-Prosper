@@ -112,6 +112,7 @@ export default class InsMenuLayout extends Vue {
 <style lang="less">
 .HeadMeun {
     #menu {
+      padding-bottom: 10rem;
         .el-submenu__icon-arrow {
             display: none;
         }

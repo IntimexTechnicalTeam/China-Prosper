@@ -151,6 +151,7 @@ export default class NsNsReSearchItem extends Vue {
 
      >ul {
        transition: all 3s;
+       margin-bottom: 10rem;
         >li {
             height: 3.5rem;
             display: flex;

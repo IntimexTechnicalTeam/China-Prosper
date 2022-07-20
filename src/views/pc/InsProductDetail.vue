@@ -226,13 +226,13 @@ export default class InsProductDetail extends Vue {
       &:nth-child(1){
         font-size: 26px;
         color:#ca3636;
-        font-family: '宋体';
+
         margin-right: 5px;
       }
       &:nth-child(2){
         font-size:26px;
         color:#ca3636;
-        font-family: '宋体';
+
       }
     }
   }
