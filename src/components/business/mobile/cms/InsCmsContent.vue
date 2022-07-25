@@ -401,9 +401,33 @@ export default class InsCmsContent extends Vue {
         font-family: 'Arial', '宋体'!important;
       }
     }
-    /deep/ img {
-      width: 100%;
-      margin-top: 1rem;
+    /deep/ .AboutMain {
+        .BigImg {
+          width: 100%;
+          margin: 0 auto;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          img {
+            width: 100%;
+          }
+        }
+        .SmallImg {
+          width: 100%;
+          margin: 0 auto;
+          margin-bottom: 20px;
+          img {
+            width: 100%;
+          }
+        }
+      .VideoMain {
+        width: 100%;
+        display: inline-block;
+        .perList {
+          width: 100%;
+          display: inline-block;
+          margin-bottom: 20px;
+        }
+      }
     }
   }
 }

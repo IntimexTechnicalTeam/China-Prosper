@@ -158,6 +158,7 @@ export default class InsEnquiryDetail extends Vue {
   MessageContent:string='';
   htmlTitle:string='pdf文件名';
   isPrint:boolean = true;
+  so_id:string='0';
   ruleForm: any = {
     Code: '',
     CustomerView: {},
@@ -215,6 +216,7 @@ GetPtxOrderMessage () {
           this.ruleForm.CreateDate = result.CreateDate;
           this.ruleForm.Code = result.Code;
           this.ruleForm.Total = result.Total;
+          this.so_id = result.so_id;
           this.ruleForm.SiteLetterList = result.SiteLetterList.reverse();
           this.OrderId = result.Id;
       });

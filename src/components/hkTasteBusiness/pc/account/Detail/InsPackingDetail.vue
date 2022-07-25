@@ -192,6 +192,7 @@ export default class InsPackingDetail extends Vue {
   MessageContent:string='';
   htmlTitle:string='pdf文件名';
   isPrint:boolean = true;
+  so_id:string='0';
   ruleForm: any = {
     Code: '',
     CustomerView: {},
@@ -251,11 +252,16 @@ export default class InsPackingDetail extends Vue {
           this.ruleForm.CaseView = result.CaseView;
           this.ruleForm.CreateDate = result.CreateDate;
           this.ruleForm.Code = result.Code;
+          this.so_id = result.so_id;
           this.ruleForm.Total = result.TotalAmount;
       });
   }
  goPrint() {
-    this.$router.push('/account/PackingPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+    if (this.type === '0') {
+      this.$router.push('/account/PackingPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+    } else {
+      this.$router.push('/account/PackingPrinting/' + this.so_id + '/' + this.ruleForm.OrderType);
+    }
   }
   GoBack () {
       this.$router.push('/account/ptxorder');

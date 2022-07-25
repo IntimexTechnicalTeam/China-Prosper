@@ -110,8 +110,8 @@ export class EnquiryApi extends WSAPI {
   };
 
   // 获取留言信息 /V2/Enquiry/GetOrderSiteLetter
-  GetOrderSiteLetter(orderId: string, callback: Function) {
-    return this.instance.get(this.apiPath + '/Enquiry/GetOrderSiteLetter', { params: { orderId: orderId } }).then((result) => {
+  GetOrderSiteLetter(caseId: string, callback: Function) {
+    return this.instance.get(this.apiPath + '/Enquiry/GetOrderSiteLetter', { params: { caseId: caseId } }).then((result) => {
       return result.data;
     });
   };

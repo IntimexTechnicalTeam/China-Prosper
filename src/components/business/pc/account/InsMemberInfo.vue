@@ -228,11 +228,6 @@ export default class InsMemberInfo extends Vue {
         }
       ],
       Phone: [
-        {
-          required: true,
-          message: this.$t('MemberInfo.EnterUserPhone'),
-          trigger: 'blur'
-        },
         { validator: function(rule, value, callback) {
           /* eslint-disable */
             var mobile = /^(\+)?(\d{0,4}\-?)?\d{7,11}$/;
@@ -264,11 +259,6 @@ export default class InsMemberInfo extends Vue {
         trigger: 'blur' }
       ],
        Fax: [
-        {
-          required: true,
-          message: this.$t('MemberInfo.EnterFax'),
-          trigger: 'blur'
-        },
         { validator: function(rule, value, callback) {
           /* eslint-disable */
             var mobile = /^(\+)?(\d{0,4}\-?)?\d{7,11}$/;

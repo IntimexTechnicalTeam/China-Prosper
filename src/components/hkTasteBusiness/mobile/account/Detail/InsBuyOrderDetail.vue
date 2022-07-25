@@ -192,7 +192,7 @@ import Express from '@/model/express';
 import printJS from 'print-js';
 import html2Canvas from 'html2Canvas';
 @Component
-export default class InsEnquiryDetail extends Vue {
+export default class InsBuyOrderDetail extends Vue {
   isPreview:boolean =true;
   CreateDate:string='';
   DeliveryId:string='';
@@ -200,6 +200,7 @@ export default class InsEnquiryDetail extends Vue {
   MessageContent:string='';
   htmlTitle:string='pdf文件名';
   isPrint:boolean = true;
+  so_id:string='0';
   ruleForm: any = {
     Code: '',
     CustomerView: {},
@@ -233,6 +234,9 @@ export default class InsEnquiryDetail extends Vue {
   get id() {
     return this.$route.params.id;
   }
+    get type() {
+        return this.$route.params.type;
+    }
   async GetGoodOrder () {
       this.$Api.enquiry.GetGoodOrder(this.id).then(result => {
           this.ruleForm = result;
@@ -244,6 +248,23 @@ export default class InsEnquiryDetail extends Vue {
           this.ruleForm.CreateDate = result.CreateDate;
           this.ruleForm.Code = result.Code;
           this.ruleForm.Total = result.Total;
+          var container = this.$el.querySelector('#new_message') as any;
+          container.scrollTop = container.scrollHeight;
+          this.ruleForm.SiteLetterList = result.SiteLetterList;
+      });
+  }
+  async GetPtxOrderMessage () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          this.ruleForm = result;
+          this.CaseId = result.CaseId;
+          this.DeliveryId = result.DeliveryId;
+          this.ruleForm.CustomerView = result.CustomerView;
+          this.ruleForm.DetailList = result.DetailList;
+          this.ruleForm.CaseView = result.CaseView;
+          this.ruleForm.CreateDate = result.CreateDate;
+          this.ruleForm.Code = result.Code;
+          this.ruleForm.Total = result.Total;
+          this.so_id = result.so_id;
           var container = this.$el.querySelector('#new_message') as any;
           container.scrollTop = container.scrollHeight;
           this.ruleForm.SiteLetterList = result.SiteLetterList;
@@ -286,7 +307,11 @@ export default class InsEnquiryDetail extends Vue {
       this.$router.push('/account/ptxorder');
   }
   created() {
-   this.GetGoodOrder();
+    if (this.type === '0') {
+     this.GetGoodOrder();
+    } else {
+     this.GetPtxOrderMessage();
+    }
   }
 }
 </script>

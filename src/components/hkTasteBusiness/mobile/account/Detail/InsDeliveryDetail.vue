@@ -178,7 +178,7 @@
                     </ul>
                 </div>
             <div class="BottomMeun">
-                <a @click="PrintFormat()" id="printBtn" >{{$t('Enquiry.PrintFormat')}}</a>
+                <a @click="goPrint" id="printBtn" >{{$t('Enquiry.PrintFormat')}}</a>
                 <a @click="GoUrl()" class="colorStyle">{{$t('Enquiry.ShipmentSchedule')}}</a>
             </div>
         </div>
@@ -195,7 +195,9 @@ export default class InsDeliveryDetail extends Vue {
   isPreview:boolean =true;
   CreateDate:string='';
   OrderId:string='';
+  CaseId:string='';
   MessageContent:string='';
+  so_id:string='0';
   ruleForm: any = {
     Code: '',
     CustomerView: {},
@@ -229,21 +231,48 @@ export default class InsDeliveryDetail extends Vue {
   get id() {
     return this.$route.params.id;
   }
+    get type() {
+        return this.$route.params.type;
+    }
   async GetDeliveryOrder () {
       this.$Api.enquiry.GetDeliveryOrder(this.id).then(result => {
           this.ruleForm = result;
           this.OrderId = result.Id;
+          this.CaseId = result.CaseView.CaseId;
           this.ruleForm.CustomerView = result.CustomerView;
           this.ruleForm.DetailList = result.Details;
           this.ruleForm.CaseView = result.CaseView;
           this.ruleForm.CreateDate = result.CreateDate;
           this.ruleForm.Code = result.Code;
           this.ruleForm.Total = result.Total;
-          this.GetOrderSiteLetter(this.OrderId);
+          this.GetOrderSiteLetter(result.CaseView.CaseId);
+      });
+  }
+  async GetPtxOrderMessage () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          this.ruleForm = result;
+          this.OrderId = result.Id;
+          this.CaseId = result.CaseView.CaseId;
+          this.ruleForm.CustomerView = result.CustomerView;
+          this.ruleForm.DetailList = result.Details;
+          this.ruleForm.CaseView = result.CaseView;
+          this.ruleForm.CreateDate = result.CreateDate;
+          this.ruleForm.Code = result.Code;
+          this.ruleForm.Total = result.Total;
+          this.so_id = result.so_id;
+          console.log(result, 'eeeeeeeeeee');
+          this.GetOrderSiteLetter(result.CaseView.CaseId);
       });
   }
   GoUrl () {
-      this.$router.push('/account/DeliveryOrderDetail/' + this.OrderId);
+      this.$router.push('/account/DeliveryOrderDetail/' + this.so_id);
+  }
+   goPrint() {
+    if (this.type === '0') {
+         this.$router.push('/account/DeliveryPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+    } else {
+         this.$router.push('/account/DeliveryPrinting/' + this.so_id + '/' + this.ruleForm.OrderType);
+    }
   }
   GetOrderSiteLetter (val) {
         this.$Api.enquiry.GetOrderSiteLetter(val).then(result => {
@@ -253,13 +282,13 @@ export default class InsDeliveryDetail extends Vue {
   SendMessage () {
      if (this.MessageContent !== '') {
         var params = {
-          OrderId: this.OrderId,
+          OrderId: this.CaseId,
           Content: this.MessageContent,
           IsBuyer: true
         };
         this.$Api.enquiry.CreateSiteLetter(params).then(result => {
           if (result.Succeeded) {
-            this.GetOrderSiteLetter(this.OrderId);
+            this.GetOrderSiteLetter(this.CaseId);
             this.MessageContent = '';
             var container = this.$el.querySelector('#new_message') as any;
             container.scrollTop = container.scrollHeight;
@@ -284,7 +313,11 @@ export default class InsDeliveryDetail extends Vue {
       this.$router.push('/account/ptxorder');
   }
   created() {
-   this.GetDeliveryOrder();
+    if (this.type === '0') {
+     this.GetDeliveryOrder();
+    } else {
+     this.GetPtxOrderMessage();
+    }
   }
 }
 </script>

@@ -40,7 +40,7 @@ export default class paySuccess extends Vue {
                 }
                 span{
                     font-size: 4rem;
-                    color: #59ab61;
+                    color: @base_color;
                     text-align: center;
                 }
             }
@@ -55,7 +55,7 @@ export default class paySuccess extends Vue {
                     display: inline-block;
                     padding: 0.8rem 1.2rem;
                     margin: 0 1rem;
-                    background-color: #59ab61;
+                    background-color: @base_color;
                     color: #fff;
                     border-radius: 5px;
                     font-size: 1.2rem;

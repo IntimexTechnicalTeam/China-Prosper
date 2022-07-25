@@ -3,26 +3,27 @@
     <div class="InnerBox" id="print" ref="print">
             <div class="Top">
                 <h1>{{TitleForm.Name}}</h1>
-                <p><img :src="TitleForm.RelativeLogo" ><span>{{TitleForm.Address}}</span></p>
+                <p><img :src="TitleForm.RelativeLogo" class="RelativeLogo"></p>
+                <p><span>{{TitleForm.Address}}</span></p>
                 <p><span>{{$t('Enquiry.Phone')}}:{{TitleForm.Phone}}</span><span>{{$t('Enquiry.Fax')}}:{{TitleForm.Fax}}</span></p>
             </div>
             <div class="Mid">
                 <div class="Info">
                    <ul>
-                       <li><span>{{$t('Enquiry.Company')}}:</span><span>{{ruleForm.CustomerView.CompanyName}}</span></li>
-                       <li><span>{{$t('Enquiry.YourRef')}}:</span><span>{{ruleForm.CustomerCode}}</span></li>
-                       <li><span>{{$t('Enquiry.Address')}}:</span><span>{{ruleForm.CustomerView.Address}}</span></li>
-                       <li><span>{{$t('Enquiry.Date')}}:</span><span>{{ruleForm.CreateDate}}</span></li>
-                       <li><span>{{$t('Enquiry.Country')}}:</span><span>{{ruleForm.CustomerView.CountryName}}</span></li>
-                       <li><span>{{$t('Enquiry.State')}}:</span><span>{{ruleForm.CustomerView.ProvinceName}}</span></li>
-                       <li><span>{{$t('Enquiry.City')}}:</span><span>{{ruleForm.CustomerView.CityName}}</span></li>
-                       <li><span>{{$t('Enquiry.InviceInfo')}}:</span><span>{{ruleForm.Code}}</span></li>
-                       <li><span>{{$t('Enquiry.PostalCode')}}:</span><span>{{ruleForm.CustomerView.PostCode}}</span></li>
-                       <li><span>{{$t('Enquiry.CaseNo')}}:</span><span>{{ruleForm.CaseView.CaseCode}}</span></li>
-                       <li><span>{{$t('Enquiry.Attn')}}:</span><span>{{ruleForm.CustomerView.FullName}}</span></li>
-                       <li><span>{{$t('Enquiry.Phone')}}:</span><span>{{ruleForm.CustomerView.Phone}}</span></li>
-                       <li><span>{{$t('Enquiry.Fax')}}:</span><span>{{ruleForm.CustomerView.Fax}}</span></li>
-                       <li><span>{{$t('Enquiry.Email')}}:</span><span>{{ruleForm.CustomerView.Email}}</span></li>
+                       <li v-if="ruleForm.CustomerView.CompanyName!==null"><span>{{$t('Enquiry.Company')}}:</span><span>{{ruleForm.CustomerView.CompanyName}}</span></li>
+                       <li v-if="ruleForm.CustomerCode!==null"><span>{{$t('Enquiry.YourRef')}}:</span><span>{{ruleForm.CustomerCode}}</span></li>
+                       <li v-if="ruleForm.CustomerView.Address!==null"><span>{{$t('Enquiry.Address')}}:</span><span>{{ruleForm.CustomerView.Address}}</span></li>
+                       <li v-if="ruleForm.CreateDate!==null"><span>{{$t('Enquiry.Date')}}:</span><span>{{ruleForm.CreateDate}}</span></li>
+                       <li v-if="ruleForm.CustomerView.CountryName!==null"><span>{{$t('Enquiry.Country')}}:</span><span>{{ruleForm.CustomerView.CountryName}}</span></li>
+                       <li v-if="ruleForm.CustomerView.ProvinceName!==null"><span>{{$t('Enquiry.State')}}:</span><span>{{ruleForm.CustomerView.ProvinceName}}</span></li>
+                       <li v-if="ruleForm.CustomerView.CityName!==null"><span>{{$t('Enquiry.City')}}:</span><span>{{ruleForm.CustomerView.CityName}}</span></li>
+                       <li v-if="ruleForm.Code!==null"><span>{{$t('Enquiry.InviceInfo')}}:</span><span>{{ruleForm.Code}}</span></li>
+                       <li v-if="ruleForm.CustomerView.PostCode!==null"><span>{{$t('Enquiry.PostalCode')}}:</span><span>{{ruleForm.CustomerView.PostCode}}</span></li>
+                       <li v-if="ruleForm.CaseView.CaseCode!==null"><span>{{$t('Enquiry.CaseNo')}}:</span><span>{{ruleForm.CaseView.CaseCode}}</span></li>
+                       <li v-if="ruleForm.CustomerView.FullName!==null"><span>{{$t('Enquiry.Attn')}}:</span><span>{{ruleForm.CustomerView.FullName}}</span></li>
+                       <li v-if="ruleForm.CustomerView.Phone!==null"><span>{{$t('Enquiry.Phone')}}:</span><span>{{ruleForm.CustomerView.Phone}}</span></li>
+                       <li v-if="ruleForm.CustomerView.Fax!==null"><span>{{$t('Enquiry.Fax')}}:</span><span>{{ruleForm.CustomerView.Fax}}</span></li>
+                       <li v-if="ruleForm.CustomerView.Email!==null"><span>{{$t('Enquiry.Email')}}:</span><span>{{ruleForm.CustomerView.Email}}</span></li>
                    </ul>
                 </div>
                 <div class="Product">
@@ -129,7 +130,7 @@ GetStoreData () {
     printJS({
         printable: url, // 要打印的id
         type: 'image',
-        style: '@page{size:auto;margin: 0cm 1cm 0cm 1cm;}' // 去除页眉页脚
+        style: '@page{size:auto;margin: 1cm 1cm 1cm 1cm;}' // 去除页眉页脚
     });
     this.isPrint = false;
     });
@@ -146,6 +147,7 @@ GetStoreData () {
     display: inline-block!important;
     flex-wrap: wrap;
     background: #fff!important;
+    padding-top: 11.5rem;
     .InnerBox {
         width:1000px;
         margin: 0 auto;
@@ -166,9 +168,9 @@ GetStoreData () {
                 justify-content: center;
                 width: 100%;
                 img {
-                    width: 80px;
+                    width: 250px;
                     display: inline-block;
-                    margin-right: 10px;
+                    margin-bottom: 20px;
                 }
                 span {
                     display: inline-block;

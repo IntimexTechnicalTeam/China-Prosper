@@ -1,18 +1,19 @@
 <template>
-<div class="warper PrintingPreview">
+<div class="warper PrintingPreview ">
     <div class="InnerBox" id="print" ref="print">
             <div class="Top">
                 <h1>{{TitleForm.Name}}</h1>
-                <p><img :src="TitleForm.RelativeLogo" ><span>{{TitleForm.Address}}</span></p>
+                <p><img :src="TitleForm.RelativeLogo" class="RelativeLogo"></p>
+                <p><span>{{TitleForm.Address}}</span></p>
                 <p><span>{{$t('Enquiry.Phone')}}:{{TitleForm.Phone}}</span><span>{{$t('Enquiry.Fax')}}:{{TitleForm.Fax}}</span></p>
             </div>
             <div class="Mid">
                 <div class="Info">
                    <ul>
-                       <li><span>{{$t('Enquiry.ProInvcode')}}:</span><span>{{DetailList.OrderCode}}</span></li>
-                       <li><span>{{$t('Enquiry.Date')}}:</span><span>{{DetailList.CreateDate}}</span></li>
-                       <li><span>{{$t('Enquiry.Company')}}:</span><span>{{DetailList.CustomerView.CompanyName}}</span></li>
-                       <li><span>{{$t('Enquiry.CaseNo')}}:</span><span>{{DetailList.CaseCode}}</span></li>
+                       <li v-if="DetailList.OrderCode!==null"><span>{{$t('Enquiry.ProInvcode')}}:</span><span>{{DetailList.OrderCode}}</span></li>
+                       <li v-if="DetailList.CreateDate!==null"><span>{{$t('Enquiry.Date')}}:</span><span>{{DetailList.CreateDate}}</span></li>
+                       <li v-if="DetailList.CustomerView.CompanyName!==null"><span>{{$t('Enquiry.Company')}}:</span><span>{{DetailList.CustomerView.CompanyName}}</span></li>
+                       <li v-if="DetailList.CaseCode!==null"><span>{{$t('Enquiry.CaseNo')}}:</span><span>{{DetailList.CaseCode}}</span></li>
                    </ul>
                 </div>
                 <div class="Product">
@@ -75,26 +76,26 @@ export default class InsPrintingPreview extends Vue {
           this.DetailList = result;
       });
   }
-    goPrint() {
-        this.isPrint = true;
-        html2Canvas(this.$refs.print as any, {
-        allowTaint: false,
-        // taintTest: false,
-        useCORS: true,
-        // dpi: window.devicePixelRatio * 4,
-        scale: 4
-        // scrollX: 0,
-        // scrollY: 0
-        }).then((canvas) => {
-        const url = canvas.toDataURL('image/jpg');
-        printJS({
-            printable: url, // 要打印的id
-            type: 'image',
-            style: '@page{size:auto;margin: 0cm 1cm 0cm 1cm;}' // 去除页眉页脚
-        });
-        this.isPrint = false;
-        });
-    }
+ async goPrint() {
+    this.isPrint = true;
+    await html2Canvas(this.$refs.print as any, {
+    allowTaint: false,
+    // taintTest: false,
+    useCORS: true,
+    // dpi: window.devicePixelRatio * 4,
+    scale: 4
+    // scrollX: 0,
+    // scrollY: 0
+    }).then((canvas) => {
+    const url = canvas.toDataURL('image/jpg');
+    printJS({
+        printable: url, // 要打印的id
+        type: 'image',
+        style: '@page{size:auto;margin: 1cm 1cm 1cm 1cm;}' // 去除页眉页脚
+    });
+    this.isPrint = false;
+    });
+  }
     GoBack () {
         this.$router.push('/account/ptxorder');
     }
@@ -110,7 +111,8 @@ export default class InsPrintingPreview extends Vue {
     display: inline-block!important;
     flex-wrap: wrap;
     background: #fff!important;
-    padding: 0px!important;
+    padding: 0px;
+    padding-top: 7.5rem;
     .InnerBox {
         width:90%;
         margin: 0 auto;
@@ -129,9 +131,9 @@ export default class InsPrintingPreview extends Vue {
                 display: inline-block;
                 width: 100%;
                 img {
-                    width: 80px;
+                    width: 250px;
                     display: inline-block;
-                    margin-right: 10px;
+                    margin-bottom: 20px;
                 }
                 span {
                     display: block;

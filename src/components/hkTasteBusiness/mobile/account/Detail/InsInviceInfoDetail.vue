@@ -167,6 +167,7 @@ export default class InsInviceInfoDetail extends Vue {
   MessageContent:string='';
   htmlTitle:string='pdf文件名';
   isPrint:boolean = true;
+  so_id:string='0';
   ruleForm: any = {
     Code: '',
     CustomerView: {},
@@ -200,6 +201,9 @@ export default class InsInviceInfoDetail extends Vue {
   get id() {
     return this.$route.params.id;
   }
+    get type() {
+        return this.$route.params.type;
+    }
   async GetInvoiceOrder () {
       this.$Api.enquiry.GetInvoiceOrder(this.id).then(result => {
           console.log(result, 'resultresult');
@@ -213,14 +217,36 @@ export default class InsInviceInfoDetail extends Vue {
           this.ruleForm.Total = result.TotalAmount;
       });
   }
+  async GetPtxOrderMessage () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          console.log(result, 'resultresult');
+          this.OrderId = result.Id;
+          this.ruleForm = result;
+          this.ruleForm.CustomerView = result.CustomerView;
+          this.ruleForm.DetailList = result.Details;
+          this.ruleForm.CaseView = result.CaseView;
+          this.ruleForm.CreateDate = result.CreateDate;
+          this.ruleForm.Code = result.Code;
+          this.so_id = result.so_id;
+          this.ruleForm.Total = result.TotalAmount;
+      });
+  }
  goPrint() {
-    this.$router.push('/account/InviceInfoPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+    if (this.type === '0') {
+        this.$router.push('/account/InviceInfoPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+    } else {
+        this.$router.push('/account/InviceInfoPrinting/' + this.so_id + '/' + this.ruleForm.OrderType);
+    }
   }
   GoBack () {
       this.$router.push('/account/ptxorder');
   }
   mounted() {
-    this.GetInvoiceOrder();
+    if (this.type === '0') {
+     this.GetInvoiceOrder();
+    } else {
+     this.GetPtxOrderMessage();
+    }
   }
 }
 </script>
