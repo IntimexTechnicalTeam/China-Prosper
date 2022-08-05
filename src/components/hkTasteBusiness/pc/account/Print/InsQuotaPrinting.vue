@@ -36,8 +36,8 @@
                                 <li>{{$t('Enquiry.OtherRequirement')}}</li>
                                 <li>{{$t('Enquiry.Image')}}</li>
                                 <li>{{$t('Enquiry.Quantity')}}</li>
-                                <li>{{$t('Enquiry.UnitPrice')}}</li>
-                                <li>{{$t('Enquiry.SubTotal')}}</li>
+                                <li>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</li>
+                                <li>{{$t('Enquiry.SubTotal')}}{{FrontE.PtxDefaultCurrency}}</li>
                             </ul>
                             <ul class="topB"  v-for="(v,index) in ruleForm.DetailList" :key="index">
                                 <li>{{index+1}}</li>
@@ -49,7 +49,7 @@
                                 <li>{{(v.UnitPrice) | PriceFormat}}</li>
                                 <li>{{(v.TotalSum) | PriceFormat}}</li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
+                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
                     </div>
                 </div>
                 <div class="otherInfo">
@@ -100,6 +100,14 @@ export default class InsQuotaPrinting extends Vue {
           }
       });
   }
+   GetPtxGoodOrder () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          if (result) {
+            this.ruleForm = result;
+            console.log(this.ruleForm, 'this.ruleForm this.ruleForm ');
+          }
+      });
+  }
 get currentlang () {
     return this.$i18n.locale;
   }
@@ -136,8 +144,12 @@ GetStoreData () {
     });
   }
   created() {
-      this.GetGoodOrder();
-      this.GetStoreData();
+    this.GetStoreData();
+    if (this.type === '0') {
+     this.GetGoodOrder();
+    } else {
+     this.GetPtxGoodOrder();
+    }
   }
 }
 </script>
@@ -235,7 +247,7 @@ GetStoreData () {
                         display: flex;
                         flex-wrap: wrap;
                         align-items: center;
-                        justify-content: flex-start;
+                        justify-content: flex-end;
                         padding-top: 5px;
                         padding-bottom: 5px;
                         &:nth-child(1){
@@ -300,6 +312,7 @@ GetStoreData () {
                     }
                     &:nth-child(2){
                             width: calc(10% + 1px);
+                            justify-content: flex-end;
                         }
                     }
                 }

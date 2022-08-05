@@ -24,7 +24,7 @@
                                 <li><span>{{$t('Enquiry.ProInvcode')}}</span><span>{{v.DetailCode}}</span></li>
                                 <li><span>{{$t('Enquiry.ProductName')}}</span><span>{{v.ProductName}}</span></li>
                                 <li><span>{{$t('Enquiry.ProductCode')}}</span><span>{{v.ProductCode}}</span></li>
-                                <li><span>{{$t('Enquiry.UnitPrice')}}</span><span>{{v.UnitPrice | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</span><span>{{v.UnitPrice | PriceFormat}}</span></li>
                                 <li><span>{{$t('Enquiry.ExpectedShipmentDate')}}</span><span>{{v.PreShippingDate}}</span></li>
                                 <li><span>{{$t('Enquiry.OrderQty')}}</span><span>{{v.OrderQty | PriceFormat}}</span></li>
                                 <li><span>{{$t('Enquiry.ShipmentQty')}}</span><span>{{v.SeparateQty | PriceFormat}}</span></li>
@@ -50,12 +50,15 @@ import printJS from 'print-js';
 import html2Canvas from 'html2Canvas';
 import { param } from 'node_modules/_@types_jquery@3.5.14@@types/jquery';
 @Component
-export default class InsPrintingPreview extends Vue {
+export default class InsDeliveryPrinting extends Vue {
   DetailList:any={
       CustomerView: {}
   };
   TitleForm:any={};
   isPrint:boolean = true;
+  get type() {
+        return this.$route.params.type;
+  }
   get id() {
     return this.$route.params.id;
   }
@@ -74,6 +77,13 @@ export default class InsPrintingPreview extends Vue {
   async GetDeliveryOrderDetail () {
       this.$Api.enquiry.GetDeliveryOrderDetail(this.id).then(result => {
           this.DetailList = result;
+      });
+  }
+   GetPtxGoodOrder () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          if (result) {
+            this.DetailList = result;
+          }
       });
   }
  async goPrint() {
@@ -100,8 +110,12 @@ export default class InsPrintingPreview extends Vue {
         this.$router.push('/account/ptxorder');
     }
     created() {
-        this.GetDeliveryOrderDetail();
         this.GetStoreData();
+        if (this.type === '0') {
+        this.GetDeliveryOrderDetail();
+        } else {
+        this.GetPtxGoodOrder();
+        }
     }
 }
 </script>
@@ -258,6 +272,7 @@ export default class InsPrintingPreview extends Vue {
                         padding-left: 5px;
                         width: 20%;
                         word-break: break-word;
+                        justify-content: flex-end;
                     }
                     }
                 }

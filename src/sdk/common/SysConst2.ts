@@ -15,6 +15,7 @@ module.exports = {
   // ApiServer: 'https://api.uat.in-store.hk', // Production
   // api version for this app 統一配置Api版本號
   ApiVersion: 'V2',
+
   // api Authorization 身份认真，用于后端识别客户端
   Authorization: 'NTVkOTFhYWEtZjI1Yy00ZjAyLTk3ZGItOTJjMjkxMDhmZmE3OjdiMzdlYjg5LTI1ZTAtNGE5NS04ODNiLTBjOWU0YzM4MjhiZA==',
   // admin server url, for login management platform 統一配置admin服務器
@@ -28,6 +29,7 @@ module.exports = {
   FrontE: {
     version: 2, // 網站版本 （1 => Plan A Startup Version 初創版, 2 => Plan B Enterprise Version 企業旗艦版, 3 => Plan C E-Commerce Version 品牌電商版）
     defaultLang: 'C',
+    PtxDefaultCurrency: '(HKD)', // PTX询价模式，默认展示货币
     defaultCurrency: 1,
     mobileBuilding: false,
     pcBuilding: false,

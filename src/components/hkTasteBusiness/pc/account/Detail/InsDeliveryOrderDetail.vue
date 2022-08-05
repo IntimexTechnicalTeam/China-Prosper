@@ -28,7 +28,7 @@
             <p class="w10">{{$t('Enquiry.ProInvcode')}}</p>
             <p class="w15">{{$t('Enquiry.ProductName')}}</p>
             <p class="w10">{{$t('Enquiry.ProductCode')}}</p>
-            <p class="w10">{{$t('Enquiry.UnitPrice')}}</p>
+            <p class="w10">{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</p>
             <p class="w15">{{$t('Enquiry.ExpectedShipmentDate')}}</p>
             <p class="w10">{{$t('Enquiry.OrderQty')}}</p>
             <p class="w10">{{$t('Enquiry.ShipmentQty')}}</p>
@@ -66,7 +66,7 @@ import Express from '@/model/express';
 import printJS from 'print-js';
 import html2Canvas from 'html2Canvas';
 @Component
-export default class InsDeliveryDetail extends Vue {
+export default class InsDeliveryOrderDetail extends Vue {
   DetailList:any={
       CustomerView: {}
   };

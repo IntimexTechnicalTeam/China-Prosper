@@ -89,7 +89,7 @@ export default class InsNotification extends Vue {
   MemberId:string='';
   goClick (val) {
     this.ActiveIndex = val;
-    if (val === '0') {
+    if (val === 0) {
       this.currentPageB = 1;
       this.getReceiver();
     } else {

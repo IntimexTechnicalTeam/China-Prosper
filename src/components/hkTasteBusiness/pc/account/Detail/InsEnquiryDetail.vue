@@ -94,7 +94,6 @@
                         </span>
                         <span class="w20 NormalText">
                           <el-form-item>
-                                <em class="text">{{$t('Enquiry.Quantity')}}:</em>
                                 <em class="text">{{(v.Qty) | PriceFormat}}</em>
                             </el-form-item>
                         </span>

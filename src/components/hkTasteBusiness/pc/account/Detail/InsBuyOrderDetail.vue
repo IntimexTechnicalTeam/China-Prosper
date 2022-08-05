@@ -105,7 +105,7 @@
                 <div class="BgTitle">
                     <p class="w20">{{$t('Enquiry.Image')}}</p>
                     <p class="w58">{{$t('Enquiry.ProductInformation')}}</p>
-                    <p class="w20">{{$t('Enquiry.Quantity')}}</p>
+                    <p class="w20">{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}</p>
                 </div>
                 <ul>
                     <li class="NoramlLi" v-for="(v,index) in ruleForm.DetailList" :key="index">
@@ -140,7 +140,7 @@
                         </span>
                     </li>
                 </ul>
-                <div class="TotalSunm"><span>{{$t('Enquiry.Total')}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
+                <div class="TotalSunm"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
                 <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
             </div>
                 <div class="TableA BottomTable">
@@ -301,7 +301,11 @@ export default class InsBuyOrderDetail extends Vue {
      }
   }
  goPrint() {
-        this.$router.push('/account/BuyOrderPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+    if (this.type === '0') {
+        this.$router.push('/account/BuyOrderPrinting/' + this.ruleForm.Id + '/' + this.type);
+    } else {
+        this.$router.push('/account/BuyOrderPrinting/' + this.id + '/' + this.type);
+    }
   }
   GoBack () {
       this.$router.push('/account/ptxorder');

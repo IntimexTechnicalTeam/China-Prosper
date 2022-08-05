@@ -73,7 +73,7 @@
                 <div class="BgTitle">
                     <p class="w20">{{$t('Enquiry.Image')}}</p>
                     <p class="w58">{{$t('Enquiry.ProductInformation')}}</p>
-                    <p class="w20">{{$t('Enquiry.Quantity')}}</p>
+                    <p class="w20">{{$t('Enquiry.Total')}}</p>
                 </div>
                 <ul>
                     <li class="NoramlLi" v-for="(v,index) in ruleForm.DetailList" :key="index">
@@ -258,9 +258,9 @@ export default class InsPackingDetail extends Vue {
   }
  goPrint() {
     if (this.type === '0') {
-      this.$router.push('/account/PackingPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+      this.$router.push('/account/PackingPrinting/' + this.ruleForm.Id + '/' + this.type);
     } else {
-      this.$router.push('/account/PackingPrinting/' + this.so_id + '/' + this.ruleForm.OrderType);
+      this.$router.push('/account/PackingPrinting/' + this.id + '/' + this.type);
     }
   }
   GoBack () {

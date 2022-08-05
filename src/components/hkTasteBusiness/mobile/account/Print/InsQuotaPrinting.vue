@@ -36,10 +36,10 @@
                                 <li><span>{{$t('Enquiry.OtherRequirement')}}</span><span>{{v.Remark}}</span></li>
                                 <li><span>{{$t('Enquiry.Image')}}</span><span><img :src="v.RelativeImage"></span></li>
                                 <li><span>{{$t('Enquiry.Quantity')}}</span><span>{{(v.Qty) | PriceFormat}}</span></li>
-                                <li><span>{{$t('Enquiry.UnitPrice')}}</span><span>{{(v.UnitPrice) | PriceFormat}}</span></li>
-                                <li><span>{{$t('Enquiry.SubTotal')}}</span><span>{{(v.TotalSum) | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</span><span>{{(v.UnitPrice) | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.SubTotal')}}{{FrontE.PtxDefaultCurrency}}</span><span>{{(v.TotalSum) | PriceFormat}}</span></li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
+                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
                     </div>
                 </div>
                 <div class="otherInfo">
@@ -90,6 +90,14 @@ export default class InsQuotaPrinting extends Vue {
           }
       });
   }
+   GetPtxGoodOrder () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          if (result) {
+            this.ruleForm = result;
+            console.log(this.ruleForm, 'this.ruleForm this.ruleForm ');
+          }
+      });
+  }
 get currentlang () {
     return this.$i18n.locale;
   }
@@ -126,8 +134,12 @@ GetStoreData () {
     });
   }
   created() {
-      this.GetGoodOrder();
-      this.GetStoreData();
+    this.GetStoreData();
+    if (this.type === '0') {
+     this.GetGoodOrder();
+    } else {
+     this.GetPtxGoodOrder();
+    }
   }
 }
 </script>
@@ -278,6 +290,7 @@ GetStoreData () {
                     }
                       &:nth-child(2){
                         padding-left: 5px;
+                        justify-content: flex-end;
                     }
                     }
                 }

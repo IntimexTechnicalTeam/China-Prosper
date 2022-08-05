@@ -158,6 +158,7 @@ export default class InsEnquiryDetail extends Vue {
   MessageContent:string='';
   htmlTitle:string='pdf文件名';
   isPrint:boolean = true;
+  so_id:string='0';
   ruleForm: any = {
     Code: '',
     CustomerView: {},
@@ -187,27 +188,12 @@ export default class InsEnquiryDetail extends Vue {
       ]
     };
   }
- goPrint() {
-    this.isPrint = true;
-    html2Canvas(this.$refs.print as any, {
-    allowTaint: true,
-    // taintTest: false,
-    useCORS: true,
-    // dpi: window.devicePixelRatio * 4,
-    scale: 4
-    }).then((canvas) => {
-    const url = canvas.toDataURL();
-    printJS({
-        printable: url, // 要打印的id
-        type: 'image',
-        style: '@page{size:auto;margin: 0cm 1cm 0cm 1cm;}' // 去除页眉页脚
-    });
-    this.isPrint = false;
-    });
-  }
   get id() {
     return this.$route.params.id;
   }
+    get type() {
+        return this.$route.params.type;
+    }
   GetGoodOrder () {
       this.$Api.enquiry.GetGoodOrder(this.id).then(result => {
           this.ruleForm = result;
@@ -221,11 +207,29 @@ export default class InsEnquiryDetail extends Vue {
           this.OrderId = result.Id;
       });
   }
+GetPtxOrderMessage () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          this.ruleForm = result;
+          this.ruleForm.CustomerView = result.CustomerView;
+          this.ruleForm.DetailList = result.DetailList;
+          this.ruleForm.CaseView = result.CaseView;
+          this.ruleForm.CreateDate = result.CreateDate;
+          this.ruleForm.Code = result.Code;
+          this.ruleForm.Total = result.Total;
+          this.so_id = result.so_id;
+          this.ruleForm.SiteLetterList = result.SiteLetterList.reverse();
+          this.OrderId = result.Id;
+      });
+  }
   GoBack () {
       this.$router.push('/account/ptxorder');
   }
   created() {
-   this.GetGoodOrder();
+    if (this.type === '0') {
+     this.GetGoodOrder();
+    } else {
+     this.GetPtxOrderMessage();
+    }
   }
 }
 </script>

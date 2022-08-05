@@ -10,7 +10,7 @@
     >
     <div class="Inner">
         <div class="left">
-                <p class="HeadTitle"><span class="Request">{{$t('Enquiry.ProformaInvoice')}}: {{ruleForm.CaseView.CustomerCode }}</span><span class="status">{{$t('Enquiry.Status')}}:{{ruleForm.CaseView.CaseStatus}}</span></p>
+                <p class="HeadTitle"><span class="Request">{{$t('Enquiry.Delivery')}}: {{ruleForm.CaseView.CustomerCode }}</span><span class="status">{{$t('Enquiry.Status')}}:{{ruleForm.CaseView.CaseStatus}}</span></p>
                 <div class="TableA" style="padding-top:15px;">
                     <ul>
                         <li>
@@ -105,7 +105,7 @@
                 <div class="BgTitle">
                     <p class="w20">{{$t('Enquiry.Image')}}</p>
                     <p class="w58">{{$t('Enquiry.ProductInformation')}}</p>
-                    <p class="w20">{{$t('Enquiry.Quantity')}}</p>
+                    <p class="w20">{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}</p>
                 </div>
                 <ul>
                     <li class="NoramlLi" v-for="(v,index) in ruleForm.DetailList" :key="index">
@@ -140,7 +140,7 @@
                         </span>
                     </li>
                 </ul>
-                <div class="TotalSunm"><span>{{$t('Enquiry.Total')}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
+                <div class="TotalSunm"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
                 <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
             </div>
                 <div class="TableA BottomTable">
@@ -178,7 +178,6 @@
                     </ul>
                 </div>
             <div class="BottomMeun">
-                <a @click="goPrint" id="printBtn" >{{$t('Enquiry.PrintFormat')}}</a>
                 <a @click="GoUrl()" class="colorStyle">{{$t('Enquiry.ShipmentSchedule')}}</a>
             </div>
         </div>
@@ -268,9 +267,9 @@ export default class InsDeliveryDetail extends Vue {
   }
    goPrint() {
     if (this.type === '0') {
-         this.$router.push('/account/DeliveryPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+        this.$router.push('/account/DeliveryPrinting/' + this.ruleForm.Id + '/' + this.type);
     } else {
-         this.$router.push('/account/DeliveryPrinting/' + this.so_id + '/' + this.ruleForm.OrderType);
+        this.$router.push('/account/DeliveryPrinting/' + this.id + '/' + this.type);
     }
   }
   GetOrderSiteLetter (val) {

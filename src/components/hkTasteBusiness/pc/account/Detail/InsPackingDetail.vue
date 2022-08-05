@@ -73,7 +73,7 @@
                 <div class="BgTitle">
                     <p class="w20">{{$t('Enquiry.Image')}}</p>
                     <p class="w58">{{$t('Enquiry.ProductInformation')}}</p>
-                    <p class="w20">{{$t('Enquiry.Quantity')}}</p>
+                    <p class="w20">{{$t('Enquiry.Total')}}</p>
                 </div>
                 <ul>
                     <li class="NoramlLi" v-for="(v,index) in ruleForm.DetailList" :key="index">
@@ -110,7 +110,6 @@
                 </ul>
                 <div class="TotalSunm" style="margin-top:10px!important;"><span>{{$t('Enquiry.TotalNetWeight')}}:</span><span>{{(ruleForm.TotalNetWeight) | PriceFormat}}</span></div>
                 <div class="TotalSunm"><span>{{$t('Enquiry.TotalGrossWeight')}}:</span><span>{{(ruleForm.TotalGrossWeight) | PriceFormat}}</span></div>
-                <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
             </div>
                 <div class="TableA BottomTable">
                     <ul>
@@ -258,9 +257,9 @@ export default class InsPackingDetail extends Vue {
   }
  goPrint() {
     if (this.type === '0') {
-      this.$router.push('/account/PackingPrinting/' + this.ruleForm.Id + '/' + this.ruleForm.OrderType);
+      this.$router.push('/account/PackingPrinting/' + this.ruleForm.Id + '/' + this.type);
     } else {
-      this.$router.push('/account/PackingPrinting/' + this.so_id + '/' + this.ruleForm.OrderType);
+      this.$router.push('/account/PackingPrinting/' + this.id + '/' + this.type);
     }
   }
   GoBack () {

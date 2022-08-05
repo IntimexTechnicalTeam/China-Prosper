@@ -24,7 +24,7 @@
                                 <li>{{$t('Enquiry.ProInvcode')}}</li>
                                 <li>{{$t('Enquiry.ProductName')}}</li>
                                 <li>{{$t('Enquiry.ProductCode')}}</li>
-                                <li>{{$t('Enquiry.UnitPrice')}}</li>
+                                <li>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</li>
                                 <li>{{$t('Enquiry.ExpectedShipmentDate')}}</li>
                                 <li>{{$t('Enquiry.OrderQty')}}</li>
                                 <li>{{$t('Enquiry.ShipmentQty')}}</li>
@@ -60,12 +60,15 @@ import printJS from 'print-js';
 import html2Canvas from 'html2Canvas';
 import { param } from 'node_modules/_@types_jquery@3.5.14@@types/jquery';
 @Component
-export default class InsPrintingPreview extends Vue {
+export default class InsDeliveryPrinting extends Vue {
   DetailList:any={
       CustomerView: {}
   };
   TitleForm:any={};
   isPrint:boolean = true;
+  get type() {
+        return this.$route.params.type;
+  }
   get id() {
     return this.$route.params.id;
   }
@@ -84,6 +87,13 @@ export default class InsPrintingPreview extends Vue {
   async GetDeliveryOrderDetail () {
       this.$Api.enquiry.GetDeliveryOrderDetail(this.id).then(result => {
           this.DetailList = result;
+      });
+  }
+   GetPtxGoodOrder () {
+      this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
+          if (result) {
+            this.DetailList = result;
+          }
       });
   }
  async goPrint() {
@@ -110,8 +120,12 @@ export default class InsPrintingPreview extends Vue {
         this.$router.push('/account/ptxorder');
     }
     created() {
-        this.GetDeliveryOrderDetail();
         this.GetStoreData();
+        if (this.type === '0') {
+        this.GetDeliveryOrderDetail();
+        } else {
+        this.GetPtxGoodOrder();
+        }
     }
 }
 </script>
@@ -210,7 +224,7 @@ export default class InsPrintingPreview extends Vue {
                         display: flex;
                         flex-wrap: wrap;
                         align-items: center;
-                        justify-content: flex-start;
+                        justify-content: flex-end;
                         padding-top: 5px;
                         padding-bottom: 5px;
                         &:nth-child(1){
@@ -279,6 +293,7 @@ export default class InsPrintingPreview extends Vue {
                     }
                     &:nth-child(2){
                             width: calc(10% + 1px);
+                            justify-content: flex-end;
                         }
                     }
                 }

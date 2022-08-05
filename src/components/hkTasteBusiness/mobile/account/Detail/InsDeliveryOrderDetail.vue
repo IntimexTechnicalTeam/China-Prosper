@@ -29,7 +29,7 @@
                 <li>{{$t('Enquiry.ProInvcode')}}</li>
                 <li>{{$t('Enquiry.ProductName')}}</li>
                 <li>{{$t('Enquiry.ProductCode')}}</li>
-                <li>{{$t('Enquiry.UnitPrice')}}</li>
+                <li>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</li>
                 <li>{{$t('Enquiry.ExpectedShipmentDate')}}</li>
                 <li>{{$t('Enquiry.OrderQty')}}</li>
                 <li>{{$t('Enquiry.ShipmentQty')}}</li>
@@ -66,7 +66,7 @@ import Express from '@/model/express';
 import printJS from 'print-js';
 import html2Canvas from 'html2Canvas';
 @Component
-export default class InsDeliveryDetail extends Vue {
+export default class InsDeliveryOrderDetail extends Vue {
   DetailList:any={
       CustomerView: {}
   };
@@ -236,6 +236,9 @@ export default class InsDeliveryDetail extends Vue {
     justify-content: flex-end;
     .w33 {
       margin-right: 10px;
+      span {
+        font-size: 1.2rem;
+      }
       .content {
         color: red;
       }
