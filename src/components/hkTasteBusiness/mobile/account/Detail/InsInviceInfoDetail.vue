@@ -108,9 +108,10 @@
                         </span>
                     </li>
                 </ul>
-                <div class="TotalSunm"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
-                <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
-            </div>
+                <div class="TotalSunm">
+                    <p><span>{{$t('Enquiry.TransactionAmount')}}:</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span></p>
+                    <p><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p></div>
+                </div>
                 <div class="TableA BottomTable">
                     <ul>
                         <el-form-item>
@@ -131,12 +132,12 @@
                             <span class="w83"><el-input v-model="ruleForm.ShipCondition" :disabled="isPreview"></el-input></span>
                         </li>
                          </el-form-item>
-                         <!-- <el-form-item>
+                         <el-form-item>
                         <li>
-                            <span class="w15">付款方式:</span>
-                            <span class="w83"><el-input  :disabled="isPreview"></el-input></span>
+                            <span class="w15">{{$t('Enquiry.PaymentTerms')}}:</span>
+                            <span class="w83"><el-input  v-model="ruleForm.PayCode" :disabled="isPreview"></el-input></span>
                         </li>
-                         </el-form-item> -->
+                         </el-form-item>
                          <el-form-item>
                         <li>
                             <span class="w15">{{$t('Enquiry.Remarks')}}:</span>
@@ -214,7 +215,6 @@ export default class InsInviceInfoDetail extends Vue {
           this.ruleForm.CaseView = result.CaseView;
           this.ruleForm.CreateDate = result.CreateDate;
           this.ruleForm.Code = result.Code;
-          this.ruleForm.Total = result.TotalAmount;
       });
   }
   async GetPtxOrderMessage () {
@@ -228,7 +228,6 @@ export default class InsInviceInfoDetail extends Vue {
           this.ruleForm.CreateDate = result.CreateDate;
           this.ruleForm.Code = result.Code;
           this.so_id = result.so_id;
-          this.ruleForm.Total = result.TotalAmount;
       });
   }
  goPrint() {
@@ -355,6 +354,16 @@ export default class InsInviceInfoDetail extends Vue {
         width: 20%;
         span{
             font-size: 1.2rem;
+        }
+    }
+}
+.TotalSunm {
+    p{
+        margin-bottom: 5px;
+    }
+    span{
+        &:nth-child(2n) {
+            margin-right: 10px;
         }
     }
 }

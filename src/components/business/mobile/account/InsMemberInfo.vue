@@ -227,19 +227,6 @@ export default class InsMemberInfo extends Vue {
           trigger: 'blur'
         }
       ],
-      Phone: [
-        { validator: function(rule, value, callback) {
-          /* eslint-disable */
-            var mobile = /^(\+)?(\d{0,4}\-?)?\d{7,11}$/;
-            if ( mobile.test(value) === false ) {
-              var t = lang.messages[storage.get('locale')].Input['phoneincorrect'];
-                callback(new Error(t));
-            } else {
-                callback();
-            }
-        },
-        trigger: 'blur' }
-      ],
       Mobile: [
         {
           required: true,
@@ -257,20 +244,7 @@ export default class InsMemberInfo extends Vue {
             }
         },
         trigger: 'blur' }
-      ],
-       Fax: [
-        { validator: function(rule, value, callback) {
-          /* eslint-disable */
-            var mobile = /^(\+)?(\d{0,4}\-?)?\d{7,11}$/;
-            if ( mobile.test(value) === false ) {
-              var t = lang.messages[storage.get('locale')].Input['faxincorrect'];
-                callback(new Error(t));
-            } else {
-                callback();
-            }
-        },
-        trigger: 'blur' }
-      ],
+      ]
     };
   }
 

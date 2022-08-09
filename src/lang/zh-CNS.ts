@@ -657,6 +657,7 @@ export default {
     TotalCarton: '总共箱数',
     CountryofOrigin: '产地来源',
     ShippingMark: '船唛',
+    ShippingMarkImage: '船唛图样',
     ShipmentSchedule: '装运安排表',
     ShipmentScheduleNo: '装运安排表编号',
     OrderQty: '订货数量',
@@ -675,6 +676,9 @@ export default {
     Print: '打印',
     Sign: '签署',
     SignTips: '请签署及盖印已确认',
-    Attn: '收件人'
+    Attn: '收件人',
+    TransactionAmount: '交易金额',
+    AdditionalCharges: '附加费用',
+    Discount: '折扣'
   }
 };

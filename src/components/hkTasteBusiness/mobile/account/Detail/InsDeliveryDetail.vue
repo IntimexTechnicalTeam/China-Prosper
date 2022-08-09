@@ -131,7 +131,7 @@
                             </el-form-item>
                             <el-form-item>
                                 <em class="text">{{$t('Enquiry.Quantity')}}:</em>
-                                <em class="text">{{(v.Qty) | PriceFormat}}</em>
+                                <em class="text">{{(v.ItemQty) | PriceFormat}}</em>
                             </el-form-item>
                                      <el-form-item>
                                 <em class="text">{{$t('Enquiry.SubTotal')}}:</em>
@@ -140,16 +140,22 @@
                         </span>
                     </li>
                 </ul>
-                <div class="TotalSunm"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
+                <div class="TotalSunm"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span></div>
                 <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
             </div>
                 <div class="TableA BottomTable">
                     <ul>
-                        <el-form-item>
+                        <!-- <el-form-item>
                         <li>
                             <span class="w15">{{$t('Enquiry.DeliveryLeadTime')}}:</span>
                             <span class="w83"><el-input v-model="ruleForm.DeliverySchedule" :disabled="isPreview"></el-input> </span>
                         </li>
+                        </el-form-item> -->
+                        <el-form-item>
+                            <li>
+                                <span class="w15">{{$t('Enquiry.DeliveryDate')}}:</span>
+                                <span class="w83"><el-input v-model="ruleForm.DeliveryDate" :disabled="isPreview"></el-input> </span>
+                            </li>
                         </el-form-item>
                         <el-form-item>
                         <li>
@@ -264,7 +270,11 @@ export default class InsDeliveryDetail extends Vue {
       });
   }
   GoUrl () {
-      this.$router.push('/account/DeliveryOrderDetail/' + this.so_id);
+    if (this.type === '0') {
+        this.$router.push('/account/DeliveryOrderDetail/' + this.ruleForm.Id);
+    } else {
+        this.$router.push('/account/DeliveryOrderDetail/' + this.id);
+    }
   }
    goPrint() {
     if (this.type === '0') {

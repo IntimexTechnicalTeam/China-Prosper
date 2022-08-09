@@ -414,8 +414,8 @@ input[type=button], button { cursor: pointer; -webkit-appearance: none; }
    background: #eee;
    width: 100%;
    margin-top: 10px;
-   height: 45px;
-   line-height: 45px;
+   padding-top: 1rem;
+   padding-bottom: 1rem;
    text-align: right;
    padding-right: 2.5%;
    font-size: 1.2rem;

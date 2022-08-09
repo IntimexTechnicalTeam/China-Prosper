@@ -151,12 +151,16 @@
                             <span class="w83"><el-input v-model="ruleForm.ShipCondition" :disabled="isPreview"></el-input></span>
                         </li>
                          </el-form-item>
-                         <!-- <el-form-item>
+                         <el-form-item>
                         <li>
-                            <span class="w15">付款方式:</span>
-                            <span class="w83"><el-input  :disabled="isPreview"></el-input></span>
+                            <span class="w15">{{$t('Enquiry.PaymentTerms')}}:</span>
+                            <span class="w83">
+                            <el-select v-model="ruleForm.PayType">
+                                <el-option v-for="(pay, index) in payments" :key="index" :value="pay.Id" :label="pay.Desc"></el-option>
+                            </el-select>
+                            </span>
                         </li>
-                         </el-form-item> -->
+                         </el-form-item>
                          <el-form-item>
                         <li>
                             <span class="w15">{{$t('Enquiry.Remarks')}}:</span>
@@ -179,10 +183,13 @@
 </div>
 </template>
 <script lang='ts'>
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import Express from '@/model/express';
+import PaymentM from '@/model/payment';
 @Component
 export default class InsAddEnquiry extends Vue {
+  private payments:PaymentM[] = [new PaymentM()];
+  private payment: PaymentM = new PaymentM();
   isPreview:boolean =false;
   CreateDate:string='';
   OrderId:string='';
@@ -205,7 +212,8 @@ export default class InsAddEnquiry extends Vue {
     ShipCondition: '',
     Remark: '',
     IsActive: false,
-    SiteLetterList: ''
+    SiteLetterList: '',
+    PayType: -1
   };
   Preview () {
       this.isPreview = true;
@@ -213,7 +221,7 @@ export default class InsAddEnquiry extends Vue {
   GoBack () {
       this.isPreview = false;
   }
-//  全选
+  //  全选
  checkAll (e) {
       let a = e.target.checked;
       this.SelectId = [];
@@ -260,7 +268,6 @@ export default class InsAddEnquiry extends Vue {
       this.$router.push('/product/search/-');
   }
   SaveDaft () {
-    console.log(this.ruleForm, '初稿');
       this.$Api.enquiry.SaveMyEnquiry(this.ruleForm).then(result => {
             if (result.Succeeded) {
             this.$message({
@@ -272,8 +279,8 @@ export default class InsAddEnquiry extends Vue {
       });
   }
   SaveComfirm () {
+        console.log(this.ruleForm, 'this.ruleFormthis.ruleForm');
        this.ruleForm.IsActive = true;
-        console.log(this.ruleForm, '送出');
        this.$Api.enquiry.SaveMyEnquiry(this.ruleForm).then(result => {
           if (result.Succeeded) {
             this.SendMessage();
@@ -319,8 +326,15 @@ export default class InsAddEnquiry extends Vue {
           console.log(result, 'ddddddddd');
       });
   }
+  getpayments () {
+     this.$Api.checkout.getPaymentMethod().then(result => {
+        this.payments = result.Payment;
+        console.log(result, 'resultresult');
+      });
+  }
   created() {
    this.GetMyEditingEnquiry();
+   this.getpayments();
   }
 }
 </script>

@@ -641,6 +641,7 @@ export default {
     TotalCarton: 'Total no. of Carton(s)',
     CountryofOrigin: 'Country of Origin',
     ShippingMark: 'Shipping Mark',
+    ShippingMarkImage: 'Shipping Mark Image',
     ShipmentSchedule: 'Shipment Schedule',
     ShipmentScheduleNo: 'Shipment Schedule No.',
     OrderQty: 'Order Qty',
@@ -659,6 +660,9 @@ export default {
     Print: 'Print',
     Sign: 'Sign',
     SignTips: 'Please sign and stamp to confirm',
-    Attn: 'Attn.'
+    Attn: 'Attn.',
+    TransactionAmount: 'Transaction amount',
+    AdditionalCharges: 'Additional charges',
+    Discount: 'Discount'
   }
 };

@@ -104,11 +104,17 @@
             </div>
                 <div class="TableA BottomTable">
                     <ul>
-                        <el-form-item>
+                        <!-- <el-form-item>
                         <li>
                             <span class="w15">{{$t('Enquiry.DeliveryLeadTime')}}:</span>
                             <span class="w83"><el-input v-model="ruleForm.DeliverySchedule" :disabled="isPreview"></el-input> </span>
                         </li>
+                        </el-form-item> -->
+                        <el-form-item>
+                            <li>
+                                <span class="w15">{{$t('Enquiry.DeliveryDate')}}:</span>
+                                <span class="w83"><el-input v-model="ruleForm.DeliveryDate" :disabled="isPreview"></el-input> </span>
+                            </li>
                         </el-form-item>
                         <el-form-item>
                         <li>
@@ -122,12 +128,12 @@
                             <span class="w83"><el-input v-model="ruleForm.ShipCondition" :disabled="isPreview"></el-input></span>
                         </li>
                          </el-form-item>
-                         <!-- <el-form-item>
+                         <el-form-item>
                         <li>
-                            <span class="w15">付款方式:</span>
-                            <span class="w83"><el-input  :disabled="isPreview"></el-input></span>
+                            <span class="w15">{{$t('Enquiry.PaymentTerms')}}:</span>
+                            <span class="w83"><el-input  v-model="ruleForm.PayCode" :disabled="isPreview"></el-input></span>
                         </li>
-                         </el-form-item> -->
+                         </el-form-item>
                          <el-form-item>
                         <li>
                             <span class="w15">{{$t('Enquiry.Remarks')}}:</span>

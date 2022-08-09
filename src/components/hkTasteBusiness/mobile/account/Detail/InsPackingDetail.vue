@@ -135,7 +135,7 @@
                          <el-form-item>
                         <li>
                             <span class="w25">{{$t('Enquiry.PaymentTerms')}}:</span>
-                            <span class="w73"><el-input  v-model="ruleForm.PayType" :disabled="isPreview"></el-input></span>
+                            <span class="w73"><el-input  v-model="ruleForm.PayCode" :disabled="isPreview"></el-input></span>
                         </li>
                          </el-form-item>
                           <el-form-item>
@@ -166,6 +166,12 @@
                         <li>
                             <span class="w25">{{$t('Enquiry.ShippingMark')}}:</span>
                             <span class="w73"><el-input v-model="ruleForm.ShipMark" :disabled="isPreview"></el-input></span>
+                        </li>
+                         </el-form-item>
+                        <el-form-item>
+                        <li>
+                            <span class="w25">{{$t('Enquiry.ShippingMarkImage')}}:</span>
+                            <span class="w73"><img :src="ruleForm.ShipMarkImage" width="100"></span>
                         </li>
                          </el-form-item>
                     </ul>
