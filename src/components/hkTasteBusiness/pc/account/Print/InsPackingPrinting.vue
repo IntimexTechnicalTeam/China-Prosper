@@ -65,6 +65,7 @@
                     <p class="perInfo"><span>{{$t('Enquiry.CountryofOrigin')}}：</span><span>{{ruleForm.ProductFrom}}</span></p>
                     <p class="perInfo"><span>{{$t('Enquiry.Remarks')}}：</span><span>{{ruleForm.Remark}}</span></p>
                     <p class="perInfo"><span>{{$t('Enquiry.ShippingMark')}}：</span><span>{{ruleForm.ShipMark}}</span></p>
+                    <p class="perInfo"><span>{{$t('Enquiry.ShippingMarkImage')}}：</span><span><img :src="ruleForm.ShipMarkImage" width="100"></span></p>
                 </div>
                 <!-- <div class="signature">
                     <p class="signatureline"></p>
