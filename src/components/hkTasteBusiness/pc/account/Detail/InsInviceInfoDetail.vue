@@ -73,7 +73,7 @@
                 <div class="BgTitle">
                     <p class="w20">{{$t('Enquiry.Image')}}</p>
                     <p class="w58">{{$t('Enquiry.ProductInformation')}}</p>
-                    <p class="w20">{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}</p>
+                    <p class="w20">{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}})</p>
                 </div>
                 <ul>
                     <li class="NoramlLi" v-for="(v,index) in ruleForm.DetailList" :key="index">
@@ -108,7 +108,7 @@
                         </span>
                     </li>
                 </ul>
-                <div class="TotalSunm"><span>{{$t('Enquiry.TransactionAmount')}}:</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
+                <div class="TotalSunm"><span>{{$t('Enquiry.TransactionAmount')}}:</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
                 <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
             </div>
                 <div class="TableA BottomTable">

@@ -36,8 +36,8 @@
                                 <li>{{$t('Enquiry.OtherRequirement')}}</li>
                                 <li>{{$t('Enquiry.Image')}}</li>
                                 <li>{{$t('Enquiry.Quantity')}}</li>
-                                <li>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</li>
-                                <li>{{$t('Enquiry.SubTotal')}}{{FrontE.PtxDefaultCurrency}}</li>
+                                <li>{{$t('Enquiry.UnitPrice')}}({{ruleForm.CurrencyCode}})</li>
+                                <li>{{$t('Enquiry.SubTotal')}}({{ruleForm.CurrencyCode}})</li>
                             </ul>
                             <ul class="topB"  v-for="(v,index) in ruleForm.DetailList" :key="index">
                                 <li>{{index+1}}</li>
@@ -49,7 +49,7 @@
                                 <li>{{(v.UnitPrice) | PriceFormat}}</li>
                                 <li>{{(v.TotalSum) | PriceFormat}}</li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
+                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
                     </div>
                 </div>
                 <div class="otherInfo">

@@ -24,7 +24,7 @@
                                 <li><span>{{$t('Enquiry.ProInvcode')}}</span><span>{{v.DetailCode}}</span></li>
                                 <li><span>{{$t('Enquiry.ProductName')}}</span><span>{{v.ProductName}}</span></li>
                                 <li><span>{{$t('Enquiry.ProductCode')}}</span><span>{{v.ProductCode}}</span></li>
-                                <li><span>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</span><span>{{v.UnitPrice | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.UnitPrice')}}({{DetailList.CurrencyCode}})</span><span>{{v.UnitPrice | PriceFormat}}</span></li>
                                 <li><span>{{$t('Enquiry.ExpectedShipmentDate')}}</span><span>{{v.PreShippingDate}}</span></li>
                                 <li><span>{{$t('Enquiry.OrderQty')}}</span><span>{{v.OrderQty | PriceFormat}}</span></li>
                                 <li><span>{{$t('Enquiry.ShipmentQty')}}</span><span>{{v.SeparateQty | PriceFormat}}</span></li>

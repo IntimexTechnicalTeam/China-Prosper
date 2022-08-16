@@ -29,7 +29,6 @@ module.exports = {
   FrontE: {
     version: 2, // 網站版本 （1 => Plan A Startup Version 初創版, 2 => Plan B Enterprise Version 企業旗艦版, 3 => Plan C E-Commerce Version 品牌電商版）
     defaultLang: 'C',
-    PtxDefaultCurrency: '(HKD)', // PTX询价模式，默认展示货币
     defaultCurrency: 1,
     mobileBuilding: false,
     pcBuilding: false,

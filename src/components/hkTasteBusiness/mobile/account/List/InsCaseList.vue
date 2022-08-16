@@ -73,18 +73,13 @@ export default class InsCaseList extends Vue {
       align-items: center;
       justify-content: space-between;
       .NameTitle {
-        font-size: 18px;
+        font-size: 1.4rem;
         color: #666;
         display: flex;
         align-items: center;
-        &::before{
-        content: '';
-        width: 3px;
-        height: 20px;
-        background: #666;
-        display: inline-block;
-        margin-right: 5px;
-        }
+      }
+       .Page {
+        color: red;
       }
     }
     .Top {

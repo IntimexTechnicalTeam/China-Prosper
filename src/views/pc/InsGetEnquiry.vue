@@ -81,7 +81,7 @@
                         <el-form-item class="xsmessage">
                             <li>
                                 <p>{{$t('Enquiry.leavemessage')}}</p>
-                                <p><el-input v-model="MessageContent" width="90%" :disabled="isPreview"></el-input><el-button @click="clear()">{{$t('Enquiry.Clear')}}</el-button></p>
+                                <p><el-input v-model="MessageContent" width="90%" :disabled="isPreview"></el-input><el-button @click="clear()" :disabled="isPreview">{{$t('Enquiry.Clear')}}</el-button></p>
                             </li>
                     </el-form-item>
                     </ul>
@@ -160,7 +160,7 @@
                         <li>
                             <span class="w15">{{$t('Enquiry.PaymentTerms')}}:</span>
                             <span class="w83">
-                            <el-select v-model="ruleForm.PayType">
+                            <el-select v-model="ruleForm.PayType" :disabled="isPreview">
                                 <el-option v-for="(pay, index) in payments" :key="index" :value="pay.Id" :label="pay.Desc"></el-option>
                             </el-select>
                             </span>

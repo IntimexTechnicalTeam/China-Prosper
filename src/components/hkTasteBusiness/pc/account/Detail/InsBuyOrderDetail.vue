@@ -91,7 +91,7 @@
                     <h2 class="NegotiationBoxTitle">{{$t('Enquiry.OrderStatusHistory')}}</h2>
                     <div class="SiteLetterList" id="new_message">
                       <ul>
-                          <li v-for="(v,index) in ruleForm.SiteLetterList" :key="index" :class="{'rightSide':v.IsBuyer}">
+                          <li v-for="(v,index) in ruleForm.SiteLetterList" :key="index" :class="{'rightSide':v.IsBuyer}" class="perLetterList">
                             <p class="datetime">{{v.FromName}},{{v.CreateDate}}</p>
                             <p class="content"><span class="InnerText">{{v.Content}}</span></p>
                           </li>
@@ -105,7 +105,7 @@
                 <div class="BgTitle">
                     <p class="w20">{{$t('Enquiry.Image')}}</p>
                     <p class="w58">{{$t('Enquiry.ProductInformation')}}</p>
-                    <p class="w20">{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}</p>
+                    <p class="w20">{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}})</p>
                 </div>
                 <ul>
                     <li class="NoramlLi" v-for="(v,index) in ruleForm.DetailList" :key="index">
@@ -140,7 +140,7 @@
                         </span>
                     </li>
                 </ul>
-                <div class="TotalSunm"><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.TransactionAmount')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
+                <div class="TotalSunm"><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.TransactionAmount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
                 <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
             </div>
                 <div class="TableA BottomTable">
@@ -257,6 +257,9 @@ export default class InsBuyOrderDetail extends Vue {
           var container = this.$el.querySelector('#new_message') as any;
           container.scrollTop = container.scrollHeight;
           this.ruleForm.SiteLetterList = result.SiteLetterList;
+          this.$nextTick(() => {
+            this.GoScroll();
+          });
       });
   }
   async GetPtxOrderMessage () {
@@ -274,6 +277,9 @@ export default class InsBuyOrderDetail extends Vue {
           var container = this.$el.querySelector('#new_message') as any;
           container.scrollTop = container.scrollHeight;
           this.ruleForm.SiteLetterList = result.SiteLetterList;
+          this.$nextTick(() => {
+            this.GoScroll();
+          });
       });
   }
   GoUrl () {
@@ -283,6 +289,20 @@ export default class InsBuyOrderDetail extends Vue {
           this.$message.error(this.$t('Enquiry.Norecord') as string);
       }
   }
+    // 聊天窗口消息内容滚动到最后
+    GoScroll() {
+        var obj = this.ruleForm.SiteLetterList;
+        var objHeight = $('.SiteLetterList').find('.perLetterList').height() as any;
+        var objNum;
+        var TotalHeight = 0;
+        console.log(objHeight, 'objHeight');
+        $.each(obj, function(i, j) {
+            objNum = i;
+            console.log(i, j);
+        });
+        TotalHeight = objNum * objHeight;
+        $(document).find('.SiteLetterList').animate({ scrollTop: $('.SiteLetterList').find('ul').height() }, 500);
+    }
   SendMessage () {
      if (this.MessageContent !== '') {
         var params = {
@@ -293,8 +313,7 @@ export default class InsBuyOrderDetail extends Vue {
         this.$Api.enquiry.CreateSiteLetter(params).then(result => {
           if (result.Succeeded) {
             this.MessageContent = '';
-            var container = this.$el.querySelector('#new_message') as any;
-            container.scrollTop = container.scrollHeight;
+            this.GoScroll();
             this.ruleForm.SiteLetterList = result.ReturnValue;
           }
         });

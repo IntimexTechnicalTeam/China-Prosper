@@ -36,10 +36,10 @@
                                 <li><span>{{$t('Enquiry.OtherRequirement')}}</span><span>{{v.Remark}}</span></li>
                                 <li><span>{{$t('Enquiry.Image')}}</span><span><img :src="v.RelativeImage"></span></li>
                                 <li><span>{{$t('Enquiry.Quantity')}}</span><span>{{(v.Qty) | PriceFormat}}</span></li>
-                                <li><span>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</span><span>{{(v.UnitPrice) | PriceFormat}}</span></li>
-                                <li><span>{{$t('Enquiry.SubTotal')}}{{FrontE.PtxDefaultCurrency}}</span><span>{{(v.TotalSum) | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.UnitPrice')}}({{ruleForm.CurrencyCode}})</span><span>{{(v.UnitPrice) | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.SubTotal')}}({{ruleForm.CurrencyCode}})</span><span>{{(v.TotalSum) | PriceFormat}}</span></li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
+                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
                     </div>
                 </div>
                 <div class="otherInfo">

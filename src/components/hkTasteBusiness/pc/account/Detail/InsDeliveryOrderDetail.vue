@@ -28,7 +28,7 @@
             <p class="w10">{{$t('Enquiry.ProInvcode')}}</p>
             <p class="w15">{{$t('Enquiry.ProductName')}}</p>
             <p class="w10">{{$t('Enquiry.ProductCode')}}</p>
-            <p class="w10">{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</p>
+            <p class="w10">{{$t('Enquiry.UnitPrice')}}({{DetailList.CurrencyCode}})</p>
             <p class="w15">{{$t('Enquiry.ExpectedShipmentDate')}}</p>
             <p class="w10">{{$t('Enquiry.OrderQty')}}</p>
             <p class="w10">{{$t('Enquiry.ShipmentQty')}}</p>

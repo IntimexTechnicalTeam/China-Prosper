@@ -37,9 +37,9 @@
                                 <li><span>{{$t('Enquiry.Image')}}</span><span><img :src="v.RelativeImage"></span></li>
                                 <li><span>{{$t('Enquiry.GrossWeight')}}</span><span>{{(v.GrossWeight) | PriceFormat}}</span></li>
                                 <li><span>{{$t('Enquiry.NetWeight')}}</span><span>{{(v.NetWeight) | PriceFormat}}</span></li>
-                                <li><span>{{$t('Enquiry.SubTotal')}}{{FrontE.PtxDefaultCurrency}}</span><span>{{(v.TotalSum) | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.SubTotal')}}({{ruleForm.CurrencyCode}})</span><span>{{(v.TotalSum) | PriceFormat}}</span></li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span></p>
+                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span></p>
                             <p class="totalSum"><span>{{$t('Enquiry.TotalGrossWeight')}}:</span><span>{{(ruleForm.TotalGrossWeight) | PriceFormat}}</span></p>
                             <p class="totalSum"><span>{{$t('Enquiry.TotalNetWeight')}}:</span><span>{{(ruleForm.TotalNetWeight) | PriceFormat}}</span></p>
                     </div>

@@ -37,7 +37,7 @@
                                 <li>{{$t('Enquiry.Image')}}</li>
                                 <li>{{$t('Enquiry.GrossWeight')}}</li>
                                 <li>{{$t('Enquiry.NetWeight')}}</li>
-                                <li>{{$t('Enquiry.SubTotal')}}{{FrontE.PtxDefaultCurrency}}</li>
+                                <li>{{$t('Enquiry.SubTotal')}}({{ruleForm.CurrencyCode}})</li>
                             </ul>
                             <ul class="topB"  v-for="(v,index) in ruleForm.Details" :key="index">
                                 <li>{{index+1}}</li>
@@ -49,7 +49,7 @@
                                 <li>{{(v.NetWeight) | PriceFormat}}</li>
                                 <li>{{(v.TotalSum) | PriceFormat}}</li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}{{FrontE.PtxDefaultCurrency}}:</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span></p>
+                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span></p>
                             <p class="totalSum"><span>{{$t('Enquiry.TotalGrossWeight')}}:</span><span>{{(ruleForm.TotalGrossWeight) | PriceFormat}}</span></p>
                             <p class="totalSum"><span>{{$t('Enquiry.TotalNetWeight')}}:</span><span>{{(ruleForm.TotalNetWeight) | PriceFormat}}</span></p>
                     </div>

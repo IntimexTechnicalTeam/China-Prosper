@@ -24,7 +24,7 @@
                                 <li>{{$t('Enquiry.ProInvcode')}}</li>
                                 <li>{{$t('Enquiry.ProductName')}}</li>
                                 <li>{{$t('Enquiry.ProductCode')}}</li>
-                                <li>{{$t('Enquiry.UnitPrice')}}{{FrontE.PtxDefaultCurrency}}</li>
+                                <li>{{$t('Enquiry.UnitPrice')}}({{DetailList.CurrencyCode}})</li>
                                 <li>{{$t('Enquiry.ExpectedShipmentDate')}}</li>
                                 <li>{{$t('Enquiry.OrderQty')}}</li>
                                 <li>{{$t('Enquiry.ShipmentQty')}}</li>
