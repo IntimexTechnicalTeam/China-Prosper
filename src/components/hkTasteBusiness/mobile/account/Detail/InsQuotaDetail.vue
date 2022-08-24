@@ -141,7 +141,8 @@
                     </li>
                 </ul>
                 <div class="TotalSunm">
-                    <p><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span></p>
+                    <p><span>{{$t('Enquiry.AdditionalCharges')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span>
+                    <span>{{$t('Enquiry.Discount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Discount) | PriceFormat}}</span></p>
                     <p><span>{{$t('Enquiry.TransactionAmount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
                 </div>
                 <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->

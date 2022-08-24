@@ -140,7 +140,11 @@
                         </span>
                     </li>
                 </ul>
-                <div class="TotalSunm"><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.TransactionAmount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></div>
+                <div class="TotalSunm">
+                    <span>{{$t('Enquiry.AdditionalCharges')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span>
+                    <span>{{$t('Enquiry.Discount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Discount) | PriceFormat}}</span>
+                    <span>{{$t('Enquiry.TransactionAmount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span>
+                </div>
                 <!-- <div class="TotalText">總共 (RMB): 1000.00</div> -->
             </div>
                 <div class="TableA BottomTable">
@@ -284,9 +288,9 @@ export default class InsBuyOrderDetail extends Vue {
   }
   GoUrl () {
       if (this.DeliveryId !== '') {
-      this.$router.push('/account/DeliveryOrderDetail/' + this.DeliveryId);
+        this.$router.push('/account/DeliveryOrderDetail/' + this.DeliveryId);
       } else {
-          this.$message.error(this.$t('Enquiry.Norecord') as string);
+          this.$message.error(this.$t('Enquiry.NotShipped') as string);
       }
   }
     // 聊天窗口消息内容滚动到最后

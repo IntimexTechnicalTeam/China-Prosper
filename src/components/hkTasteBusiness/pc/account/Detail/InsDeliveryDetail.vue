@@ -203,6 +203,7 @@ export default class InsDeliveryDetail extends Vue {
   CaseId:string='';
   MessageContent:string='';
   so_id:string='0';
+  DeliveryId:string='';
   ruleForm: any = {
     Code: '',
     CustomerView: {},
@@ -243,6 +244,7 @@ export default class InsDeliveryDetail extends Vue {
       this.$Api.enquiry.GetDeliveryOrder(this.id).then(result => {
           this.ruleForm = result;
           this.OrderId = result.Id;
+          this.DeliveryId = result.DeliveryId;
           this.CaseId = result.CaseView.CaseId;
           this.ruleForm.CustomerView = result.CustomerView;
           this.ruleForm.DetailList = result.Details;
@@ -257,6 +259,7 @@ export default class InsDeliveryDetail extends Vue {
       this.$Api.enquiry.GetPtxOrderMessage(this.id).then(result => {
           this.ruleForm = result;
           this.OrderId = result.Id;
+          this.DeliveryId = result.DeliveryId;
           this.CaseId = result.CaseView.CaseId;
           this.ruleForm.CustomerView = result.CustomerView;
           this.ruleForm.DetailList = result.Details;
@@ -269,11 +272,11 @@ export default class InsDeliveryDetail extends Vue {
       });
   }
   GoUrl () {
-    if (this.type === '0') {
-        this.$router.push('/account/DeliveryOrderDetail/' + this.ruleForm.Id);
-    } else {
-        this.$router.push('/account/DeliveryOrderDetail/' + this.id);
-    }
+      if (this.DeliveryId !== '') {
+         this.$router.push('/account/DeliveryOrderDetail/' + this.DeliveryId);
+      } else {
+          this.$message.error(this.$t('Enquiry.NotShipped') as string);
+      }
   }
    goPrint() {
     if (this.type === '0') {

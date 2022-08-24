@@ -49,7 +49,11 @@
                                 <li>{{(v.UnitPrice) | PriceFormat}}</li>
                                 <li>{{(v.TotalSum) | PriceFormat}}</li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
+                            <p class="totalSum">
+                                <span>{{$t('Enquiry.AdditionalCharges')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span>
+                                <span>{{$t('Enquiry.Discount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Discount) | PriceFormat}}</span>
+                                <span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span>
+                            </p>
                     </div>
                 </div>
                 <div class="otherInfo">
@@ -168,7 +172,7 @@ GetStoreData () {
     display: inline-block!important;
     flex-wrap: wrap;
     background: #fff!important;
-    padding-top: 11.5rem;
+    padding-top: 11rem;
     .InnerBox {
         width:1000px;
         margin: 0 auto;
@@ -259,6 +263,8 @@ GetStoreData () {
                         justify-content: flex-end;
                         padding-top: 5px;
                         padding-bottom: 5px;
+                        text-align: right;
+                        word-break: break-word;
                         &:nth-child(1){
                             width: calc(5% - 1px);
                         }
@@ -314,14 +320,9 @@ GetStoreData () {
                         align-items: center;
                         padding-top: 5px;
                         padding-bottom: 5px;
-                    &:nth-child(1){
-                        border-right: 1px solid #000;
-                        display: flex;
-                        justify-content: flex-end;
-                    }
-                    &:nth-child(2){
-                            width: calc(10% + 1px);
+                    &:nth-child(odd){
                             justify-content: flex-end;
+                            margin-left: 20px;
                         }
                     }
                 }

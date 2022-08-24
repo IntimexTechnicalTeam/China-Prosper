@@ -663,6 +663,7 @@ export default {
     Attn: 'Attn.',
     TransactionAmount: 'Transaction amount',
     AdditionalCharges: 'Additional charges',
-    Discount: 'Discount'
+    Discount: 'Discount',
+    NotShipped: 'Seller has not shipped'
   }
 };

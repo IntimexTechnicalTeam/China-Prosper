@@ -73,6 +73,9 @@ export default class App extends Vue {
 .el-message {
   top: 5rem !important;
 }
+.el-message--error {
+   z-index: 100000000!important;
+}
 
 // 修正手機版側欄菜單點擊兩次問題 (element ui)
 .el-scrollbar{

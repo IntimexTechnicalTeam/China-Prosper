@@ -679,6 +679,7 @@ export default {
     Attn: '收件人',
     TransactionAmount: '交易金额',
     AdditionalCharges: '附加费用',
-    Discount: '折扣'
+    Discount: '折扣',
+    NotShipped: '卖家未发货'
   }
 };

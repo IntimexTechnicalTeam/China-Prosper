@@ -109,8 +109,8 @@
                     </li>
                 </ul>
                 <div class="TotalSunm">
-                    <p><span>{{$t('Enquiry.TransactionAmount')}}:</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span><span>{{$t('Enquiry.AdditionalCharges')}}:</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span></p>
-                    <p><span>{{$t('Enquiry.Discount')}}:</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p></div>
+                    <p><span>{{$t('Enquiry.TransactionAmount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span><span>{{$t('Enquiry.AdditionalCharges')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span></p>
+                    <p><span>{{$t('Enquiry.Discount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Discount) | PriceFormat}}</span><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p></div>
                 </div>
                 <div class="TableA BottomTable">
                     <ul>

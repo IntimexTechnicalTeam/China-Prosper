@@ -135,7 +135,7 @@ export default class InsDeliveryPrinting extends Vue {
     display: inline-block!important;
     flex-wrap: wrap;
     background: #fff!important;
-    padding-top: 11.5rem;
+    padding-top: 11rem;
     .InnerBox {
         width:1000px;
         margin: 0 auto;
@@ -227,6 +227,8 @@ export default class InsDeliveryPrinting extends Vue {
                         justify-content: flex-end;
                         padding-top: 5px;
                         padding-bottom: 5px;
+                        text-align: right;
+                        word-break: break-word;
                         &:nth-child(1){
                             width: calc(10% - 1px);
                         }

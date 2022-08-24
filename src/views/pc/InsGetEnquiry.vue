@@ -140,12 +140,6 @@
                     <ul>
                         <el-form-item>
                         <li>
-                            <span class="w15">{{$t('Enquiry.DeliveryLeadTime')}}:</span>
-                            <span class="w83"><el-input v-model="ruleForm.DeliverySchedule" :disabled="isPreview"></el-input> </span>
-                        </li>
-                        </el-form-item>
-                        <el-form-item>
-                        <li>
                             <span class="w15">{{$t('Enquiry.DeliverMethod')}}:</span>
                             <span class="w83"><el-input v-model="ruleForm.DeliveryType" :disabled="isPreview"></el-input></span>
                         </li>

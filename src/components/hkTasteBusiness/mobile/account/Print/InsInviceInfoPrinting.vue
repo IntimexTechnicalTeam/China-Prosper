@@ -29,17 +29,22 @@
                 <div class="Product">
                     <h2>{{$t('Enquiry.InviceInfo')}}</h2>
                     <div class="InnerProduct">
-                            <ul class="topB"  v-for="(v,index) in ruleForm.DetailList" :key="index">
+                            <ul class="topB"  v-for="(v,index) in ruleForm.Details" :key="index">
                                 <li><span>{{$t('Enquiry.Item')}}</span><span>{{index+1}}</span></li>
-                                <li><span>{{$t('Enquiry.ProductCode')}}</span><span>{{v.Code}}</span></li>
+                                <li><span>{{$t('Enquiry.ProductCode')}}</span><span>{{v.ProductCode}}</span></li>
                                 <li><span>{{$t('Enquiry.ProductName')}}</span><span>{{v.ProductName}}</span></li>
                                 <li><span>{{$t('Enquiry.OtherRequirement')}}</span><span>{{v.Remark}}</span></li>
-                                <li><span>{{$t('Enquiry.Image')}}</span><span><img :src="v.RelativeImage"></span></li>
-                                <li><span>{{$t('Enquiry.Quantity')}}</span><span>{{(v.Qty) | PriceFormat}}</span></li>
+                                <li><span>{{$t('Enquiry.Image')}}</span><span><img :src="v.Image"></span></li>
+                                <li><span>{{$t('Enquiry.Quantity')}}</span><span>{{(v.ItemQty) | PriceFormat}}</span></li>
                                 <li><span>{{$t('Enquiry.UnitPrice')}}({{ruleForm.CurrencyCode}})</span><span>{{(v.UnitPrice) | PriceFormat}}</span></li>
                                 <li><span>{{$t('Enquiry.SubTotal')}}({{ruleForm.CurrencyCode}})</span><span>{{(v.TotalSum) | PriceFormat}}</span></li>
                             </ul>
-                            <p class="totalSum"><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
+                            <div class="totalSum">
+                                <p><span>{{$t('Enquiry.TransactionAmount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.TotalAmount) | PriceFormat}}</span></p>
+                                <p><span>{{$t('Enquiry.AdditionalCharges')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.AdditionalFee) | PriceFormat}}</span></p>
+                                <p><span>{{$t('Enquiry.Discount')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Discount) | PriceFormat}}</span></p>
+                                <p><span>{{$t('Enquiry.Total')}}({{ruleForm.CurrencyCode}}):</span><span>{{(ruleForm.Total) | PriceFormat}}</span></p>
+                            </div>
                     </div>
                 </div>
                 <div class="otherInfo">
@@ -82,8 +87,8 @@ export default class InsInviceInfoPrinting extends Vue {
   get type() {
         return this.$route.params.type;
   }
- GetGoodOrder () {
-      this.$Api.enquiry.GetGoodOrder(this.id).then(result => {
+ GetInvoiceOrder () {
+      this.$Api.enquiry.GetInvoiceOrder(this.id).then(result => {
           if (result) {
             this.ruleForm = result;
             console.log(this.ruleForm, 'this.ruleForm this.ruleForm ');
@@ -136,7 +141,7 @@ GetStoreData () {
   created() {
     this.GetStoreData();
     if (this.type === '0') {
-     this.GetGoodOrder();
+     this.GetInvoiceOrder();
     } else {
      this.GetPtxGoodOrder();
     }
@@ -274,6 +279,7 @@ GetStoreData () {
                 .totalSum {
                     width: calc(100% - 4%);
                     display: flex;
+                    flex-wrap: wrap;
                     justify-content: flex-end;
                     padding:0% 2%;
                     span{
@@ -282,16 +288,12 @@ GetStoreData () {
                         padding-top: 1rem;
                         padding-bottom: 1rem;
                         font-size: 1.2rem;
-                    &:nth-child(1){
-                        border-right: 1px solid #000;
+                    }
+                    p{
+                        width: 100%;
                         display: flex;
+                        flex-wrap: wrap;
                         justify-content: flex-end;
-                        padding-right: 5px;
-                    }
-                      &:nth-child(2){
-                        padding-left: 5px;
-                        justify-content: flex-end;
-                    }
                     }
                 }
             }
