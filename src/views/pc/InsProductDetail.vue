@@ -148,7 +148,6 @@ export default class InsProductDetail extends Vue {
   getProduct () {
     var that = this;
     that.ProductCode = that.$route.params.id ? that.$route.params.id : '0';
-    console.log(that.ProductCode, 'that.ProductCodethat.ProductCode');
     // 获取产品详情数据
     that.$Api.product.GetProduct(that.pc).then((result) => {
     if (result) {

@@ -2,15 +2,24 @@
   <div class="PromotionMain">
        <div class="productCat">
           <p class="NoramlTitle"><span class="text">{{productCatName}}</span></p>
-          <swiper  :options="productCatOption" ref="mySwiper" v-if="productCatData.length">
-            <!-- slides -->
+          <!-- <swiper  :options="productCatOption" ref="mySwiper" v-if="productCatData.length">
             <swiper-slide v-for="(slide, index) in productCatData" :key="index">
               <a :href="'/product/search/-?' + 'catalogs=' + JSON.stringify([slide.Id]) + '&type=0'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''" class="borderInner">
                 <span class="bgTitle"><img :src="slide.Img" /></span>
                 <p class="TitleName">{{slide.Name}}</p>
               </a>
             </swiper-slide>
-          </swiper>
+          </swiper> -->
+          <div class="productData">
+              <ul>
+                <li v-for="(slide, index) in productCatData" :key="index">
+                  <a :href="'/product/search/-?' + 'catalogs=' + JSON.stringify([slide.Id]) + '&type=0'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''" class="borderInner">
+                    <span class="bgTitle"><img :src="slide.Img" /></span>
+                    <p class="TitleName">{{slide.Name}}</p>
+                  </a>
+                </li>
+              </ul>
+          </div>
        </div>
        <div class="nestContent">
           <div class="InnerWhite">
@@ -74,11 +83,13 @@ export default class HkPromotion extends Vue {
     return this.$Storage.get('locale');
   }
   productCatOption: any = {
-    slidesPerView: 4,
+    slidesPerView: 4, // 一行显示3个
+    slidesPerGroup: 4,
+    slidesPerColumn: 2, // 显示2行
     spaceBetween: 50,
-    autoHeight: true, // 高度随内容变化
-    observer: true, // 修改swiper自己或子元素时，自动初始化swiper
-    observeParents: true // 修改swiper的父元素时，自动初始化swiper
+    autoHeight: true // 高度随内容变化
+    // observer: true,
+    // observeParents: true
   };
     getProductCat () {
     // 获取产品详情数据
@@ -234,6 +245,64 @@ export default class HkPromotion extends Vue {
       flex-wrap: wrap;
       padding-top: 2rem;
       padding-bottom: 2rem;
+      .productData {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        ul {
+        padding-top: 2rem;
+        width: 90%;
+        margin: 0 auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+         li {
+          width: 22%;
+          float: left;
+          margin-right: 4%;
+          margin-bottom: 4%;
+            &:nth-child(4n) {
+              margin-right: 0px!important;
+            }
+            .borderInner {
+              display: flex;
+              flex-wrap: wrap;
+              width: 100%;
+              justify-content: center;
+              position: relative;
+              &:hover {
+                .TitleName {
+                  color: #9f1e3c;
+                }
+              }
+            }
+            .bgTitle{
+              background: url(/images/pc/pcptx_12.png) no-repeat center center;
+              background-size: contain;
+              overflow: hidden;
+              display: inline-block;
+              padding: 2rem;
+            }
+            img {
+              width: 100%;
+              border: 1px solid #d9c5a8;
+              border-radius: 100%;
+              transition: all .3s;
+            }
+            .TitleName{
+              color: #333333;
+              display: flex;
+              flex-wrap: wrap;
+              width: 100%;
+              align-items: center;
+              justify-content: center;
+              font-size: 24px;
+              font-weight: 700;
+              margin-top: 10px;
+              transition: all .3s;
+            }
+         }
+        }
+      }
       /deep/ .swiper-container {
         padding-bottom: 3rem;
         padding-top: 2rem;
@@ -299,6 +368,7 @@ export default class HkPromotion extends Vue {
           width: 100%;
           display: flex;
           flex-wrap: wrap;
+          margin-bottom: 10px;
           /deep/ p{
             width: 100%;
             display: flex;

@@ -99,7 +99,7 @@ export default class Result extends Vue {
         });
         if (result.data.ReturnValue.IsPayed) this.$Confirm(this.$t('Message.Message'), this.$t('Order.Paid'));
         if (result.data.ReturnValue.Amount > 0 && !result.data.ReturnValue.IsPayed) {
-          this.loadPaymentMethod();
+            this.paymentMethods = result.data.ReturnValue.PaymentType;
         } else if (this.result.NextFormKey) {
           let NextFormKey = this.result.NextFormKey;
           setTimeout(() => {
@@ -124,7 +124,7 @@ export default class Result extends Vue {
     // 立即支付
     pay () {
       if (!this.paymentMethod.Id || this.paymentMethod.Id === '') {
-        alert('请选择付款方式');
+         alert(this.$t('Input.selectPayment') as string);
       } else {
         this.$Api.regAndPay.savePayMethod(this.paymentMethod.Id, this.result.Id).then(result => {
           if (result.data.Succeeded) {

@@ -17,7 +17,9 @@ export default {
     confirmpassword: '兩次輸入密碼不一致',
     nomessage: '暫無數據',
     phoneincorrect: '電話號碼格式不正確',
-    faxincorrect: '傳真號碼格式不正確'
+    faxincorrect: '傳真號碼格式不正確',
+    PAGENOTFOUND: '抱歉，您所訪問的頁面不存在～',
+    selectPayment: '請選擇付款方式'
   },
   Message: {
     Logout: '您尚未登陸或已登入超時，請重新登入',

@@ -102,7 +102,6 @@ export default class InsFooter extends Vue {
   background-size: cover;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-top: 10px;
   .footer-box{
     width: 1200px;
     margin: 0 auto;

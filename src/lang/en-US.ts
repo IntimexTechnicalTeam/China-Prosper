@@ -17,7 +17,9 @@ export default {
     confirmpassword: 'Two inconsistent input passwords',
     nomessage: 'No Message',
     phoneincorrect: 'The phone number format is incorrect',
-    faxincorrect: 'The fax number format is incorrect'
+    faxincorrect: 'The fax number format is incorrect',
+    PAGENOTFOUND: 'Sorry, the page you are looking for does not exist',
+    selectPayment: 'Please choose a payment method'
   },
   Message: {
     Logout: 'Timeout ! login now ?',
