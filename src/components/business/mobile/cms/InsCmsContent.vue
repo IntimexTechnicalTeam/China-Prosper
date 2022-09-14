@@ -3,7 +3,7 @@
     <!-- 联络我们页面 -->
     <div class="NomralBg" v-if="NewcateId=='40112'">
       <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
+        <div key="1" v-if="!waiting" style="width:100%;">
            <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{TitleName}}</div></div></div>
       </div>
       </transition>
@@ -24,7 +24,7 @@
     <!-- 其他页面 -->
     <div class="CmsNormal" v-if="NewcateId!='40112'">
       <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
+        <div key="1" v-if="!waiting" style="width:100%;">
               <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{TitleName}}</div></div></div>
       </div>
       </transition>

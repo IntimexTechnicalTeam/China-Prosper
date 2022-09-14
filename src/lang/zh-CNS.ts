@@ -18,7 +18,7 @@ export default {
     nomessage: '暂无数据',
     phoneincorrect: '电话号码格式不正确',
     faxincorrect: '传真号码格式不正确',
-    PAGENOTFOUND: '抱歉，您所訪問的頁面不存在～',
+    PAGENOTFOUND: '抱歉，您所访问的页面不存在～',
     selectPayment: '请选择付款方式'
   },
   Message: {

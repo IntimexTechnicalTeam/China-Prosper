@@ -1,7 +1,7 @@
 <template>
     <div class="CatMain NoramlPaddingTop">
       <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
+        <div key="1" v-if="!waiting" style="width:100%;">
            <div class="DetailTitle"><img :src="BannerImg" v-show="BannerImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
       </div>
       </transition>
