@@ -11,8 +11,8 @@ if (param === 'dev') {
   apiServer = 'https://ptxapi.uat2.intimex.hk';
   AdminServer = 'https://ptxadmin.uat2.intimex.hk';
 } else if (param === 'prod') {
-  apiServer = 'https://api.uat.in-store.hk';
-  AdminServer = 'https://admin.uat.in-store.hk';
+  apiServer = 'https://ptxapi.uat.in-store.hk';
+  AdminServer = 'https://ptxadmin.uat.in-store.hk';
 }
 function getArgList () {
   let argv = process['argv'];
