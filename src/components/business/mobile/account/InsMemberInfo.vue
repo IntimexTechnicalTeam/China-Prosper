@@ -373,6 +373,7 @@ export default class InsMemberInfo extends Vue {
 <style lang="less" scoped>
 .MemberInfo {
   margin-bottom: 50px;
+  margin-top: 20px;
   .mid-box {
     padding: 0px;
     .ButttomBtn {

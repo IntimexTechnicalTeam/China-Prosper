@@ -1,6 +1,6 @@
 <template>
   <div id="container" class="ProductSearch  NomralBg">
-    <div class="NsMain"  v-if="isPtx">
+<!--     <div class="NsMain"  v-if="isPtx">
         <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
         <div class="ProductTips">
           <p>{{$t('Message.TipsA')}}</p>
@@ -8,8 +8,8 @@
           <p class="redcolor"><router-link to="/account/login">{{$t('Message.LoginNow')}},</router-link><span class="bcolor">{{$t('Message.TipsD')}} </span></p>
           <p>{{$t('Message.TipsE')}} {{totalRecord}} </p>
         </div>
-    </div>
-    <div class="NsMain" v-if="!isPtx">
+    </div> -->
+    <div class="NsMain">
         <div class="SearchSlide">
           <div class="leftSide">
             <NsadvancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
@@ -17,16 +17,29 @@
         </div>
       <div class="selectBar">
           <ul>
-            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('Message.ProductList')}}</b></li>
+            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('product.Screening')}}</b></li>
             <li  class="sortBox">
               <p class="sortTitle" @click.stop="showList=!showList">
                 {{$t('product.SortBy')}}
-                <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
+                <i class="el-icon-arrow-down el-icon--right"></i>
               </p>
               <transition name="el-fade-in-linear">
                 <ul class="sortList" v-if="showList">
                   <li @click="handleCommand('desc')" :style="{'color':command=='desc'?'#b19162':'#333333'}">{{$t('product.PriceHL')}}</li>
                   <li @click="handleCommand('asc')" :style="{'color':command=='asc'?'#b19162':'#333333'}">{{$t('product.PriceLH')}}</li>
+                </ul>
+              </transition>
+            </li>
+             <li  class="sortBox liTop" @click.stop="ShowSellType=!ShowSellType">
+              <p class="sortTitle">
+                {{$t('Enquiry.SellType')}}
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </p>
+              <transition name="el-fade-in-linear">
+                <ul class="sortList" v-if="ShowSellType">
+                  <li @click="handleSellType(0)" :style="{'color':SellType==0?'#b19162':'#333333'}">{{$t('Enquiry.RetailBargaining')}}</li>
+                  <li @click="handleSellType(1)" :style="{'color':SellType==1?'#b19162':'#333333'}">{{$t('Enquiry.Retail')}}</li>
+                  <li @click="handleSellType(2)" :style="{'color':SellType==2?'#b19162':'#333333'}">{{$t('Enquiry.Bargaining')}}</li>
                 </ul>
               </transition>
             </li>
@@ -40,7 +53,6 @@
         <div class="products_container" v-else>
              <h3 class="nocontentTips">{{$t('messageTips.NoContent')}}</h3>
         </div>
-        <div  v-if="islogin">
           <div class="pager" v-if="totalRecord > pageSize">
             <InsPage
               :total="totalRecord"
@@ -49,7 +61,6 @@
               :currentPage = "currentPage"
             ></InsPage>
           </div>
-        </div>
     </div>
   </div>
 </template>
@@ -85,6 +96,8 @@ export default class InsProductSearch extends Vue {
   showList:boolean = false;
   command:string='';
   SortName:string = '';
+  SellType:number=0;
+  ShowSellType:boolean =false
   get isPtx () {
       if (localStorage.getItem('isPtx') === '0') {
         return false;
@@ -121,6 +134,10 @@ export default class InsProductSearch extends Vue {
       this.showList = false;
     }
 
+    this.productSearch();
+  }
+  handleSellType(command) {
+    this.SellType = command;
     this.productSearch();
   }
   // 产品高级搜索
@@ -384,8 +401,8 @@ export default class InsProductSearch extends Vue {
     margin: 0 auto;
   > li{
     float: left;
-    margin-right: 4%;
-    width: 47%;
+    margin-right: 3%;
+    width: 30%;
     background: #FFF;
     border:1px solid #eee;
     font-size: 1.6rem;

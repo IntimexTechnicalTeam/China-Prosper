@@ -4,11 +4,11 @@
     <div class="in_pdWindow_page_item" :style="styla" @mouseenter="Enter=true" @mouseleave="Enter=false" @click="click">
       <div class="topWindowsImg imgbox">
         <img :src="(item.Image?item.Image:item.Img_L?item.Img_L:item.Img)"  :class="{'height_line':Enter}" :style="imgStyla" :data-key="item.Sku" @error="loadError" />
-        <div class="fav" v-if="!isPtx"><img :src="item.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click.stop="addToFavorite(item)" /></div>
+        <div class="fav" v-if="!item.negotiable || item.negotiable==null"><img :src="item.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click.stop="addToFavorite(item)" /></div>
       </div>
         <div class="in_pdWindow_item_description">
             <a  href="javascript:;" class="in_pdWindow_item_title" v-on:click="addCart(item)">{{item.Name}}</a>
-            <div class="in_pdWindow_item_price" v-if="isPtx===false">
+            <div class="in_pdWindow_item_price" v-if="!item.negotiable || item.negotiable==null">
               <inPrices :primePrices="item.ListPrice" :currentPrices="item.SalePrice" :currency="item.Currency" :DefaultListPrice="item.DefaultListPrice" :DefaultSalePrice="item.DefaultSalePrice" :DefaultCurrency="item.DefaultCurrency" size="small"></inPrices>
             </div>
         </div>

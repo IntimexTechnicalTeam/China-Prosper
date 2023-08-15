@@ -85,7 +85,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import Express from '@/model/express';
 import printJS from 'print-js';
 import html2Canvas from 'html2Canvas';
-import { param } from 'node_modules/_@types_jquery@3.5.14@@types/jquery';
 @Component
 export default class InsPackingPrinting extends Vue {
   isPrint:boolean = true;

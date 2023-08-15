@@ -16,6 +16,16 @@
                 <span>{{ $t("Account.MyOrder") }}</span>
               </div>
             </router-link>
+            <router-link to="/account/deliveryAddress" class="iconBg">
+              <div class="innerStyle">
+                <span>{{ $t("Account.DeliveryAddress") }}</span>
+              </div>
+            </router-link>
+            <router-link to="/account/modifyPassword" class="iconBg">
+              <div class="innerStyle">
+                <span>{{ $t("MemberInfo.ModifyPassword") }}</span>
+              </div>
+            </router-link>
             <router-link to="/account/notification" class="iconBg">
               <div class="innerStyle">
                 <span>{{ $t("Account.MyMessages") }}</span>
@@ -29,6 +39,16 @@
             <router-link to="/account/myCoupon" class="iconBg">
               <div class="innerStyle">
                 <span>{{ $t("MyCoupon.MyCoupon") }}</span>
+              </div>
+            </router-link>
+            <router-link to="/account/message" class="iconBg">
+              <div class="innerStyle">
+                <span>{{ $t("Account.LatestNews") }}</span>
+              </div>
+            </router-link>
+            <router-link to="/account/ptxorder" class="iconBg">
+              <div class="innerStyle">
+                <span>{{ $t("Enquiry.PTXOrder") }}</span>
               </div>
             </router-link>
           </div>
@@ -84,7 +104,7 @@ export default class accountHeader extends Vue {
     width: 100%;
     padding-top: 30px;
     padding-bottom: 30px;
-    background: url('/images/pc/pcptx_06.jpg') no-repeat center center;
+    background: url("/images/pc/pcptx_06.jpg") no-repeat center center;
     .innerBox {
       width: 1200px;
       margin: 0 auto;
@@ -106,7 +126,6 @@ export default class accountHeader extends Vue {
         }
         a {
           display: inline-block;
-          margin-right: 15px;
           &:last-child {
             margin-right: 0px !important;
           }
@@ -120,10 +139,15 @@ export default class accountHeader extends Vue {
         border: 1px solid #fff;
         background-size: contain;
         float: left;
-        width: 180px;
-        height: 111px;
+        width: 15.9%;
+        height: 50px;
         text-align: center;
         padding: 10px;
+        margin-bottom: 20px;
+        margin-right: 2.66%;
+        &:nth-child(5n) {
+          margin-right: 0px!important;
+        }
         .innerStyle {
           background: #fff;
           display: block;
@@ -166,8 +190,7 @@ export default class accountHeader extends Vue {
         border: 1px solid @base_color;
         background-size: contain;
         float: left;
-        width: 200px !important;
-        height: 120px !important;
+        height: 50px !important;
         text-align: center;
         padding: 10px;
         .innerStyle {

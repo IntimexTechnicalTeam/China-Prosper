@@ -269,6 +269,8 @@ export default class InsExpressWay extends Vue {
     private PickupDateRequire: boolean = false;
     // 自取(人)信息是否必填
     private PickupInfoRequire: boolean = false;
+    // 購物車數據是否獲取完畢標識
+    private ready: boolean = false;
 
     @Prop({ default: false }) private lockFare!: boolean;
     pickerOptions : object = {
@@ -305,12 +307,23 @@ export default class InsExpressWay extends Vue {
         this.Express = result.ExpressAndOutlets;
         this.ChosenExpress = result.ExpressAndOutlets.length > 0 ? result.ExpressAndOutlets[0] : new ExpressAndOutlets();
         this.IsSelfDefineDeliveryDate = this.ChosenExpress.IsSelfDefineDeliveryDate;
-        this.ChosenExpressPoint = this.ChosenExpress.ExpressPointList.length ? this.ChosenExpress.ExpressPointList[0] : new ExpressPoint();
+        if (this.ChosenExpress.ExpressCompanyId !== 'P' && this.ChosenExpress.IsExpressPoint) {
+          this.ChosenExpressPoint = this.ChosenExpress.ExpressPointList.length ? this.ChosenExpress.ExpressPointList[0] : new ExpressPoint();
+        } else {
+          this.ChosenExpressPoint = new ExpressPoint();
+        }
       });
-      if (!this.$store.state.shopCart) this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+
+      if (!this.$store.state.shopCart) {
+        this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+      }
+
       let shopcart = this.$store.state.shopCart.then((result) => {
         this.TotalWeight = result.ShopCart.TotalWeight;
         this.ItemsAmount = result.ShopCart.ItemsAmount;
+
+        this.ready = true;
+        this.onChosenExpressChange();
       });
     }
     @Watch('PickAddress', { deep: true })
@@ -330,7 +343,7 @@ export default class InsExpressWay extends Vue {
         this.PickAddress.ExpressPointId = this.CurrentPickupAddress.Id;
         this.PickAddress.CompanyAddress = this.CurrentPickupAddress.Address;
     }
-    @Watch('ChosenExpress')
+
     onChosenExpressChange () {
       this.loading = true;
       this.chooseCharge = false;
@@ -358,14 +371,14 @@ export default class InsExpressWay extends Vue {
         this.loadAddress();
         this.ChosenExpressPoint = new ExpressPoint('', '', '-1');
         this.$store.dispatch('setDeliveryType', 'D');
-        this.$Api.delivery.getDefaultAddrForEx(this.ChosenExpress.Id).then((result) => {
+        this.$Api.address.getDefaultAddrForEx(this.ChosenExpress.Id).then((result) => {
           this.editAddress = new Address();
           this.SelectedAddress = result.Address;
           if (this.SelectedAddress.DeliveryId) this.$store.dispatch('setSelectAddress', this.SelectedAddress);
           else throw new Error('no default address');
         }).catch(async (e) => {
           // 这里应该是要处理没有默认地址的，获取当前快递支持的用户地址的第一个
-          await this.$Api.delivery.getAddressForEx(this.ChosenExpress.Id).then((result) => {
+          await this.$Api.address.getAddressForEx(this.ChosenExpress.Id).then((result) => {
             this.editAddress = new Address();
             this.SelectedAddress = result.Address.length > 0 ? result.Address[0] : new Address();
             this.$store.dispatch('setSelectAddress', this.SelectedAddress);
@@ -393,7 +406,7 @@ export default class InsExpressWay extends Vue {
           this.$store.dispatch('setExpress', this.ChosenExpress);
           this.ChosenExpressPoint = new ExpressPoint();
           this.$store.dispatch('setDeliveryType', 'P');
-          this.$Api.delivery.getPickupAddressV2().then((result) => {
+          this.$Api.delivery.getPickupAddress().then((result) => {
             this.$emit('express');
             this.loading = false;
             this.PickupAddressList = result.PickupAddress;
@@ -467,7 +480,7 @@ export default class InsExpressWay extends Vue {
           var _this = this;
           if (result.ExpressAndOutlets[0].IsSelfDefineDeliveryDate) {
               this.$Api.delivery.getExpressTimeRange(this.ChosenExpress.Id).then((result) => {
-                    _this.TimeRangeData = result.data;
+                    _this.TimeRangeData = result;
                     _this.TimeRangeShow = true;
               });
           } else {
@@ -489,7 +502,7 @@ export default class InsExpressWay extends Vue {
     }
     loadAddress () {
       // if (!this.expressError) { this.$SingtonConfirm(this.$t('Message.Message'), this.$t('CheckOut.expressError')); return; }
-      this.$Api.delivery.getAddressForEx(this.ChosenExpress.Id).then((result) => {
+      this.$Api.address.getAddressForEx(this.ChosenExpress.Id).then((result) => {
         this.addressList = result.Address;
         if (this.addressList && this.addressList.length === 0) this.showEdit = true;
       });
@@ -570,7 +583,7 @@ export default class InsExpressWay extends Vue {
             form.Mobile = form.Phone;
             this.$Api.address.saveAddress(form).then((result) => {
             }).then(() => {
-              this.$Api.delivery.getAddressForEx(this.ChosenExpress.Id).then((result) => {
+              this.$Api.address.getAddressForEx(this.ChosenExpress.Id).then((result) => {
                 this.addressList = result.Address;
                 this.SelectedAddress = result.Address.length > 0 ? result.Address[0] : new Address();
                 this.$store.dispatch('setSelectAddress', this.SelectedAddress);
@@ -617,6 +630,10 @@ export default class InsExpressWay extends Vue {
     ExpressSelect () {
       (this.$refs.adderform as InsForm).reset();
       this.showEdit = false;
+
+      if (this.ready) {
+        this.onChosenExpressChange();
+      }
     }
 
         // 獲取（新）順豐自提點國家列表
@@ -650,7 +667,7 @@ export default class InsExpressWay extends Vue {
     // 獲取（新）順豐自提點城市列表
     getSFCity () {
       console.log(this.SFScreen.Province.Id, 'this.SFScreen.Province.Id');
-      this.$Api.delivery.GetCityByProvince(this.SFScreen.Province.Id).then((result) => {
+      this.$Api.delivery.getCityByProvince(this.SFScreen.Province.Id).then((result) => {
         this.SFCity = result;
       }).catch((error) => {
         console.log(error, 'error');
@@ -664,7 +681,7 @@ export default class InsExpressWay extends Vue {
 
     // 獲取自提點類型
     async GetShunFengPointType() {
-      await this.$Api.delivery.GetShunFengPointType().then((result) => {
+      await this.$Api.delivery.getShunFengPointType().then((result) => {
         console.log(result, '獲取自提點類型');
         this.SFPointType = result;
       });
@@ -672,7 +689,7 @@ export default class InsExpressWay extends Vue {
 
     // 查詢獲取（新）順豐自提地址數據
     async GetPickUpPointCharge() {
-      await this.$Api.delivery.GetPickUpPointCharge({
+      await this.$Api.delivery.getPickUpPointCharge({
         countryId: this.SFScreen.Country ? this.SFScreen.Country.Id : 0,
         provinceId: this.SFScreen.Province ? this.SFScreen.Province.Id : 0,
         cityId: this.SFScreen.City ? this.SFScreen.City.Id : 0,
@@ -682,7 +699,7 @@ export default class InsExpressWay extends Vue {
         PageSize: 100
       }).then((result) => {
         console.log(result, '獲取（新）順豐自提數據');
-        this.PiUpPointList = result;
+        this.PiUpPointList = result.ReturnValue;
 
         if (!this.PiUpPointList.length) {
           // this.$alert(this.$t('Message.NoneAddPiUpAddr') as string, '', {
@@ -742,15 +759,12 @@ export default class InsExpressWay extends Vue {
   }
 </style>
 <style lang="less" scoped>
-/deep/ .in_select_label {
-  font-size: 14px;
-}
 .input_warpper {
   display: flex;
   margin-top: 30px;
   width: 100%;
   label {
-    font-size: 14px;
+    font-size: 16px;
     width: 120px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -883,10 +897,9 @@ export default class InsExpressWay extends Vue {
     width: 100%;
     display:flex;
     padding-top: 30px;
-    align-items: center;
     .date,.time,.note{
       width: 120px;
-      font-size: 14px;
+      font-size: 16px;
     }
     .inputMain{
       display: flex;

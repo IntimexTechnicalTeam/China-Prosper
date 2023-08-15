@@ -5,7 +5,7 @@
   </div>
   <div v-else>
   <div class="productDetail_container">
-    <div class="ProductUp" v-if="isPtx">
+    <div class="ProductUp">
         <div class="prev" @click="getGetProductUp()"><i class="img"></i>{{$t('Message.Prev')}}</div>
         <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<i class="img"></i></div>
     </div>
@@ -16,7 +16,7 @@
           <inPanel :panelDetail.sync="PanelDetail" :ProductSku="ProductCode" @getPrice="showPrice" width="100%"></inPanel>
       </div>
     </div>
-    <div class="tab_warpper" v-if="isPtx">
+    <div class="tab_warpper" v-if="PanelDetail.negotiable">
       <div class="tab_header">
         <div class="detail_title">{{$t('product.ProductIntroduction')}}</div>
       </div>
@@ -368,6 +368,7 @@ export default class InsProductDetail extends Vue {
   box-sizing: border-box;
   width: 100%;
   display: inline-block;
+  margin-bottom: 50px;
 }
 .productDetail_price_warpper {
   display: flex;

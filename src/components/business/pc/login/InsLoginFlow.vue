@@ -90,7 +90,7 @@ export default class InsLoginFlow extends Vue {
 </style>
 <style lang="less" scoped>
 .login_flow_layer{
-  z-index: 99999;
+  z-index: 999;
   min-height: 100vh;
   width: 100vw;
   min-width: 1200px;

@@ -4,12 +4,12 @@
       <div class="headerTop">
           <div class="Inner">
             <div class="leftside">
-                <a href="/"><img src="/images/mobile/ptx_04.png"></a>
+                <a href="/" class="logoside"><img src="/images/mobile/ptx_04.png"></a>
             </div>
             <div class="rightside">
                 <p class="Langcode">
-                   <router-link to="/account/myFavorite" class="favImg" v-if="!isPtx"><img src="/images/mobile/favwhite.png"></router-link>
-                   <CodeSelect v-if="!isPtx" />
+                   <router-link to="/account/myFavorite" class="favImg"><img src="/images/mobile/favwhite.png"></router-link>
+                   <CodeSelect  />
                   <InsLangSwitch class="lang"></InsLangSwitch>
                 </p>
                 <div class="Search">
@@ -19,12 +19,12 @@
                         <span class="searchBtn" @click="search"></span>
                       </div>
                     </div>
-                  <div class="cartTop" v-if="isPtx" >
+                  <div class="cartTop">
                     <router-link to="/account/GetEnquiry">
                           <i class="handle-icon ptxicon"></i>
                     </router-link>
                 </div>
-                <Shopcart class="memberLogin" v-if="!isPtx"></Shopcart>
+                <Shopcart class="memberLogin"></Shopcart>
                 <InsLogin class="memberLogin"></InsLogin>
                 </div>
                 <p class="MeunMain">
@@ -189,6 +189,12 @@ export default class DefaultHeader extends Vue {
           width: 30%;
           display: flex;
           align-items: center;
+          .logoside {
+            width: 300px;
+            img {
+              width: 100%;
+            }
+          }
         }
         .rightside {
           width: 68%;

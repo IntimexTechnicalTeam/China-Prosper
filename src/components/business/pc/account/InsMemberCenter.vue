@@ -1,9 +1,9 @@
 <template>
   <div class="MemberPc NomralBg">
     <!-- 正常购买模式 -->
-    <div v-if="!isPtx">
+    <div>
       <accountHeader />
-        <div class="MemberInfoNavPC NormalHead">
+<!--         <div class="MemberInfoNavPC NormalHead">
           <ul class="NormalUl">
             <div @click="openlink('/account/memberInfo')">
             <li :class="NormalactiveClass == 1?'activeInfo':''" >
@@ -21,35 +21,61 @@
             </li>
             </div>
           </ul>
-        </div>
+        </div> -->
     </div>
     <!-- PTX询价模式 -->
-    <div v-else>
+<!--     <div>
       <div class="MemberInfoNavPC">
-            <ul>
-              <div @click="openlink('/account/memberInfo')">
-              <li :class="activeClass == 1?'activeInfo':''" >
-                <a>{{ $t("Enquiry.MyAccount") }}</a>
-              </li>
-              </div>
-              <div @click="openlink('/account/modifyPassword')">
-              <li :class="activeClass == 2?'activeInfo':''" >
-                <a>{{ $t("MemberInfo.ModifyPassword") }}</a>
-              </li>
-              </div>
-              <div @click="openlink('/account/message')">
-              <li :class="activeClass == 3?'activeInfo':''" >
-                <a>{{ $t("Account.LatestNews") }}</a>
-              </li>
-              </div>
-              <div @click="openlink('/account/ptxorder')">
-              <li :class="activeClass == 4?'activeInfo':''" >
-                <a>{{ $t("Account.MyOrder") }}</a>
-              </li>
-              </div>
-            </ul>
+        <ul>
+          <div @click="openlink('/account/memberInfo')">
+            <li :class="activeClass == 1 ? 'activeInfo' : ''">
+              <a>{{ $t("Enquiry.MyAccount") }}</a>
+            </li>
           </div>
-    </div>
+          <div @click="openlink('/account/modifyPassword')">
+            <li :class="activeClass == 2 ? 'activeInfo' : ''">
+              <a>{{ $t("MemberInfo.ModifyPassword") }}</a>
+            </li>
+          </div>
+          <div @click="openlink('/account/deliveryAddress')">
+            <li :class="NormalactiveClass == 3 ? 'activeInfo' : ''">
+              <a>{{ $t("Account.DeliveryAddress") }}</a>
+            </li>
+          </div>
+          <div @click="openlink('/order/List')">
+            <li :class="NormalactiveClass == 4 ? 'activeInfo' : ''">
+              <a>{{ $t("Account.MyOrder") }}</a>
+            </li>
+          </div>
+          <div @click="openlink('/account/notification')">
+            <li :class="NormalactiveClass == 5 ? 'activeInfo' : ''">
+              <a>{{ $t("Account.MyMessages") }}</a>
+            </li>
+          </div>
+          <div @click="openlink('/account/myFavorite')">
+            <li :class="NormalactiveClass == 6 ? 'activeInfo' : ''">
+              <a>{{ $t("Account.MyFavorite") }}</a>
+            </li>
+          </div>
+          <div @click="openlink('/account/myCoupon')">
+            <li :class="NormalactiveClass == 7 ? 'activeInfo' : ''">
+              <a>{{ $t("MyCoupon.MyCoupon") }}</a>
+            </li>
+          </div>
+
+          <div @click="openlink('/account/message')">
+            <li :class="activeClass == 8 ? 'activeInfo' : ''">
+              <a>{{ $t("Account.LatestNews") }}</a>
+            </li>
+          </div>
+          <div @click="openlink('/account/ptxorder')">
+            <li :class="activeClass == 9 ? 'activeInfo' : ''">
+              <a>{{ $t("Enquiry.PTXOrder") }}</a>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div> -->
     <router-view></router-view>
   </div>
 </template>
@@ -63,17 +89,17 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   }
 })
 export default class InsMenberCenter extends Vue {
-    activeClass: any = 0;
-    NormalactiveClass:any=0;
-    openlink(link) {
+  activeClass: any = 0;
+  NormalactiveClass: any = 0;
+  openlink(link) {
     this.$router.push({ path: link });
   }
-  get isPtx () {
-      if (localStorage.getItem('isPtx') === '0') {
-        return false;
-      } else {
-        return true;
-      }
+  get isPtx() {
+    if (localStorage.getItem('isPtx') === '0') {
+      return false;
+    } else {
+      return true;
+    }
   }
   PtxisActive() {
     var url = this.$route.path;
@@ -133,45 +159,46 @@ export default class InsMenberCenter extends Vue {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    >div {
-     width: 23%;
-     li{
-       padding-top: 10px;
-       padding-bottom: 10px;
-       background: #999999;
-       border-radius: 20px;
-       transition: all .3s;
-       cursor: pointer;
-       &:hover {
-         background: #333;
-       }
-       a{
-         display: flex;
-         width: 100%;
-         height: 100%;
-         align-items: center;
-         justify-content: center;
-        color: #fff;
-        font-size: 18px;
-       }
-     }
+    > div {
+      width: 23%;
+      margin-bottom: 1%;
+      li {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background: #999999;
+        border-radius: 20px;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover {
+          background: #333;
+        }
+        a {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 18px;
+        }
+      }
     }
   }
 }
-.MemberPc .activeInfo{
+.MemberPc .activeInfo {
   color: #fff !important;
   background: @base_color !important;
 }
 .NormalHead {
-  padding-top: 2rem!important;
+  padding-top: 2rem !important;
 }
 .NormalUl {
-  width: 800px!important;
+  width: 800px !important;
   margin: 0 auto;
-  >div{
-    width: 32%!important;
+  > div {
+    width: 32% !important;
   }
-  li{
+  li {
     width: 100%;
   }
 }

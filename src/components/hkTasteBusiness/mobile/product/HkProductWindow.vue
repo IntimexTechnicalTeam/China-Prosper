@@ -1,11 +1,11 @@
 <template>
     <div class="in_pdWindow_page_item" :style="styla" @mouseenter="Enter=true" @mouseleave="Enter=false"  v-if="item">
         <img :src="(item.Image?item.Image:item.Img_L?item.Img_L:item.Img)"   :style="imgStyla" :data-key="item.Sku" @error="loadError"  @click="goUrl(item)"/>
-        <div class="fav" v-if="!isPtx"><img :src="item.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click.stop="addToFavorite(item)" /></div>
+        <div class="fav"  v-if="!item.negotiable || item.negotiable==null"><img :src="item.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click.stop="addToFavorite(item)" /></div>
         <div class="in_pdWindow_item_description">
              <router-link :to="'/product/detail/'+item.Sku" class="in_pdWindow_item_title" >&nbsp;{{item.Name}}</router-link >
             <!-- <div class="in_pdWindow_item_code">&nbsp;{{item.Code}}</div> -->
-            <div class="in_pdWindow_item_price" v-if="isPtx===false">
+            <div class="in_pdWindow_item_price"  v-if="!item.negotiable || item.negotiable==null">
               <inPrices :primePrices="item.ListPrice" :currentPrices="item.SalePrice" :currency="item.Currency" :DefaultListPrice="item.DefaultListPrice" :DefaultSalePrice="item.DefaultSalePrice" :DefaultCurrency="item.DefaultCurrency" size="small"></inPrices>
             </div>
         </div>

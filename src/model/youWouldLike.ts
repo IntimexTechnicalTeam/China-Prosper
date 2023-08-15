@@ -112,6 +112,13 @@ export default class YouWouldLike {
   public set HasStockAttrVal (v : boolean) {
     this._HasStockAttrVal = v;
   }
+  private _negotiable : boolean = false;
+  public get negotiable () : boolean {
+    return this._negotiable;
+  }
+  public set negotiable (v : boolean) {
+    this._negotiable = v;
+  }
   public virtual: boolean = false;
   constructor (
     id: any,
@@ -126,9 +133,10 @@ export default class YouWouldLike {
     DefaultCurrency: Currency = new Currency(),
     virtual: boolean = false,
     IsFavorite: boolean = false,
-    HasStockAttrVal: boolean = false
+    HasStockAttrVal: boolean = false,
+    negotiable: boolean = false
   ) {
-    if (typeof id === 'string') { this._constructorDefault(id, src, title, productCode, primePrice, presentPrice, currency, DefaultListPrice, DefaultSalePrice, DefaultCurrency, virtual, IsFavorite, HasStockAttrVal); } else if (typeof src === 'object') { this._constructorArray(src); }
+    if (typeof id === 'string') { this._constructorDefault(id, src, title, productCode, primePrice, presentPrice, currency, DefaultListPrice, DefaultSalePrice, DefaultCurrency, virtual, IsFavorite, HasStockAttrVal, negotiable); } else if (typeof src === 'object') { this._constructorArray(src); }
   }
   _constructorDefault (
     id: string,
@@ -143,7 +151,8 @@ export default class YouWouldLike {
     DefaultCurrency: Currency = new Currency(),
     virtual: boolean = false,
     IsFavorite: boolean = false,
-    HasStockAttrVal: boolean = false
+    HasStockAttrVal: boolean = false,
+    negotiable: boolean = false
     ) {
     this._Sku = id;
     this._Image = src;
@@ -160,6 +169,7 @@ export default class YouWouldLike {
     this._Img_L = src;
     this.IsFavorite = IsFavorite;
     this.HasStockAttrVal = HasStockAttrVal;
+    this.negotiable = negotiable;
   }
   _constructorArray (item:any) {
     if (item.id === undefined || item.src === undefined || item.title === undefined || item.productCode === undefined || item.primePrice === undefined || item.presentPrice === undefined) { throw new Error('params error : class YouWouldLike must contains src,title,productCode,primePrice,presentPrice,virtual'); }

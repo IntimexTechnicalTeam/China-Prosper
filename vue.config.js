@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const resolve = dir => path.join(__dirname, dir);
-let apiServer = 'http://ptxapi.dev.intimex.hk:84';
+/* let apiServer = 'http://ptxapi.dev.intimex.hk:84';
 let AdminServer = 'http://ptxadmin.dev.in-store.hk';
 let param = getArgList();
 if (param === 'dev') {
@@ -13,6 +13,19 @@ if (param === 'dev') {
 } else if (param === 'prod') {
   apiServer = 'https://ptxapi.uat.in-store.hk';
   AdminServer = 'https://ptxadmin.uat.in-store.hk';
+} */
+let apiServer = 'http://api.dev.in-store.hk:84';
+let AdminServer = 'http://admin.dev.in-store.hk:84';
+let param = getArgList();
+if (param === 'dev') {
+    apiServer = 'http://api.dev.in-store.hk:84';
+    AdminServer = 'http://admin.dev.in-store.hk:84';
+} else if (param === 'uat') {
+    apiServer = 'https://api.uat2.intimex.hk';
+    AdminServer = 'https://admin.uat2.intimex.hk';
+} else if (param === 'prod') {
+    apiServer = 'https://api.uat.in-store.hk';
+    AdminServer = 'https://admin.uat.in-store.hk';
 }
 function getArgList () {
   let argv = process['argv'];

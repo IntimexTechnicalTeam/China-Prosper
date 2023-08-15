@@ -114,6 +114,7 @@ export default class InsModifyPassword extends Vue {
 <style lang="less">
 .ModifyPassword {
   margin-bottom: 50px;
+  margin-top: 20px;
   .mid-box {
     padding: 0px;
     .InnerBox {

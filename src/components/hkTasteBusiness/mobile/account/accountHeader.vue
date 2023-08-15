@@ -6,9 +6,13 @@
       <div class="accountMeun">
           <p><router-link to="/account/memberInfo">{{$t('Account.MemberInformation')}}</router-link></p>
           <p><router-link to="/order/List">{{$t('Account.MyOrder')}}</router-link></p>
+          <p><router-link to="/account/deliveryAddress">{{$t('Account.DeliveryAddress')}}</router-link></p>
+          <p><router-link to="/account/modifyPassword">{{$t('MemberInfo.ModifyPassword')}}</router-link></p>
           <p><router-link to="/account/notification">{{$t('Account.MyMessages')}}</router-link></p>
           <p><router-link to="/account/myFavorite">{{$t('Account.MyFavorite')}}</router-link></p>
           <p><router-link to="/account/myCoupon">{{$t('MyCoupon.MyCoupon')}}</router-link></p>
+          <p><router-link to="/account/message">{{$t('Account.LatestNews')}}</router-link></p>
+          <p><router-link to="/account/ptxorder">{{$t('Enquiry.PTXOrder')}}</router-link></p>
       </div>
    </div>
  </div>
@@ -84,10 +88,9 @@ ul,li{
       width: 90%;
       margin: 0 auto;
       p{
-        padding: .5rem;
         display: block;
         height: 3.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         a{
           background: #fff;
           display: flex;

@@ -156,7 +156,7 @@ export default class InsNotification extends Vue {
 </script>
 <style lang="less" scoped>
 .MessageMain {
-  width: 1000px;
+  width: 1200px;
   margin: 0 auto;
   margin-bottom: 50px;
   min-height: 600px;
@@ -208,7 +208,7 @@ export default class InsNotification extends Vue {
     }
   }
   .ListData {
-    width: 960px;
+    width: 1160px;
     padding: 20px;
     border: 1px solid #eee;
     border-radius: 5px;

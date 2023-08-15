@@ -56,7 +56,7 @@ export default class InsCaseList extends Vue {
   min-height: 600px;
 }
   .ListData {
-    width: 960px;
+    width: 1160px;
     padding: 20px;
     border: 1px solid #eee;
     border-radius: 5px;

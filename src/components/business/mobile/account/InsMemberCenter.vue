@@ -1,9 +1,9 @@
 <template>
 <div>
   <!-- 正常购买模式 -->
-  <div class="MembercenterMobile NomralBg" v-if="!isPtx">
+  <div class="MembercenterMobile NomralBg">
     <accountHeader />
-    <div class="MemberInfoNav">
+<!--     <div class="MemberInfoNav">
       <ul>
         <div @click="openlink('/account/memberInfo')">
         <li :class="NormalactiveClass == 1?'activeInfo':''" >
@@ -21,11 +21,11 @@
         </li>
         </div>
       </ul>
-    </div>
+    </div> -->
     <router-view></router-view>
   </div>
   <!-- PTX询价模式 -->
-  <div class="MemberMobile NomralBg" v-else>
+<!--   <div class="MemberMobile NomralBg" v-else>
     <div class="MemberInfoNavMobile">
       <ul>
         <div @click="openlink('/account/memberInfo')">
@@ -51,7 +51,7 @@
       </ul>
     </div>
     <router-view></router-view>
-  </div>
+  </div> -->
   </div>
 </template>
 <script lang="ts">

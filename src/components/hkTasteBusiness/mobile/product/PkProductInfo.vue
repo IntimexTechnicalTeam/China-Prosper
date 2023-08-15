@@ -4,19 +4,21 @@
         <div class="ProductCode">
             <div class="leftpart">
               <p>{{panelDetail.Name}}</p>
-              <div class="in_panel_subTitle"  v-if="isPtx===false"><inPrices :primePrices="panelDetail.ListPrice+AddPrice" :currentPrices="panelDetail.SalePrice+AddPrice"  :currency="panelDetail.Currency" :DefaultListPrice="panelDetail.DefaultListPrice+AddPrice" :DefaultSalePrice="panelDetail.DefaultSalePrice+AddPrice" :DefaultCurrency="panelDetail.DefaultCurrency" size="huge" :heightLine="true" styla="margin: 1rem 0;" :max="panelDetail.MaxPurQty" :min="panelDetail.MinPurQty"></inPrices></div>
+              <div class="in_panel_subTitle"  v-if="panelDetail.negotiable == false || panelDetail.negotiable == null"><inPrices :primePrices="panelDetail.ListPrice+AddPrice" :currentPrices="panelDetail.SalePrice+AddPrice"  :currency="panelDetail.Currency" :DefaultListPrice="panelDetail.DefaultListPrice+AddPrice" :DefaultSalePrice="panelDetail.DefaultSalePrice+AddPrice" :DefaultCurrency="panelDetail.DefaultCurrency" size="huge" :heightLine="true" styla="margin: 1rem 0;" :max="panelDetail.MaxPurQty" :min="panelDetail.MinPurQty"></inPrices></div>
+              <div class="in_panel_subTitle"  v-if="panelDetail.negotiable == true && panelDetail.negotiateMinQty > panelDetail.MinPurQty"><inPrices :primePrices="panelDetail.ListPrice+AddPrice" :currentPrices="panelDetail.SalePrice+AddPrice"  :currency="panelDetail.Currency" :DefaultListPrice="panelDetail.DefaultListPrice+AddPrice" :DefaultSalePrice="panelDetail.DefaultSalePrice+AddPrice" :DefaultCurrency="panelDetail.DefaultCurrency" size="huge" :heightLine="true" styla="margin: 1rem 0;" :max="panelDetail.MaxPurQty" :min="panelDetail.MinPurQty"></inPrices></div>
             </div>
             <div class="rightpart" v-if="FrontE.version !== 1">
-              <div class="in_pannel_addtofav"  v-if="isPtx===false"><img :src="panelDetail.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click="addFavorite"/>{{$t('Message.Fav')}}</div>
+              <div class="in_pannel_addtofav"  v-if="!panelDetail.negotiable"><img :src="panelDetail.IsFavorite ? '/images/mobile/faved.png': '/images/mobile/unfav.png'" @click="addFavorite"/>{{$t('Message.Fav')}}</div>
               <div class="perlist"> <HkProductShare></HkProductShare>{{$t("Action.Share")}}</div>
             </div>
         </div>
     </div>
-    <div class="productPtx"  v-if="isPtx===true">
+    <div class="productPtx"  v-if="panelDetail.negotiable">
         <div class="productInfo">
           <p class="TitleBg"><span>{{$t('Message.ProductInformation')}}</span></p>
           <div class="InnerTable">
             <p class="perline"><span class="left">{{$t('Enquiry.MinOrderQty')}}</span><span class="right">{{panelDetail.MinPurQty}}</span></p>
+            <p class="perline"><span class="left">{{$t('Enquiry.negotiateMinQty')}}</span><span class="right">{{panelDetail.negotiateMinQty}}</span></p>
             <p class="perline"><span class="left">{{$t("product.ProductCode")}}</span><span class="right">{{panelDetail.Code}}</span></p>
             <p class="perline"><span class="left">{{$t('Message.Catalog')}}</span>
             <span class="right">

@@ -45,19 +45,29 @@
               <InsButton :nama="$t('Login.doLogin')" @click="login" size="huge" class="loginBtn" />
           </div>
           <div class="register" v-show="tabIndex === 2">
-              <div>
-                <!-- <div class="register_title">{{$t('Register.RegisterBtn')}}</div> -->
+              <div class="register_title">
+                  <el-select v-model="selectTypes" placeholder="请选择注册类型" style="width:100%;">
+                    <el-option
+                      v-for="item in types"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 <InsForm ref="registerForm" v-model="registerForm">
                 <div class="register_half">
                     <InsInput2 :placeholder="$t('Register.UserFirstName')" width="100%" v-model="registerForm.firstName" />
                     <InsInput2 :placeholder="$t('Register.UserLastName')" width="100%" v-model="registerForm.lastName"/>
                     <InsInput2 :placeholder="$t('Register.UserRegPassword')" width="100%" v-model="registerForm.password" type="password"/>
                     <InsInput2 :placeholder="$t('Register.UserConfirmPassword')" width="100%" v-model="registerForm.confirmPassword" type="password" :rule="registerForm.password" />
+                    <InsInput2 :placeholder="$t('DeliveryAddress.Mobile')" width="100%"  :must="false" v-model="registerForm.Mobile"  type="phone"/>
+                    <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
                 </div>
-                <div class="register_half">
-                     <InsInput2 :placeholder="$t('DeliveryAddress.Mobile')" width="100%"  :must="false" v-model="registerForm.Mobile"  type="phone"/>
+                <div class="register_half" v-if="selectTypes===2">
+                    <InsInput2 :placeholder="$t('Enquiry.Company')" width="100%" v-model="registerForm.Company" />
+                    <InsInput2 :placeholder="$t('Enquiry.Title')" width="100%" v-model="registerForm.JobTitle"/>
+                    <InsInput2 :placeholder="$t('Enquiry.Address')" width="100%" v-model="registerForm.CompanyAddress"/>
                 </div>
-                <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
                 </InsForm>
                 <!-- <div></div> -->
                 <el-checkbox-group v-model="terms" style="margin: 20px 0 20px 0">
@@ -87,6 +97,17 @@ export default class InsLoginN extends Vue {
       email: '',
       password: ''
     }
+    private types = [
+      {
+        name: '个人',
+        value: 1
+      },
+      {
+        name: '企业',
+        value: 2
+      }
+    ]
+    selectTypes:number=1
     private registerForm = {
       email: '',
       password: '',
@@ -94,7 +115,10 @@ export default class InsLoginN extends Vue {
       lastName: '',
       confirmPassword: '',
       Language: '',
-      Mobile: ''
+      Mobile: '',
+      Company: '',
+      CompanyAddress: '',
+      JobTitle: ''
     }
     toggleTab (index) {
       this.tabIndex = index;
@@ -242,6 +266,9 @@ export default class InsLoginN extends Vue {
 }
 </style>
 <style lang="less" scoped>
+.register_title {
+  margin-top: 30px;
+}
 .loginBtn{
     padding: 1rem;
     font-size: 1.4rem;

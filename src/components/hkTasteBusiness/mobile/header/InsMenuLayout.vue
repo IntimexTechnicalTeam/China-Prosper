@@ -5,7 +5,7 @@
         </div>
         <div class="topLang">
           <div class="left"><InsLangSwitch/></div>
-          <div class="right" v-if="!isPtx">
+          <div class="right">
                 <router-link to="/account/myFavorite" class="favImg"><img src="/images/mobile/unfav.png"></router-link>
                 <InsCodeSelect class="codeSelect"/>
           </div>

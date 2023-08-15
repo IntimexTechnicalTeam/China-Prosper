@@ -11,11 +11,20 @@
         @input="changeAttr"
         @changePrice="AdditionalPrice"
       ></inSelect>
-      <div v-if="isPtx===false">
-        <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty"></inNum>
+      <!-- 购物模式 -->
+      <div v-if="panelDetail.negotiable == false || panelDetail.negotiable == null">
+        <el-input-number v-model="MinPurQty" :min="panelDetail.MinPurQty"  :label="$i18n.t('product.countTitle')"></el-input-number>
       </div>
-      <div v-else>
-        <el-input-number v-model="panelDetail.negotiateMinQty" :min="panelDetail.MinPurQty"  :label="$i18n.t('product.countTitle')"></el-input-number>
+      <!-- 购物及议价模式 -->
+      <div v-if="panelDetail.negotiable == true && panelDetail.negotiateMinQty > panelDetail.MinPurQty">
+        <div style="display:none;">
+          <el-input-number v-model="negotiateMinQty" :min="panelDetail.negotiateMinQty"  :label="$i18n.t('product.countTitle')"></el-input-number>
+          <el-input-number v-model="MinPurQty" :min="panelDetail.MinPurQty"  :label="$i18n.t('product.countTitle')"></el-input-number>
+        </div>
+      </div>
+      <!-- 议价模式 -->
+      <div v-if="panelDetail.negotiable == true && panelDetail.negotiateMinQty==panelDetail.MinPurQty">
+        <el-input-number v-model="negotiateMinQty" :min="panelDetail.negotiateMinQty"  :label="$i18n.t('product.countTitle')"></el-input-number>
       </div>
       <div class="in_panel_iconList">
         <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
@@ -23,26 +32,21 @@
         </div>
       </div>
     </div>
-    <!-- 默认状态为加入购物车和立即购买，如果后台产品开启询价后，则显示加入报价查询按钮 -->
-    <div v-if="isPtx===false">
-      <div class="in_panel_footer" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
-          <inButton
-            v-for="item in panelDetail.button"
-          :loading="(item.action === 'addToCart')?Loading:buyLoading"
-            :nama="$i18n.t('product.'+item.nama)"
-            :key="item.nama"
-            width="48%"
-            :type="(item.action === 'addToCart' || item.action === 'favorite' || item.action === 'buy') ? 'primary' : 'error'"
-            :action="item.action"
-            @click="click"
-          ></inButton>
-        </div>
-        <div class="in_panel_footer" v-else>
-          <el-button @click="click('addToCart')" class="actionBtn addToCart" :loading="Loading">{{$t('product.addToCart')}}</el-button>
-          <el-button @click="click('buy')" class="actionBtn buyNow" :loading="buyLoading">{{$t('product.buy')}}</el-button>
+    <!-- 购物模式 -->
+    <div v-if="panelDetail.negotiable == false || panelDetail.negotiable == null">
+        <div class="in_panel_footer">
+        <button type="button" @click="click('addToCart')" class="CartBtn"  style="width:48%;margin-right:4%">{{$t('product.addToCart')}}</button>
+        <button type="button" @click="click('buy')" class="CartBtn" style="width:48%">{{$t('product.buy')}}</button>
+
         </div>
     </div>
-   <div class="in_panel_footer" v-else>
+     <!-- 购物及议价模式 -->
+    <div class="in_panel_footer" v-if="panelDetail.negotiable == true && panelDetail.negotiateMinQty > panelDetail.MinPurQty">
+        <button type="button" @click="click('addToCart')" class="CartBtn"  style="width:48%;margin-right:4%">{{$t('product.addToCart')}}</button>
+        <button type="button" @click="AddProdToMyEnquiry()" class="CartBtn" style="width:48%">{{$t('Enquiry.AddToEnquiry')}}</button>
+    </div>
+    <!-- 议价模式 -->
+      <div class="in_panel_footer" v-if="panelDetail.negotiable == true && panelDetail.negotiateMinQty==panelDetail.MinPurQty">
         <p class="productTips">{{$t('Message.AskFor')}}</p>
         <button type="button" @click="AddProdToMyEnquiry()" class="CartBtn">{{$t('Enquiry.AddToEnquiry')}}</button>
     </div>
@@ -76,7 +80,8 @@ export default class Panel extends Vue {
   private AttrArray:any = '';
   private AttrComboImgList:any ='';
   private AttrSelectImg:string ='';
-  private negotiateMinQty:number=10;
+  MinPurQty:number=this.panelDetail.MinPurQty;
+  negotiateMinQty:number=this.panelDetail.negotiateMinQty;
   get warpperStyle (): string {
     return 'width:' + this.width + ';height:' + this.height + ';';
   }
@@ -96,7 +101,7 @@ export default class Panel extends Vue {
         Attr1: this.ProductInfor.Attr1,
         Attr2: this.ProductInfor.Attr2,
         Attr3: this.ProductInfor.Attr3,
-        Qty: this.panelDetail.negotiateMinQty
+        Qty: this.negotiateMinQty
       };
       this.$Api.enquiry.AddProdToMyEnquiry(params).then(result => {
         if (result.data.Succeeded) {
@@ -115,7 +120,7 @@ export default class Panel extends Vue {
     if (action) {
       if (action === 'addToCart') {
         this.Loading = true;
-        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
+        this.$Api.shoppingCart.addItem(this.ProductSku, this.MinPurQty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
           .then(
             (result) => {
               this.$message({
@@ -129,7 +134,7 @@ export default class Panel extends Vue {
           }).catch();
       } else if (action === 'buy') {
         this.buyLoading = true;
-        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
+        this.$Api.shoppingCart.addItem(this.ProductSku, this.MinPurQty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
           .then(
             (result) => {
               this.buyLoading = false;
@@ -327,9 +332,20 @@ export default class Panel extends Vue {
   margin-bottom: 20px;
 }
 .in_panel_footer .actionBtn{
-    width: 49%;
-    display: block;
-    text-align: center;
+      width: 48%;
+      height: 50px;
+      font-size: 20px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      border-radius: 3px;
+      transition: .1s;
+      text-transform: uppercase;
+      background-color: unset;
+      background: url(/images/pc/btnbg_03.jpg) no-repeat center center;
+      background-size: cover;
+      border: 0px;
 }
 @media screen and (max-width: 800px)  {
   .in_panel_warpper {

@@ -1,6 +1,6 @@
 <template>
   <div id="container" class="NomralBg NormalTop">
-    <div class="ProductSearch" v-if="isPtx">
+<!--     <div class="ProductSearch" v-if="isPtx">
       <div class="leftSide">
          <advancedSearch :attrType="2"  @advancedChange="advancedChange" />
       </div>
@@ -35,8 +35,8 @@
             <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
           </transition>
       </div>
-    </div>
-    <div class="ProductSearch" v-else>
+    </div> -->
+    <div class="ProductSearch">
       <div class="SearchSlide">
         <div class="leftSide">
           <NsadvancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
@@ -44,11 +44,14 @@
       </div>
       <div class="selectBar">
           <ul>
-            <li @click="showSearchSlide"><span class="filterIcon"></span><b>{{$t('Message.ProductList')}}</b></li>
-            <li  class="sortBox">
-              <p class="sortTitle" @click.stop="showList=!showList">
+            <div class="left">
+              <li @click="showSearchSlide" class="liTop"><span class="filterIcon"></span><b>{{$t('product.Screening')}}</b></li>
+            </div>
+            <div class="right">
+            <li  class="sortBox liTop" @click.stop="showList=!showList">
+              <p class="sortTitle">
                 {{$t('product.SortBy')}}
-                <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
+                <i class="el-icon-arrow-down el-icon--right"></i>
               </p>
               <transition name="el-fade-in-linear">
                 <ul class="sortList" v-if="showList">
@@ -57,6 +60,20 @@
                 </ul>
               </transition>
             </li>
+           <li  class="sortBox liTop" @click.stop="ShowSellType=!ShowSellType">
+              <p class="sortTitle">
+                {{$t('Enquiry.SellType')}}
+                <i class="el-icon-arrow-down el-icon--right"></i>
+              </p>
+              <transition name="el-fade-in-linear">
+                <ul class="sortList" v-if="ShowSellType">
+                  <li @click="handleSellType(0)" :style="{'color':SellType==0?'#b19162':'#333333'}">{{$t('Enquiry.RetailBargaining')}}</li>
+                  <li @click="handleSellType(1)" :style="{'color':SellType==1?'#b19162':'#333333'}">{{$t('Enquiry.Retail')}}</li>
+                  <li @click="handleSellType(2)" :style="{'color':SellType==2?'#b19162':'#333333'}">{{$t('Enquiry.Bargaining')}}</li>
+                </ul>
+              </transition>
+            </li>
+            </div>
           </ul>
         </div>
       <div class="NsProduct">
@@ -64,7 +81,6 @@
             <div key="1" v-if="!waiting">
               <div class="prolist-box" v-if="proList.length > 0">
                 <ins-productList :column="4" :allItems="proList" class="productPer" />
-                <div  v-if="islogin">
                   <div class="pager" v-if="totalRecord > pageSize">
                     <InsPage
                       :total="totalRecord"
@@ -73,7 +89,6 @@
                       :currentPage = "currentPage"
                     ></InsPage>
                   </div>
-                </div>
               </div>
               <div class="prolist-box" v-else>
                 <h3 class="nocontentTips">{{ $t("messageTips.NoContent") }}</h3>
@@ -125,6 +140,8 @@ export default class InsProductSearch extends Vue {
   command:string='';
   SortName:string = '';
   private waiting: boolean = true;
+  SellType:number=0;
+  ShowSellType:boolean =false
   // 搜索关键词
   get searchKey() {
     let a = this.$route.params.key;
@@ -156,6 +173,11 @@ export default class InsProductSearch extends Vue {
       this.showList = false;
     }
 
+    this.productSearch();
+  }
+  handleSellType(command) {
+    this.SellType = command;
+    this.currentPage = 1;
     this.productSearch();
   }
   // 重置搜索
@@ -196,7 +218,8 @@ export default class InsProductSearch extends Vue {
           CatIdS: this.searchCatalogs,
           Attrs: this.attrs,
           Type: this.searchType,
-          Reflesh: 1
+          Reflesh: 1,
+          SellType: this.SellType
         })
         .then(result => {
           this.proList = result.YouWouldLike;
@@ -391,7 +414,15 @@ export default class InsProductSearch extends Vue {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-     >li {
+    .left {
+      width: 30%;
+    }
+    .right {
+      width: 68%;
+      display: flex;
+      justify-content: flex-end;
+    }
+     .liTop {
       float: left;
       margin-right: 2.5%;
       height: 70px;

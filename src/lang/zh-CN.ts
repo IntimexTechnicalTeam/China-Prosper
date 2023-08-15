@@ -682,6 +682,12 @@ export default {
     TransactionAmount: '交易金額',
     AdditionalCharges: '附加費用',
     Discount: '折扣',
-    NotShipped: '賣家未發貨'
+    NotShipped: '賣家未發貨',
+    PTXOrder: '詢價訂單',
+    negotiateMinQty: '最低議價量',
+    SellType: '銷售類型',
+    RetailBargaining: '零售議價',
+    Retail: '零售',
+    Bargaining: '議價'
   }
 };

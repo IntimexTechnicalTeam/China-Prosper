@@ -148,6 +148,7 @@ export default class InsMyFavorite extends Vue {
   width: 95%;
   margin: 0 auto;
   position: relative;
+  padding-bottom: 50px;
 }
 .favorite-box-top{
   width: 100%;

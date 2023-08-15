@@ -1,28 +1,18 @@
 <template>
 <div>
     <!-- 正常购买模式 -->
-    <div class="memberlogin" v-if="!isPtx">
+    <div class="memberlogin">
         <div class="menberCentral" @click="menberCentral">
                   <img class="showMenberCentral" src="/images/mobile/ptx_12.png">
                     <div class="lang_flow" v-show="showMenberCentral" @click="memberCentral">
                         <div data-to="/account/memberInfo" class="ii">{{$t('Account.MemberInformation')}}</div>
                         <div data-to="/account/notification" class="ii">{{$t('Account.MyMessages')}}</div>
                         <div data-to="/order/List" class="ii">{{$t('Account.MyOrder')}}</div>
+                        <div data-to="/account/myFavorite" class="ii">{{$t('Account.MyFavorite')}}</div>
                         <div data-to="/account/deliveryAddress" class="ii">{{$t('Account.DeliveryAddress')}}</div>
                         <div data-to="/account/mycoupon" class="ii">{{$t('MyCoupon.MyCoupon')}}</div>
-                        <div @click="logout">{{$t('Account.Logout')}}</div>
-                    </div>
-          </div>
-    </div>
-    <!-- PTX询价模式 -->
-    <div class="memberlogin" v-else>
-        <div class="menberCentral" @click="menberCentral">
-                  <img class="showMenberCentral" src="/images/mobile/ptx_12.png">
-                    <div class="lang_flow" v-show="showMenberCentral" @click="memberCentral">
-                        <div data-to="/account/memberInfo" class="ii">{{ $t("Enquiry.MyAccount") }}</div>
-                        <div data-to="/account/modifyPassword" class="ii">{{$t('MemberInfo.ModifyPassword')}}</div>
                         <div data-to="/account/message" class="ii">{{$t('Account.LatestNews')}}</div>
-                        <div data-to="/account/ptxorder" class="ii">{{$t('Account.MyOrder')}}</div>
+                        <div data-to="/account/ptxorder" class="ii">{{$t('Enquiry.PTXOrder')}}</div>
                         <div @click="logout">{{$t('Account.Logout')}}</div>
                     </div>
           </div>

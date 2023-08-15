@@ -5,7 +5,7 @@
     </div>
     <div v-else>
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
-      <div class="ProductUp" v-if="isPtx">
+      <div class="ProductUp">
           <div class="prev" @click="getGetProductUp()"><i class="img"></i>{{$t('Message.Prev')}}</div>
           <div class="next" @click="getGetProductDown()">{{$t('Message.Next')}}<i class="img"></i></div>
       </div>
@@ -13,7 +13,7 @@
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%"></PkProductInfo>
       <inPanel :panelDetail="PanelDetail" width="100%" :ProductSku="ProductSku"  @getPrice="showPrice" itemscopestyle="margin-top:2rem;"></inPanel>
     </div>
-    <div class="tab_warpper" v-if="isPtx">
+    <div class="tab_warpper" v-if="PanelDetail.negotiable">
       <div class="tab_header">
         <div class="detail_title">{{$t('product.ProductIntroduction')}}</div>
       </div>

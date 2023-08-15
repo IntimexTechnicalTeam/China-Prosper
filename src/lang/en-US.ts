@@ -666,6 +666,12 @@ export default {
     TransactionAmount: 'Transaction amount',
     AdditionalCharges: 'Additional charges',
     Discount: 'Discount',
-    NotShipped: 'Seller has not shipped'
+    NotShipped: 'Seller has not shipped',
+    PTXOrder: 'Enquiry Order',
+    negotiateMinQty: 'negotiate MinQty',
+    SellType: 'Sell Type',
+    RetailBargaining: 'Retail Bargaining',
+    Retail: 'Retail',
+    Bargaining: 'Bargaining'
   }
 };

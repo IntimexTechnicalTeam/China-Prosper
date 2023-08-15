@@ -40,23 +40,32 @@
           <div class="register">
               <div>
                 <div class="register_title">{{$t('Register.RegisterBtn')}}</div>
+                  <el-select v-model="selectTypes" placeholder="请选择注册类型" style="width:100%">
+                    <el-option
+                      v-for="item in types"
+                      :key="item.value"
+                      :label="item.name"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 <InsForm ref="registerForm" v-model="registerForm">
                 <div class="register_half">
                     <InsInput2 :placeholder="$t('Register.UserFirstName')" width="48%" v-model="registerForm.firstName" />
                     <InsInput2 :placeholder="$t('Register.UserLastName')" width="48%" v-model="registerForm.lastName"/>
-                    <InsInput2 :placeholder="$t('Register.UserRegPassword')" width="100%" v-model="registerForm.password" type="password"/>
-                    <InsInput2 :placeholder="$t('Register.UserConfirmPassword')" width="100%" v-model="registerForm.confirmPassword" type="confirmpassword" :rule="registerForm.password" />
+                    <InsInput2 :placeholder="$t('Register.UserRegPassword')" width="48%" v-model="registerForm.password" type="password"/>
+                    <InsInput2 :placeholder="$t('Register.UserConfirmPassword')" width="48%" v-model="registerForm.confirmPassword" type="confirmpassword" :rule="registerForm.password" />
                 </div>
-                 <div class="register_half">
-                     <InsInput2 :placeholder="$t('DeliveryAddress.Mobile')" width="100%"  :must="false" v-model="registerForm.Mobile"  type="phone"/>
+                <div class="register_half">
+                     <InsInput2 :placeholder="$t('DeliveryAddress.Mobile')" width="100%" :must="false"  v-model="registerForm.Mobile"  type="phone"/>
                 </div>
                 <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
+                <div class="register_half" v-if="selectTypes===2">
+                    <InsInput2 :placeholder="$t('Enquiry.Company')" width="48%" v-model="registerForm.Company" />
+                    <InsInput2 :placeholder="$t('Enquiry.Title')" width="48%" v-model="registerForm.JobTitle"/>
+                    <InsInput2 :placeholder="$t('Enquiry.Address')" width="100%" v-model="registerForm.CompanyAddress"/>
+                </div>
                 </InsForm>
-                <!-- <div></div> -->
-                <el-checkbox-group v-model="terms" style="margin: 10px 0 0 0">
-                    <el-checkbox name="type"></el-checkbox><span><a href="javasript:;" @click = "toURL('/CMS/content/20298')" target="_blank" style="font-size: 14px;padding-left: 14px;color: #666666;
-    text-decoration: none;">{{$t('Register.RegisterAgree')}}</a></span>
-                </el-checkbox-group>
+                <el-checkbox v-model="terms" style="margin: 10px 0 0 0"><label @click="toURL('/CMS/content/20298')">{{$t('Register.RegisterAgree')}}</label></el-checkbox>
               </div>
               <InsButton :nama="$t('Forgetpassword.NextStep')" @click="register"  style="margin-top: .4rem;"/>
           </div>
@@ -78,6 +87,17 @@ export default class InsLoginN extends Vue {
       email: '',
       password: ''
     }
+    private types = [
+      {
+        name: '个人',
+        value: 1
+      },
+      {
+        name: '企业',
+        value: 2
+      }
+    ]
+    selectTypes:number=1
     private registerForm = {
       email: '',
       password: '',
@@ -85,7 +105,10 @@ export default class InsLoginN extends Vue {
       lastName: '',
       confirmPassword: '',
       Language: '',
-      Mobile: ''
+      Mobile: '',
+      Company: '',
+      CompanyAddress: '',
+      JobTitle: ''
     }
     get currentlang () {
       return this.$Storage.get('locale');
@@ -227,6 +250,12 @@ export default class InsLoginN extends Vue {
 }
 </style>
 <style lang="less" scoped>
+/deep/ .input_outer .error {
+  font-size: 14px;
+}
+.register_title {
+  margin-bottom: 30px;
+}
 .insLogin_warrper{
     width: 1200px;
     margin: 0rem auto;

@@ -26,7 +26,7 @@ import Cookie from 'js-cookie';
 import { MapRegion } from './assets/scripts/map-region';
 import { getQueryString } from './assets/scripts/common';
 import { FrontE } from '@/sdk/common/SysConst';
-
+import 'animate.css';
 // import ElementUI from 'element-ui';
 // Vue.use(ElementUI);
 

@@ -7,10 +7,10 @@
              <img class="slide-menu" src="/images/mobile/closeBtn.png" @click="showSlideMenu" v-if="this.$store.state.isShowMenu" />
             <ins-logo class="logoSide" />
             <div class="rightSide">
-                 <router-link to="/account/GetEnquiry" v-if="isPtx" class="shoppingcart">
+                 <router-link to="/account/GetEnquiry"  class="shoppingcart">
                     <i class="handle-icon ptxicon"></i>
                 </router-link>
-                <shopcart class="shoppingcart" v-show="!isPtx" />
+                <shopcart class="shoppingcart" />
                 <ins-login />
             </div>
         </div>
@@ -22,10 +22,10 @@
             <img class="slide-menu" src="/images/mobile/closeBtn.png" @click="showSlideMenu" v-if="this.$store.state.isShowMenu" />
             <ins-logo class="logoSide" />
             <div class="rightSide">
-                 <router-link to="/account/GetEnquiry" v-if="isPtx" class="shoppingcart">
+                 <router-link to="/account/GetEnquiry" class="shoppingcart">
                     <i class="handle-icon ptxicon"></i>
                 </router-link>
-                <shopcart class="shoppingcart" v-show="!isPtx" />
+                <shopcart class="shoppingcart" />
                 <ins-login />
             </div>
         </div>
@@ -99,12 +99,12 @@ export default class DefaultHeader extends Vue {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 10000;
+    z-index: 998;
     background: #000;
     display: none;
   }
   .header-normal {
-    z-index: 9999;
+    z-index: 998;
     width: 100%;
     position: absolute!important;
     left: 0px;
@@ -162,8 +162,8 @@ export default class DefaultHeader extends Vue {
   display: flex;
   .logoSide {
     position: absolute;
-    left: 50%;
-    transform: translate(-50%);
+    left: 20%;
+/*     transform: translate(-50%); */
   }
   .rightSide {
     float: right;

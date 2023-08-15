@@ -325,6 +325,7 @@ export default class InsNotification extends Vue {
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 50px;
+  margin-top: 20px;
   .pageName {
     width: 90%;
     margin: 0 auto;
